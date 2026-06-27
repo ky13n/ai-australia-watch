@@ -25,6 +25,15 @@
       --green-bg: #ecfdf5;
       --green-border: #bbf7d0;
       --green-ink: #14532d;
+      --amber-bg: #fffbeb;
+      --amber-border: #fde68a;
+      --amber-ink: #92400e;
+      --red-bg: #fef2f2;
+      --red-border: #fecaca;
+      --red-ink: #991b1b;
+      --purple-bg: #f5f3ff;
+      --purple-border: #ddd6fe;
+      --purple-ink: #5b21b6;
     }
 
     body {
@@ -45,6 +54,22 @@
       line-height: 1.5;
     }
 
+    .header-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .header-links a {
+      color: white;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 14px;
+    }
+
     main {
       padding: 24px;
       max-width: 1440px;
@@ -54,7 +79,7 @@
     .map-card,
     .project-list,
     .summary-card,
-    .action-card,
+    .tracker-section,
     .campaign-section {
       background: var(--panel);
       border: 1px solid var(--border);
@@ -62,18 +87,12 @@
       box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
     }
 
-    .top-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 2.2fr) minmax(330px, 0.8fr);
-      gap: 20px;
-      align-items: stretch;
-    }
-
     .map-card {
       padding: 20px;
     }
 
-    .map-header {
+    .map-header,
+    .section-header {
       display: flex;
       justify-content: space-between;
       gap: 16px;
@@ -82,17 +101,18 @@
     }
 
     .map-header h2,
-    .action-card h2,
+    .section-header h2,
     .campaign-section h2 {
       margin: 0 0 8px 0;
     }
 
     .map-header p,
-    .action-card p,
+    .section-header p,
     .campaign-section p {
       margin: 0;
       color: var(--muted);
       line-height: 1.45;
+      max-width: 900px;
     }
 
     .record-count {
@@ -151,79 +171,9 @@
     .marker-low { background: var(--low); }
     .marker-unknown { background: var(--unknown); }
 
-    .action-card {
-      padding: 20px;
-    }
-
-    .eyebrow {
-      display: inline-block;
-      margin-bottom: 10px !important;
-      padding: 5px 9px;
-      border-radius: 999px;
-      background: var(--green-bg);
-      border: 1px solid var(--green-border);
-      color: var(--green-ink) !important;
-      font-size: 13px;
-      font-weight: bold;
-    }
-
-    .action-focus {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 14px;
-      padding: 14px;
-      margin: 16px 0;
-    }
-
-    .action-focus strong {
-      display: block;
-      margin-bottom: 6px;
-    }
-
-    .campaign-priorities {
-      margin: 16px 0;
-      padding-left: 18px;
-      color: var(--ink);
-      line-height: 1.45;
-    }
-
-    .campaign-priorities li {
-      margin-bottom: 8px;
-    }
-
-    .action-list {
-      display: grid;
-      gap: 12px;
-      margin-top: 14px;
-    }
-
-    .action-item {
-      border: 1px solid #e2e8f0;
-      background: #ffffff;
-      border-radius: 14px;
-      padding: 14px;
-    }
-
-    .action-item h3 {
-      margin: 0 0 8px 0;
-      font-size: 16px;
-    }
-
-    .action-item p {
-      margin: 8px 0;
-      color: var(--ink);
-      font-size: 14px;
-    }
-
-    .small-note {
-      font-size: 13px;
-      color: var(--muted) !important;
-      margin-top: 12px !important;
-    }
-
     .summary-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 16px;
       margin: 20px 0;
     }
@@ -242,12 +192,87 @@
       line-height: 1.45;
     }
 
+    .tracker-section,
     .campaign-section {
       padding: 24px;
       margin: 20px 0;
     }
 
-    .campaign-grid {
+    .section-label {
+      display: inline-block;
+      margin-bottom: 10px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .label-clean {
+      background: var(--green-bg);
+      border: 1px solid var(--green-border);
+      color: var(--green-ink);
+    }
+
+    .label-fossil {
+      background: var(--amber-bg);
+      border: 1px solid var(--amber-border);
+      color: var(--amber-ink);
+    }
+
+    .label-influence {
+      background: var(--purple-bg);
+      border: 1px solid var(--purple-border);
+      color: var(--purple-ink);
+    }
+
+    .label-action {
+      background: var(--red-bg);
+      border: 1px solid var(--red-border);
+      color: var(--red-ink);
+    }
+
+    .tracker-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .tracker-card {
+      border: 1px solid #e2e8f0;
+      background: #f8fafc;
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .tracker-card h3 {
+      margin: 0 0 8px 0;
+      font-size: 18px;
+    }
+
+    .tracker-card p {
+      margin: 10px 0;
+      line-height: 1.45;
+    }
+
+    .tracker-card strong {
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .tracker-card button,
+    .project-item button,
+    .modal-close {
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 8px;
+    }
+
+    .campaign-focus-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 14px;
@@ -271,6 +296,16 @@
       line-height: 1.45;
     }
 
+    .notice-box {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 14px;
+      padding: 14px;
+      margin-top: 16px;
+      color: #1e3a8a;
+      line-height: 1.45;
+    }
+
     .project-list {
       padding: 24px;
       margin-top: 20px;
@@ -285,24 +320,13 @@
       border-top: none;
     }
 
-    .project-item button,
-    .modal-close,
-    .action-item button {
-      border: 1px solid #cbd5e1;
-      background: #f8fafc;
-      border-radius: 10px;
-      padding: 8px 12px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
     .risk-tag {
       display: inline-block;
       padding: 5px 10px;
       border-radius: 999px;
       font-size: 13px;
       font-weight: bold;
-      margin-bottom: 12px;
+      margin: 4px 0 10px 0;
     }
 
     .risk-tag.high {
@@ -413,26 +437,21 @@
       margin-bottom: 8px;
     }
 
+    .empty-message {
+      color: var(--muted);
+      padding: 14px;
+      border: 1px dashed #cbd5e1;
+      border-radius: 14px;
+      background: #f8fafc;
+    }
+
     a {
       color: var(--blue);
     }
 
-    @media (max-width: 1050px) {
-      .top-grid {
-        grid-template-columns: 1fr;
-      }
-
-      #map {
-        height: 560px;
-      }
-    }
-
-    @media (max-width: 800px) {
-      main {
-        padding: 16px;
-      }
-
-      .map-header {
+    @media (max-width: 900px) {
+      .map-header,
+      .section-header {
         display: block;
       }
 
@@ -442,7 +461,7 @@
       }
 
       #map {
-        height: 500px;
+        height: 520px;
       }
 
       .modal-body {
@@ -457,99 +476,132 @@
         margin: 16px auto;
       }
     }
+
+    @media (max-width: 640px) {
+      main {
+        padding: 16px;
+      }
+
+      header {
+        padding: 24px;
+      }
+
+      #map {
+        height: 460px;
+      }
+    }
   </style>
 </head>
 
 <body>
   <header>
     <h1>AI Australia Watch</h1>
-    <p>A public-interest dashboard tracking AI infrastructure, data centres, clean energy accountability, policy, corporate influence and public action in Australia.</p>
+    <p>A public-interest dashboard tracking AI infrastructure, data centres, clean energy accountability, fossil fuel risk, policy influence and public action in Australia.</p>
+
+    <div class="header-links">
+      <a href="#map-section">Map</a>
+      <a href="#clean-energy-tracker">Clean energy and fossil fuels</a>
+      <a href="#influence-tracker">Lobbying and influence</a>
+      <a href="#get-involved">Get involved</a>
+      <a href="#project-records">Project records</a>
+    </div>
   </header>
 
   <main>
-    <section class="top-grid">
-      <section class="map-card">
-        <div class="map-header">
-          <div>
-            <h2>Data centre locations</h2>
-            <p>Map of tracked AI and cloud data centre sites in Australia. Click a marker to view project details, risks, clean-energy issues and sources.</p>
-            <p class="record-count" id="project-count">Loading project records...</p>
-          </div>
-
-          <div class="legend">
-            <span><i class="legend-dot" style="background:#dc2626;"></i>High</span>
-            <span><i class="legend-dot" style="background:#f97316;"></i>Medium</span>
-            <span><i class="legend-dot" style="background:#16a34a;"></i>Low</span>
-            <span><i class="legend-dot" style="background:#6b7280;"></i>Unknown</span>
-          </div>
+    <section class="map-card" id="map-section">
+      <div class="map-header">
+        <div>
+          <h2>Data centre map</h2>
+          <p>Tracked AI and cloud data centre sites in Australia. The map shows location, operator, status and risk. Fossil fuel, clean energy and lobbying information is separated into dedicated trackers below.</p>
+          <p class="record-count" id="project-count">Loading project records...</p>
         </div>
 
-        <div id="map"></div>
-      </section>
-
-      <aside class="action-card">
-        <p class="eyebrow">Get involved</p>
-        <h2>Clean energy accountability</h2>
-        <p>This project is not about arguing that all AI infrastructure should be stopped. It is about demanding clean energy, transparent planning, water disclosure and enforceable safeguards before major data centre growth is locked in.</p>
-
-        <div class="action-focus">
-          <strong>Core public ask</strong>
-          <p>New AI and cloud data centres should prove they are powered by additional clean energy, disclose diesel backup and water use, and face cumulative grid and emissions assessment.</p>
+        <div class="legend">
+          <span><i class="legend-dot" style="background:#dc2626;"></i>High</span>
+          <span><i class="legend-dot" style="background:#f97316;"></i>Medium</span>
+          <span><i class="legend-dot" style="background:#16a34a;"></i>Low</span>
+          <span><i class="legend-dot" style="background:#6b7280;"></i>Unknown</span>
         </div>
+      </div>
 
-        <ul class="campaign-priorities">
-          <li>Require additional new renewables for new data centre demand.</li>
-          <li>Restrict and publicly report diesel backup generator use.</li>
-          <li>Publish facility-level energy and water data.</li>
-          <li>Attach binding clean-energy conditions to fast-tracked approvals.</li>
-        </ul>
-
-        <p class="small-note"><strong>Live campaign links next:</strong> this panel currently shows project-based public asks. Verified submission, survey and campaign links will be added next.</p>
-
-        <div class="action-list" id="action-list">Loading public action asks...</div>
-      </aside>
+      <div id="map"></div>
     </section>
 
     <section class="summary-grid">
       <div class="summary-card">
-        <h3>Data centres</h3>
-        <p>Track AI and cloud infrastructure projects by location, company, status, energy use, water concerns and risk level.</p>
+        <h3>Data centre map</h3>
+        <p>Track project locations, operators, status and basic risk.</p>
       </div>
 
       <div class="summary-card">
-        <h3>Clean energy accountability</h3>
-        <p>Track diesel backup, grid demand, renewable energy claims, fossil fuel links and whether clean-energy promises are binding.</p>
+        <h3>Clean energy and fossil fuels</h3>
+        <p>Track diesel backup, gas risk, grid demand, renewable claims and whether claims are enforceable.</p>
       </div>
 
       <div class="summary-card">
-        <h3>Policy tracker</h3>
-        <p>Follow inquiries, approvals, procurement decisions, legislation and government actions connected to AI infrastructure.</p>
+        <h3>Lobbying and influence</h3>
+        <p>Track fast-tracking, ministerial promotion, industry bodies, investor links and policy pressure.</p>
       </div>
 
       <div class="summary-card">
-        <h3>Company and influence tracker</h3>
-        <p>Monitor companies, partnerships, lobbying, security claims, environmental promises and accountability concerns.</p>
-      </div>
-
-      <div class="summary-card">
-        <h3>Public action tracker</h3>
-        <p>Track campaigns, submissions, surveys, community concerns and ways people can respond.</p>
+        <h3>Get involved</h3>
+        <p>Find public asks, submissions, campaigns and surveys as verified links are added.</p>
       </div>
     </section>
 
-    <section class="campaign-section">
-      <h2>What the campaign focus is</h2>
-      <p>AI Australia Watch focuses on public-interest safeguards. The central question is not whether AI exists, but whether the infrastructure behind it is being approved with clean energy, water transparency and democratic accountability.</p>
+    <section class="tracker-section" id="clean-energy-tracker">
+      <div class="section-header">
+        <div>
+          <span class="section-label label-fossil">Clean energy and fossil fuel tracker</span>
+          <h2>Fossil fuel links, diesel backup and clean-energy claims</h2>
+          <p>This section is separated from the map so the campaign focus is clear: data centres should be powered by additional clean energy, disclose diesel backup and water use, and avoid locking in fossil fuel demand.</p>
+        </div>
+      </div>
 
-      <div class="campaign-grid">
+      <div class="tracker-grid" id="clean-energy-list">Loading clean energy tracker...</div>
+    </section>
+
+    <section class="tracker-section" id="influence-tracker">
+      <div class="section-header">
+        <div>
+          <span class="section-label label-influence">Lobbying and influence tracker</span>
+          <h2>Government promotion, fast-tracking and corporate influence</h2>
+          <p>This section tracks public, documentable influence: government announcements, fast-track pathways, industry bodies, commissioned research, investor links and policy asks.</p>
+        </div>
+      </div>
+
+      <div class="tracker-grid" id="influence-list">Loading influence tracker...</div>
+    </section>
+
+    <section class="tracker-section" id="get-involved">
+      <div class="section-header">
+        <div>
+          <span class="section-label label-action">Get involved</span>
+          <h2>Public action and campaign asks</h2>
+          <p>This project does not argue that all AI infrastructure should be stopped. The focus is demanding clean energy, transparent planning, water disclosure and enforceable policy before major infrastructure is locked in.</p>
+        </div>
+      </div>
+
+      <div class="notice-box">
+        Live submission forms, government surveys, petitions and campaign links still need verification before publishing. For now, this section shows project-specific public asks drawn from the records.
+      </div>
+
+      <div class="tracker-grid" id="action-list">Loading public action asks...</div>
+    </section>
+
+    <section class="campaign-section">
+      <h2>Core campaign focus</h2>
+      <p>The campaign frame is clean-energy accountability, not anti-AI messaging. The public should be able to see what these projects demand from the electricity grid and water systems, who is influencing policy, and where enforceable safeguards are missing.</p>
+
+      <div class="campaign-focus-grid">
         <div class="campaign-box">
-          <h3>Clean power</h3>
-          <p>Require new data centre demand to be matched by additional renewable energy, not vague claims or existing certificates.</p>
+          <h3>Additional clean energy</h3>
+          <p>Require new data centre demand to be matched by additional renewable generation, not vague claims or existing certificates.</p>
         </div>
 
         <div class="campaign-box">
           <h3>Diesel transparency</h3>
-          <p>Publish backup generator numbers, diesel storage, run hours, emissions and air-quality monitoring, especially near homes and schools.</p>
+          <p>Publish generator numbers, diesel storage, run hours, emissions and air-quality monitoring, especially near homes and schools.</p>
         </div>
 
         <div class="campaign-box">
@@ -558,14 +610,15 @@
         </div>
 
         <div class="campaign-box">
-          <h3>Enforceable policy</h3>
+          <h3>Enforceable safeguards</h3>
           <p>Turn government expectations and company sustainability claims into binding approval conditions and contract requirements.</p>
         </div>
       </div>
     </section>
 
-    <section class="project-list">
-      <h2>Tracked project records</h2>
+    <section class="project-list" id="project-records">
+      <h2>Basic project records</h2>
+      <p>This list keeps the project tracker simple. Clean energy, fossil fuel, lobbying and action details are shown in the separate sections above.</p>
       <div id="project-list">Loading projects...</div>
     </section>
   </main>
@@ -639,6 +692,17 @@
       `;
     }
 
+    function optionalTrackerBlock(label, value) {
+      if (!hasText(value)) return '';
+
+      return `
+        <p>
+          <strong>${escapeHtml(label)}</strong>
+          ${formatText(value)}
+        </p>
+      `;
+    }
+
     function getRiskClass(riskLevel) {
       const risk = (riskLevel || 'unknown').toLowerCase();
 
@@ -647,6 +711,29 @@
       if (risk === 'low') return 'low';
 
       return 'unknown';
+    }
+
+    function getRiskScore(project) {
+      const risk = getRiskClass(project.risk_level);
+
+      if (risk === 'high') return 30;
+      if (risk === 'medium') return 20;
+      if (risk === 'low') return 10;
+
+      return 0;
+    }
+
+    function getStatusScore(project) {
+      const status = String(project.status || '').toLowerCase();
+      let score = 0;
+
+      if (status.includes('proposed')) score += 20;
+      if (status.includes('planning')) score += 20;
+      if (status.includes('under assessment')) score += 20;
+      if (status.includes('mou')) score += 15;
+      if (status.includes('approved')) score += 8;
+
+      return score;
     }
 
     function makeRiskTag(riskLevel) {
@@ -679,50 +766,6 @@
           return `<a href="${safeLink}" target="_blank" rel="noopener noreferrer">${safeLink}</a>`;
         })
         .join('');
-    }
-
-    function makeCleanEnergySection(project) {
-      const sectionRows = [
-        optionalDetailRow('Fossil fuel notes', project.fossil_fuel_notes),
-        optionalDetailRow('Clean energy notes', project.clean_energy_notes),
-        optionalDetailRow('Energy policy risk', project.energy_policy_risk)
-      ].join('');
-
-      const sourceRows = hasText(project.clean_energy_source_links)
-        ? `
-          <div class="detail-row sources">
-            <strong>Clean energy sources</strong>
-            ${makeSourceLinks(project.clean_energy_source_links)}
-          </div>
-        `
-        : '';
-
-      if (!sectionRows.trim() && !sourceRows.trim()) return '';
-
-      return `
-        <h3 class="detail-section-heading">Clean energy and fossil fuel accountability</h3>
-        ${sectionRows}
-        ${sourceRows}
-      `;
-    }
-
-    function makeAccountabilitySection(project) {
-      const sectionRows = [
-        optionalDetailRow('Privacy / security', project.privacy_or_security_notes),
-        optionalDetailRow('Lobbying / influence', project.lobbying_or_influence_notes),
-        optionalDetailRow('Campaign status', project.campaign_status),
-        optionalDetailRow('What to watch', project.what_to_watch),
-        optionalDetailRow('Public action notes', project.public_action_notes),
-        optionalDetailRow('What still needs verification', project.what_still_needs_verification),
-        optionalDetailRow('Confidence level', project.confidence_level)
-      ].join('');
-
-      if (!sectionRows.trim()) return '';
-
-      return `
-        <h3 class="detail-section-heading">Accountability and public action</h3>
-        ${sectionRows}
-      `;
     }
 
     function openProjectModal(project) {
@@ -777,21 +820,27 @@
             ${formatText(project.summary || 'No summary yet.')}
           </div>
 
-          <h3 class="detail-section-heading">Energy and water</h3>
+          <h3 class="detail-section-heading">Clean energy and fossil fuel accountability</h3>
+          ${optionalDetailRow('Fossil fuel notes', project.fossil_fuel_notes)}
+          ${optionalDetailRow('Clean energy notes', project.clean_energy_notes)}
+          ${optionalDetailRow('Energy policy risk', project.energy_policy_risk)}
+          ${optionalDetailRow('Energy concerns', project.energy_notes)}
+          ${optionalDetailRow('Water concerns', project.water_notes)}
 
-          <div class="detail-row">
-            <strong>Energy concerns</strong>
-            ${formatText(project.energy_notes || 'No energy notes yet.')}
-          </div>
+          <h3 class="detail-section-heading">Lobbying, influence and public action</h3>
+          ${optionalDetailRow('Lobbying / influence', project.lobbying_or_influence_notes)}
+          ${optionalDetailRow('Campaign status', project.campaign_status)}
+          ${optionalDetailRow('What to watch', project.what_to_watch)}
+          ${optionalDetailRow('Public action notes', project.public_action_notes)}
+          ${optionalDetailRow('What still needs verification', project.what_still_needs_verification)}
+          ${optionalDetailRow('Confidence level', project.confidence_level)}
 
-          <div class="detail-row">
-            <strong>Water concerns</strong>
-            ${formatText(project.water_notes || 'No water notes yet.')}
-          </div>
-
-          ${makeCleanEnergySection(project)}
-
-          ${makeAccountabilitySection(project)}
+          ${hasText(project.clean_energy_source_links) ? `
+            <div class="detail-row sources">
+              <strong>Clean energy sources</strong>
+              ${makeSourceLinks(project.clean_energy_source_links)}
+            </div>
+          ` : ''}
 
           <div class="detail-row sources">
             <strong>Main sources</strong>
@@ -823,6 +872,14 @@
         closeProjectModal();
       }
     });
+
+    function openProjectFromCard(project) {
+      if (project.latitude && project.longitude) {
+        map.setView([Number(project.latitude), Number(project.longitude)], 12);
+      }
+
+      openProjectModal(project);
+    }
 
     function renderMarkers(projects) {
       if (markerClusterGroup) {
@@ -875,68 +932,135 @@
       }
     }
 
-    function getActionScore(project) {
-      let score = 0;
-      const risk = getRiskClass(project.risk_level);
-      const status = String(project.status || '').toLowerCase();
-      const campaignStatus = String(project.campaign_status || '').toLowerCase();
+    function renderCleanEnergyTracker(projects) {
+      const list = document.getElementById('clean-energy-list');
 
-      if (risk === 'high') score += 30;
-      if (risk === 'medium') score += 20;
-      if (risk === 'low') score += 10;
-
-      if (status.includes('proposed')) score += 20;
-      if (status.includes('planning')) score += 20;
-      if (status.includes('under assessment')) score += 20;
-      if (campaignStatus.includes('planning')) score += 15;
-      if (campaignStatus.includes('campaign')) score += 15;
-      if (hasText(project.fossil_fuel_notes)) score += 10;
-      if (hasText(project.energy_policy_risk)) score += 10;
-
-      return score;
-    }
-
-    function renderActionList(projects) {
-      const actionList = document.getElementById('action-list');
-
-      const actionProjects = projects
+      const cleanEnergyProjects = projects
         .filter(project =>
-          hasText(project.public_action_notes) ||
-          hasText(project.energy_policy_risk) ||
-          hasText(project.what_to_watch)
+          hasText(project.fossil_fuel_notes) ||
+          hasText(project.clean_energy_notes) ||
+          hasText(project.energy_policy_risk)
         )
-        .sort((a, b) => getActionScore(b) - getActionScore(a))
-        .slice(0, 6);
+        .sort((a, b) => {
+          const scoreA = getRiskScore(a) + getStatusScore(a);
+          const scoreB = getRiskScore(b) + getStatusScore(b);
 
-      actionList.innerHTML = '';
+          return scoreB - scoreA;
+        });
 
-      if (actionProjects.length === 0) {
-        actionList.textContent = 'No public action asks have been added yet.';
+      list.innerHTML = '';
+
+      if (cleanEnergyProjects.length === 0) {
+        list.innerHTML = '<div class="empty-message">No clean energy or fossil fuel tracker records have been added yet.</div>';
         return;
       }
 
-      actionProjects.forEach(project => {
-        const item = document.createElement('div');
-        item.className = 'action-item';
+      cleanEnergyProjects.forEach(project => {
+        const item = document.createElement('article');
+        item.className = 'tracker-card';
 
         item.innerHTML = `
           <h3>${escapeHtml(project.project_name || 'Project')}</h3>
           ${makeRiskTag(project.risk_level)}
-          <p><strong>Current ask:</strong> ${formatText(project.public_action_notes || project.energy_policy_risk || 'Public action notes not added yet.')}</p>
-          ${hasText(project.what_to_watch) ? `<p><strong>Watch:</strong> ${formatText(project.what_to_watch)}</p>` : ''}
-          <button type="button">View project details</button>
+          <p><strong>Company</strong>${escapeHtml(project.company_operator || 'Unknown')}</p>
+          ${optionalTrackerBlock('Fossil fuel notes', project.fossil_fuel_notes)}
+          ${optionalTrackerBlock('Clean energy notes', project.clean_energy_notes)}
+          ${optionalTrackerBlock('Energy policy risk', project.energy_policy_risk)}
+          <button type="button">View full record</button>
         `;
 
         item.querySelector('button').addEventListener('click', () => {
-          if (project.latitude && project.longitude) {
-            map.setView([Number(project.latitude), Number(project.longitude)], 12);
-          }
-
-          openProjectModal(project);
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+          openProjectFromCard(project);
         });
 
-        actionList.appendChild(item);
+        list.appendChild(item);
+      });
+    }
+
+    function renderInfluenceTracker(projects) {
+      const list = document.getElementById('influence-list');
+
+      const influenceProjects = projects
+        .filter(project =>
+          hasText(project.lobbying_or_influence_notes) ||
+          hasText(project.campaign_status) ||
+          hasText(project.what_to_watch)
+        )
+        .sort((a, b) => {
+          const scoreA = getRiskScore(a) + getStatusScore(a);
+          const scoreB = getRiskScore(b) + getStatusScore(b);
+
+          return scoreB - scoreA;
+        });
+
+      list.innerHTML = '';
+
+      if (influenceProjects.length === 0) {
+        list.innerHTML = '<div class="empty-message">No lobbying or influence tracker records have been added yet.</div>';
+        return;
+      }
+
+      influenceProjects.forEach(project => {
+        const item = document.createElement('article');
+        item.className = 'tracker-card';
+
+        item.innerHTML = `
+          <h3>${escapeHtml(project.project_name || 'Project')}</h3>
+          ${makeRiskTag(project.risk_level)}
+          <p><strong>Company</strong>${escapeHtml(project.company_operator || 'Unknown')}</p>
+          ${optionalTrackerBlock('Lobbying / influence', project.lobbying_or_influence_notes)}
+          ${optionalTrackerBlock('Campaign status', project.campaign_status)}
+          ${optionalTrackerBlock('What to watch', project.what_to_watch)}
+          <button type="button">View full record</button>
+        `;
+
+        item.querySelector('button').addEventListener('click', () => {
+          openProjectFromCard(project);
+        });
+
+        list.appendChild(item);
+      });
+    }
+
+    function renderActionList(projects) {
+      const list = document.getElementById('action-list');
+
+      const actionProjects = projects
+        .filter(project =>
+          hasText(project.public_action_notes) ||
+          hasText(project.what_to_watch)
+        )
+        .sort((a, b) => {
+          const scoreA = getRiskScore(a) + getStatusScore(a);
+          const scoreB = getRiskScore(b) + getStatusScore(b);
+
+          return scoreB - scoreA;
+        });
+
+      list.innerHTML = '';
+
+      if (actionProjects.length === 0) {
+        list.innerHTML = '<div class="empty-message">No public action asks have been added yet.</div>';
+        return;
+      }
+
+      actionProjects.forEach(project => {
+        const item = document.createElement('article');
+        item.className = 'tracker-card';
+
+        item.innerHTML = `
+          <h3>${escapeHtml(project.project_name || 'Project')}</h3>
+          ${makeRiskTag(project.risk_level)}
+          ${optionalTrackerBlock('Public ask', project.public_action_notes)}
+          ${optionalTrackerBlock('What to watch', project.what_to_watch)}
+          <button type="button">View full record</button>
+        `;
+
+        item.querySelector('button').addEventListener('click', () => {
+          openProjectFromCard(project);
+        });
+
+        list.appendChild(item);
       });
     }
 
@@ -951,15 +1075,14 @@
         const hasMapPin = project.latitude && project.longitude;
 
         item.innerHTML = `
-          <h3>${escapeHtml(project.project_name)}</h3>
+          <h3>${escapeHtml(project.project_name || 'Project')}</h3>
           <p>${makeRiskTag(project.risk_level)}</p>
           <p><strong>Company:</strong> ${escapeHtml(project.company_operator || 'Unknown')}</p>
           <p><strong>Location:</strong> ${escapeHtml(project.location_name || 'Unknown')}${project.state ? ', ' + escapeHtml(project.state) : ''}</p>
           <p><strong>Status:</strong> ${escapeHtml(project.status || 'Unknown')}</p>
           ${hasMapPin ? '' : '<p><em>No public map pin because site coordinates are unavailable, undisclosed or not site-specific.</em></p>'}
           <p>${formatText(project.summary || 'No summary yet.')}</p>
-          ${hasText(project.energy_policy_risk) ? `<p><strong>Energy policy risk:</strong> ${formatText(project.energy_policy_risk)}</p>` : ''}
-          <button type="button" data-index="${index}">View details</button>
+          <button type="button" data-index="${index}">View full record</button>
         `;
 
         list.appendChild(item);
@@ -968,13 +1091,7 @@
       list.querySelectorAll('button').forEach(button => {
         button.addEventListener('click', () => {
           const project = loadedProjects[Number(button.dataset.index)];
-
-          if (project.latitude && project.longitude) {
-            map.setView([Number(project.latitude), Number(project.longitude)], 12);
-          }
-
-          openProjectModal(project);
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+          openProjectFromCard(project);
         });
       });
     }
@@ -991,6 +1108,8 @@
       if (!Array.isArray(projects)) {
         document.getElementById('project-count').textContent = 'Could not load project records.';
         document.getElementById('project-list').textContent = 'Could not load projects.';
+        document.getElementById('clean-energy-list').textContent = 'Could not load clean energy tracker.';
+        document.getElementById('influence-list').textContent = 'Could not load influence tracker.';
         document.getElementById('action-list').textContent = 'Could not load public action asks.';
         console.log(projects);
         return;
@@ -1006,6 +1125,8 @@
         `${projects.length} project ${recordNoun} tracked. ${mappedProjects.length} public ${mapNoun}.`;
 
       renderMarkers(projects);
+      renderCleanEnergyTracker(projects);
+      renderInfluenceTracker(projects);
       renderActionList(projects);
       renderProjectList(projects);
     }
