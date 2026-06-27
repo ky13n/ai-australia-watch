@@ -4,6 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI Australia Watch</title>
+
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -19,15 +25,16 @@
     }
 
     main {
-      padding: 32px;
-      max-width: 1100px;
+      padding: 24px;
+      max-width: 1200px;
       margin: auto;
     }
 
-    .hero {
-      background: white;
-      padding: 32px;
-      border-radius: 12px;
+    #map {
+      height: 620px;
+      width: 100%;
+      border-radius: 14px;
+      border: 1px solid #d1d5db;
       margin-bottom: 24px;
     }
 
@@ -48,8 +55,19 @@
       color: #b91c1c;
       font-weight: bold;
     }
+
+    .tag {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #fee2e2;
+      color: #991b1b;
+      font-size: 13px;
+      font-weight: bold;
+    }
   </style>
 </head>
+
 <body>
   <header>
     <h1>AI Australia Watch</h1>
@@ -57,10 +75,10 @@
   </header>
 
   <main>
-    <section class="hero">
-      <h2>Interactive map coming soon</h2>
-      <p>This site will track AI-related data centres, government decisions, company activity, risks, and public action pathways across Australia.</p>
-    </section>
+    <h2>Interactive Australia map</h2>
+    <p>Click a marker to view project status, risks, decision-makers, and source links.</p>
+
+    <div id="map"></div>
 
     <section class="grid">
       <div class="card">
@@ -79,11 +97,54 @@
       </div>
 
       <div class="card">
-        <h3>First record</h3>
+        <h3>First tracked project</h3>
         <p><strong>AirTrunk SYD3 Sydney West</strong></p>
-        <p class="risk-high">Risk level: high</p>
+        <p><span class="tag">High risk</span></p>
       </div>
     </section>
   </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <script>
+    const map = L.map('map').setView([-25.2744, 133.7751], 4);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    const projects = [
+      {
+        name: 'AirTrunk SYD3 Sydney West',
+        company: 'AirTrunk',
+        location: 'Western Sydney, NSW',
+        status: 'Operating / expanding',
+        risk: 'High',
+        lat: -33.77,
+        lng: 150.86,
+        concerns: 'Electricity demand, renewable energy reliance, grid pressure, cooling and water impacts to verify.',
+        source: 'https://airtrunk.com/location/syd3-sydney-west/'
+      }
+    ];
+
+    projects.forEach(project => {
+      const marker = L.marker([project.lat, project.lng]).addTo(map);
+
+      marker.bindPopup(`
+        <strong>${project.name}</strong><br>
+        <br>
+        <strong>Company:</strong> ${project.company}<br>
+        <strong>Location:</strong> ${project.location}<br>
+        <strong>Status:</strong> ${project.status}<br>
+        <strong>Risk level:</strong> ${project.risk}<br>
+        <br>
+        <strong>Concerns:</strong><br>
+        ${project.concerns}<br>
+        <br>
+        <a href="${project.source}" target="_blank">View source</a>
+      `);
+    });
+  </script>
 </body>
 </html>
