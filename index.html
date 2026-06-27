@@ -231,38 +231,44 @@
       color: var(--red-ink);
     }
 
-    .tracker-grid {
+    .tracker-grid,
+    .action-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
       gap: 14px;
       margin-top: 16px;
     }
 
-    .tracker-card {
+    .tracker-card,
+    .action-card {
       border: 1px solid #e2e8f0;
       background: #f8fafc;
       border-radius: 16px;
       padding: 16px;
     }
 
-    .tracker-card h3 {
+    .tracker-card h3,
+    .action-card h3 {
       margin: 0 0 8px 0;
       font-size: 18px;
     }
 
-    .tracker-card p {
+    .tracker-card p,
+    .action-card p {
       margin: 10px 0;
       line-height: 1.45;
     }
 
-    .tracker-card strong {
+    .tracker-card strong,
+    .action-card strong {
       display: block;
       margin-bottom: 3px;
     }
 
     .tracker-card button,
     .project-item button,
-    .modal-close {
+    .modal-close,
+    .action-link {
       border: 1px solid #cbd5e1;
       background: #ffffff;
       border-radius: 10px;
@@ -270,6 +276,84 @@
       cursor: pointer;
       font-weight: bold;
       margin-top: 8px;
+      display: inline-block;
+      text-decoration: none;
+      color: var(--ink);
+    }
+
+    .action-link.primary {
+      background: var(--dark);
+      color: white;
+      border-color: var(--dark);
+    }
+
+    .action-category {
+      margin-top: 22px;
+    }
+
+    .action-category h3 {
+      margin: 0 0 6px 0;
+    }
+
+    .action-category > p {
+      color: var(--muted);
+      margin: 0 0 12px 0;
+      line-height: 1.45;
+    }
+
+    .status-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 8px 0 12px 0;
+    }
+
+    .pill {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 5px 9px;
+      font-size: 12px;
+      font-weight: bold;
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+      color: #334155;
+    }
+
+    .pill.high {
+      background: #fee2e2;
+      border-color: #fecaca;
+      color: #991b1b;
+    }
+
+    .pill.medium {
+      background: #ffedd5;
+      border-color: #fed7aa;
+      color: #9a3412;
+    }
+
+    .pill.low {
+      background: #dcfce7;
+      border-color: #bbf7d0;
+      color: #166534;
+    }
+
+    .pill.live,
+    .pill.closing_soon {
+      background: #ecfdf5;
+      border-color: #bbf7d0;
+      color: #14532d;
+    }
+
+    .pill.closed_archive {
+      background: #e5e7eb;
+      border-color: #d1d5db;
+      color: #374151;
+    }
+
+    .pill.no_deadline_found {
+      background: #eff6ff;
+      border-color: #bfdbfe;
+      color: #1e40af;
     }
 
     .campaign-focus-grid {
@@ -500,9 +584,9 @@
 
     <div class="header-links">
       <a href="#map-section">Map</a>
+      <a href="#get-involved">Take action</a>
       <a href="#clean-energy-tracker">Clean energy and fossil fuels</a>
       <a href="#influence-tracker">Lobbying and influence</a>
-      <a href="#get-involved">Get involved</a>
       <a href="#project-records">Project records</a>
     </div>
   </header>
@@ -512,7 +596,7 @@
       <div class="map-header">
         <div>
           <h2>Data centre map</h2>
-          <p>Tracked AI and cloud data centre sites in Australia. The map shows location, operator, status and risk. Fossil fuel, clean energy and lobbying information is separated into dedicated trackers below.</p>
+          <p>Tracked AI and cloud data centre sites in Australia. The map shows location, operator, status and risk. Fossil fuel, clean energy, lobbying and public action information is separated into dedicated trackers below.</p>
           <p class="record-count" id="project-count">Loading project records...</p>
         </div>
 
@@ -534,6 +618,11 @@
       </div>
 
       <div class="summary-card">
+        <h3>Take action</h3>
+        <p>Find formal submissions, official processes, campaigns and petitions people can use now.</p>
+      </div>
+
+      <div class="summary-card">
         <h3>Clean energy and fossil fuels</h3>
         <p>Track diesel backup, gas risk, grid demand, renewable claims and whether claims are enforceable.</p>
       </div>
@@ -542,10 +631,31 @@
         <h3>Lobbying and influence</h3>
         <p>Track fast-tracking, ministerial promotion, industry bodies, investor links and policy pressure.</p>
       </div>
+    </section>
 
-      <div class="summary-card">
-        <h3>Get involved</h3>
-        <p>Find public asks, submissions, campaigns and surveys as verified links are added.</p>
+    <section class="tracker-section" id="get-involved">
+      <div class="section-header">
+        <div>
+          <span class="section-label label-action">Take Action / Get Involved</span>
+          <h2>Current actions, submissions, campaigns and petitions</h2>
+          <p>This section is for things people can actually click: official submissions, parliamentary processes, petitions, campaigns and archived inquiries worth tracking. Live actions are shown before closed archive items.</p>
+        </div>
+      </div>
+
+      <div class="notice-box">
+        The campaign frame is clean-energy accountability, not anti-AI messaging. The public asks are about additional renewables, diesel reporting, water disclosure, cumulative grid assessment and enforceable safeguards.
+      </div>
+
+      <div class="action-category">
+        <h3>Formal submissions and official processes</h3>
+        <p>Government consultations, parliamentary inquiries, planning exhibitions and official petitions.</p>
+        <div class="action-grid" id="formal-actions-list">Loading formal actions...</div>
+      </div>
+
+      <div class="action-category">
+        <h3>Community-led campaigns and petitions</h3>
+        <p>Community, environment and public-interest campaigns people can sign, share or use to contact decision-makers.</p>
+        <div class="action-grid" id="community-actions-list">Loading community actions...</div>
       </div>
     </section>
 
@@ -571,22 +681,6 @@
       </div>
 
       <div class="tracker-grid" id="influence-list">Loading influence tracker...</div>
-    </section>
-
-    <section class="tracker-section" id="get-involved">
-      <div class="section-header">
-        <div>
-          <span class="section-label label-action">Get involved</span>
-          <h2>Public action and campaign asks</h2>
-          <p>This project does not argue that all AI infrastructure should be stopped. The focus is demanding clean energy, transparent planning, water disclosure and enforceable policy before major infrastructure is locked in.</p>
-        </div>
-      </div>
-
-      <div class="notice-box">
-        Live submission forms, government surveys, petitions and campaign links still need verification before publishing. For now, this section shows project-specific public asks drawn from the records.
-      </div>
-
-      <div class="tracker-grid" id="action-list">Loading public action asks...</div>
     </section>
 
     <section class="campaign-section">
@@ -1022,48 +1116,6 @@
       });
     }
 
-    function renderActionList(projects) {
-      const list = document.getElementById('action-list');
-
-      const actionProjects = projects
-        .filter(project =>
-          hasText(project.public_action_notes) ||
-          hasText(project.what_to_watch)
-        )
-        .sort((a, b) => {
-          const scoreA = getRiskScore(a) + getStatusScore(a);
-          const scoreB = getRiskScore(b) + getStatusScore(b);
-
-          return scoreB - scoreA;
-        });
-
-      list.innerHTML = '';
-
-      if (actionProjects.length === 0) {
-        list.innerHTML = '<div class="empty-message">No public action asks have been added yet.</div>';
-        return;
-      }
-
-      actionProjects.forEach(project => {
-        const item = document.createElement('article');
-        item.className = 'tracker-card';
-
-        item.innerHTML = `
-          <h3>${escapeHtml(project.project_name || 'Project')}</h3>
-          ${makeRiskTag(project.risk_level)}
-          ${optionalTrackerBlock('Public ask', project.public_action_notes)}
-          ${optionalTrackerBlock('What to watch', project.what_to_watch)}
-          <button type="button">View full record</button>
-        `;
-
-        item.querySelector('button').addEventListener('click', () => {
-          openProjectFromCard(project);
-        });
-
-        list.appendChild(item);
-      });
-    }
-
     function renderProjectList(projects) {
       const list = document.getElementById('project-list');
       list.innerHTML = '';
@@ -1096,6 +1148,133 @@
       });
     }
 
+    function getPriorityScore(priority) {
+      const value = String(priority || '').toLowerCase();
+
+      if (value === 'high') return 30;
+      if (value === 'medium') return 20;
+      if (value === 'low') return 10;
+
+      return 0;
+    }
+
+    function getActionStatusScore(status) {
+      const value = String(status || '').toLowerCase();
+
+      if (value === 'closing_soon') return 50;
+      if (value === 'live') return 40;
+      if (value === 'no_deadline_found') return 30;
+      if (value === 'needs_manual_check') return 20;
+      if (value === 'closed_archive') return 5;
+
+      return 0;
+    }
+
+    function sortActions(actions) {
+      return actions.sort((a, b) => {
+        const statusDiff = getActionStatusScore(b.status) - getActionStatusScore(a.status);
+        if (statusDiff !== 0) return statusDiff;
+
+        const priorityDiff = getPriorityScore(b.priority) - getPriorityScore(a.priority);
+        if (priorityDiff !== 0) return priorityDiff;
+
+        if (a.deadline && b.deadline) {
+          return new Date(a.deadline) - new Date(b.deadline);
+        }
+
+        if (a.deadline && !b.deadline) return -1;
+        if (!a.deadline && b.deadline) return 1;
+
+        return String(a.action_title || '').localeCompare(String(b.action_title || ''));
+      });
+    }
+
+    function prettyStatus(status) {
+      const value = String(status || '').replaceAll('_', ' ');
+      return value.charAt(0).toUpperCase() + value.slice(1);
+    }
+
+    function prettyActionType(actionType) {
+      const value = String(actionType || '').replaceAll('_', ' ');
+      return value.charAt(0).toUpperCase() + value.slice(1);
+    }
+
+    function renderDeadline(action) {
+      if (action.deadline) {
+        return `<span class="pill">Deadline: ${escapeHtml(action.deadline)}</span>`;
+      }
+
+      if (hasText(action.deadline_notes)) {
+        return `<span class="pill">${escapeHtml(action.deadline_notes)}</span>`;
+      }
+
+      return '';
+    }
+
+    function renderActionsByCategory(actions, category, elementId) {
+      const list = document.getElementById(elementId);
+
+      const categoryActions = sortActions(
+        actions.filter(action => action.action_category === category)
+      );
+
+      list.innerHTML = '';
+
+      if (categoryActions.length === 0) {
+        list.innerHTML = '<div class="empty-message">No actions have been added in this category yet.</div>';
+        return;
+      }
+
+      categoryActions.forEach(action => {
+        const item = document.createElement('article');
+        item.className = 'action-card';
+
+        item.innerHTML = `
+          <h3>${escapeHtml(action.action_title || 'Action')}</h3>
+
+          <div class="status-row">
+            <span class="pill ${escapeHtml(action.status || '')}">${escapeHtml(prettyStatus(action.status || 'unknown'))}</span>
+            <span class="pill ${escapeHtml(action.priority || '')}">${escapeHtml(prettyStatus(action.priority || 'priority unknown'))} priority</span>
+            <span class="pill">${escapeHtml(prettyActionType(action.action_type || 'action'))}</span>
+            ${renderDeadline(action)}
+          </div>
+
+          ${optionalTrackerBlock('Organiser', action.organiser_or_government_body)}
+          ${optionalTrackerBlock('Jurisdiction', action.jurisdiction)}
+          ${optionalTrackerBlock('Linked project', action.linked_project_name)}
+          ${optionalTrackerBlock('Summary', action.summary)}
+          ${optionalTrackerBlock('Why it matters', action.why_it_matters)}
+          ${optionalTrackerBlock('Suggested ask', action.suggested_ask)}
+          ${optionalTrackerBlock('How to participate', action.how_to_participate)}
+
+          <a class="action-link primary" href="${escapeHtml(action.action_url)}" target="_blank" rel="noopener noreferrer">Open action</a>
+          ${hasText(action.source_url) && action.source_url !== action.action_url ? `<a class="action-link" href="${escapeHtml(action.source_url)}" target="_blank" rel="noopener noreferrer">Source</a>` : ''}
+        `;
+
+        list.appendChild(item);
+      });
+    }
+
+    async function loadActions() {
+      const response = await fetch(`${SUPABASE_URL}/rest/v1/actions?select=*&order=action_category.asc`, {
+        headers: {
+          apikey: SUPABASE_KEY
+        }
+      });
+
+      const actions = await response.json();
+
+      if (!Array.isArray(actions)) {
+        document.getElementById('formal-actions-list').textContent = 'Could not load formal actions.';
+        document.getElementById('community-actions-list').textContent = 'Could not load community actions.';
+        console.log(actions);
+        return;
+      }
+
+      renderActionsByCategory(actions, 'Formal submissions and official processes', 'formal-actions-list');
+      renderActionsByCategory(actions, 'Community-led campaigns and petitions', 'community-actions-list');
+    }
+
     async function loadProjects() {
       const response = await fetch(`${SUPABASE_URL}/rest/v1/projects?select=*&order=state.asc`, {
         headers: {
@@ -1110,7 +1289,6 @@
         document.getElementById('project-list').textContent = 'Could not load projects.';
         document.getElementById('clean-energy-list').textContent = 'Could not load clean energy tracker.';
         document.getElementById('influence-list').textContent = 'Could not load influence tracker.';
-        document.getElementById('action-list').textContent = 'Could not load public action asks.';
         console.log(projects);
         return;
       }
@@ -1127,11 +1305,11 @@
       renderMarkers(projects);
       renderCleanEnergyTracker(projects);
       renderInfluenceTracker(projects);
-      renderActionList(projects);
       renderProjectList(projects);
     }
 
     loadProjects();
+    loadActions();
   </script>
 </body>
 </html>
