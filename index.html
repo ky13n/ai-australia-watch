@@ -78,6 +78,12 @@
       line-height: 1.4;
     }
 
+    .record-count {
+      margin-top: 8px !important;
+      font-weight: bold;
+      color: var(--ink) !important;
+    }
+
     .legend {
       display: flex;
       flex-wrap: wrap;
@@ -130,7 +136,7 @@
 
     .summary-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 16px;
       margin: 20px 0;
     }
@@ -146,6 +152,7 @@
     .summary-card p {
       margin: 0;
       color: var(--muted);
+      line-height: 1.45;
     }
 
     .project-list {
@@ -325,8 +332,9 @@
     <section class="map-card">
       <div class="map-header">
         <div>
-          <h2>Australia AI infrastructure map</h2>
-          <p>Click a marker or cluster to inspect tracked AI infrastructure projects. Clusters help separate nearby Western Sydney sites.</p>
+          <h2>Data centre locations</h2>
+          <p>Map of tracked AI and cloud data centre sites in Australia. Click a marker to view project details, risks and sources.</p>
+          <p class="record-count" id="project-count">Loading project records...</p>
         </div>
 
         <div class="legend">
@@ -342,23 +350,28 @@
 
     <section class="summary-grid">
       <div class="summary-card">
-        <h3>Tracked projects</h3>
-        <p id="project-count">Loading project records...</p>
+        <h3>Data centres</h3>
+        <p>Track AI and cloud infrastructure projects by location, company, status, energy use, water concerns and risk level.</p>
       </div>
 
       <div class="summary-card">
-        <h3>Purpose</h3>
-        <p>Make AI infrastructure, policy and corporate influence visible and understandable.</p>
+        <h3>Policy tracker</h3>
+        <p>Follow inquiries, approvals, procurement decisions, legislation and government actions connected to AI infrastructure.</p>
       </div>
 
       <div class="summary-card">
-        <h3>Next layer</h3>
-        <p>Companies, government actions, concerns, sources and public action pathways.</p>
+        <h3>Company and influence tracker</h3>
+        <p>Monitor companies, partnerships, lobbying, security claims, environmental promises and accountability concerns.</p>
+      </div>
+
+      <div class="summary-card">
+        <h3>Public action tracker</h3>
+        <p>Track campaigns, submissions, community concerns and ways people can respond.</p>
       </div>
     </section>
 
     <section class="project-list">
-      <h2>Project list</h2>
+      <h2>Tracked project records</h2>
       <div id="project-list">Loading projects...</div>
     </section>
   </main>
@@ -652,7 +665,7 @@
       const noun = projects.length === 1 ? 'project record' : 'project records';
 
       document.getElementById('project-count').textContent =
-        `${projects.length} ${noun} loaded.`;
+        `${projects.length} ${noun} currently tracked.`;
 
       renderMarkers(projects);
       renderProjectList(projects);
