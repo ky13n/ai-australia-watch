@@ -224,7 +224,7 @@
 
     .modal-card {
       background: white;
-      max-width: 860px;
+      max-width: 900px;
       margin: 32px auto;
       border-radius: 18px;
       border: 1px solid #d1d5db;
@@ -281,6 +281,13 @@
     .detail-row strong {
       display: block;
       margin-bottom: 2px;
+    }
+
+    .detail-section-heading {
+      margin: 22px 0 12px 0;
+      padding-top: 14px;
+      border-top: 1px solid #e5e7eb;
+      font-size: 16px;
     }
 
     .sources a {
@@ -425,6 +432,21 @@
         .replaceAll("'", '&#039;');
     }
 
+    function hasText(value) {
+      return value !== null && value !== undefined && String(value).trim() !== '';
+    }
+
+    function optionalDetailRow(label, value) {
+      if (!hasText(value)) return '';
+
+      return `
+        <div class="detail-row">
+          <strong>${escapeHtml(label)}</strong>
+          ${escapeHtml(value)}
+        </div>
+      `;
+    }
+
     function getRiskClass(riskLevel) {
       const risk = (riskLevel || 'unknown').toLowerCase();
 
@@ -465,6 +487,24 @@
           return `<a href="${safeLink}" target="_blank" rel="noopener noreferrer">${safeLink}</a>`;
         })
         .join('');
+    }
+
+    function makeAccountabilitySection(project) {
+      const sectionRows = [
+        optionalDetailRow('Privacy / security', project.privacy_or_security_notes),
+        optionalDetailRow('Lobbying / influence', project.lobbying_or_influence_notes),
+        optionalDetailRow('Campaign status', project.campaign_status),
+        optionalDetailRow('What to watch', project.what_to_watch),
+        optionalDetailRow('Public action notes', project.public_action_notes),
+        optionalDetailRow('Confidence level', project.confidence_level)
+      ].join('');
+
+      if (!hasText(sectionRows)) return '';
+
+      return `
+        <h3 class="detail-section-heading">Accountability and public action</h3>
+        ${sectionRows}
+      `;
     }
 
     function openProjectModal(project) {
@@ -526,6 +566,8 @@
             <strong>Water concerns</strong>
             ${escapeHtml(project.water_notes || 'No water notes yet.')}
           </div>
+
+          ${makeAccountabilitySection(project)}
 
           <div class="detail-row sources">
             <strong>Sources</strong>
