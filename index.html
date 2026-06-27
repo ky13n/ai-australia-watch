@@ -5,55 +5,272 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI Australia Watch</title>
 
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-
   <style>
+    :root {
+      --bg: #f4f1ea;
+      --ink: #1f2933;
+      --muted: #64748b;
+      --panel: #ffffff;
+      --border: #d8d6cf;
+      --dark: #111827;
+      --high: #dc2626;
+      --medium: #f97316;
+      --low: #16a34a;
+      --unknown: #6b7280;
+    }
+
     body {
-      font-family: Arial, sans-serif;
       margin: 0;
-      background: #f6f6f3;
-      color: #1f2933;
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
     }
 
     header {
-      background: #111827;
+      background: var(--dark);
       color: white;
       padding: 32px;
     }
 
+    header p {
+      max-width: 900px;
+      line-height: 1.5;
+    }
+
     main {
       padding: 24px;
-      max-width: 1200px;
+      max-width: 1320px;
       margin: auto;
     }
 
-    #map {
-      height: 620px;
-      width: 100%;
-      border-radius: 14px;
-      border: 1px solid #d1d5db;
-      margin-bottom: 24px;
-    }
-
-    .grid {
+    .dashboard {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 16px;
-      margin-bottom: 24px;
+      grid-template-columns: minmax(0, 1fr) 380px;
+      gap: 20px;
+      align-items: start;
     }
 
-    .card {
-      background: white;
+    .map-card,
+    .detail-panel,
+    .project-list,
+    .summary-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    }
+
+    .map-card {
       padding: 20px;
-      border-radius: 12px;
-      border: 1px solid #ddd;
+    }
+
+    .map-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .map-header h2 {
+      margin: 0 0 8px 0;
+    }
+
+    .map-header p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+      font-size: 13px;
+    }
+
+    .legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      padding: 6px 9px;
+      border-radius: 999px;
+    }
+
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .australia-map {
+      position: relative;
+      height: 650px;
+      border-radius: 18px;
+      background:
+        radial-gradient(circle at 85% 72%, rgba(59,130,246,0.12), transparent 18%),
+        radial-gradient(circle at 25% 70%, rgba(59,130,246,0.12), transparent 20%),
+        linear-gradient(180deg, #e7f0f7 0%, #dbeafe 100%);
+      border: 1px solid #cbd5e1;
+      overflow: hidden;
+    }
+
+    .australia-shape {
+      position: absolute;
+      inset: 34px;
+      width: calc(100% - 68px);
+      height: calc(100% - 68px);
+      opacity: 0.92;
+    }
+
+    .state-label {
+      position: absolute;
+      font-size: 12px;
+      font-weight: bold;
+      color: rgba(15, 23, 42, 0.45);
+      pointer-events: none;
+    }
+
+    .project-point {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      z-index: 5;
+    }
+
+    .point-core {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 3px solid white;
+      box-shadow: 0 0 0 2px #111827, 0 8px 18px rgba(0,0,0,0.25);
+      display: block;
+    }
+
+    .point-label {
+      position: absolute;
+      left: 28px;
+      top: -4px;
+      background: rgba(255,255,255,0.95);
+      border: 1px solid #d1d5db;
+      border-radius: 999px;
+      padding: 4px 8px;
+      font-size: 12px;
+      font-weight: bold;
+      white-space: nowrap;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
+    }
+
+    .risk-high { background: var(--high); }
+    .risk-medium { background: var(--medium); }
+    .risk-low { background: var(--low); }
+    .risk-unknown { background: var(--unknown); }
+
+    .detail-panel {
+      padding: 20px;
+      position: sticky;
+      top: 20px;
+    }
+
+    .detail-panel h2 {
+      margin-top: 0;
+    }
+
+    .image-box {
+      height: 190px;
+      border-radius: 14px;
+      background: #e5e7eb;
+      border: 1px solid #d1d5db;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #475569;
+      text-align: center;
+      padding: 16px;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    .image-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .risk-tag {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    .risk-tag.high {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .risk-tag.medium {
+      background: #ffedd5;
+      color: #9a3412;
+    }
+
+    .risk-tag.low {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .risk-tag.unknown {
+      background: #e5e7eb;
+      color: #374151;
+    }
+
+    .detail-row {
+      margin: 10px 0;
+      line-height: 1.45;
+    }
+
+    .detail-row strong {
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .sources a {
+      display: block;
+      overflow-wrap: anywhere;
+      margin-bottom: 8px;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin: 20px 0;
+    }
+
+    .summary-card {
+      padding: 18px;
+    }
+
+    .summary-card h3 {
+      margin: 0 0 8px 0;
+    }
+
+    .summary-card p {
+      margin: 0;
+      color: var(--muted);
     }
 
     .project-list {
-      background: white;
       padding: 24px;
-      border-radius: 12px;
-      border: 1px solid #ddd;
+      margin-top: 20px;
     }
 
     .project-item {
@@ -65,60 +282,35 @@
       border-top: none;
     }
 
-    .risk-tag {
-      display: inline-block;
-      padding: 4px 8px;
-      border-radius: 999px;
-      font-size: 13px;
+    .project-item button {
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      border-radius: 10px;
+      padding: 8px 12px;
+      cursor: pointer;
       font-weight: bold;
-    }
-
-    .risk-high {
-      background: #fee2e2;
-      color: #991b1b;
-    }
-
-    .risk-medium {
-      background: #ffedd5;
-      color: #9a3412;
-    }
-
-    .risk-low {
-      background: #dcfce7;
-      color: #166534;
-    }
-
-    .risk-unknown {
-      background: #e5e7eb;
-      color: #374151;
-    }
-
-    .marker-dot {
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      border: 3px solid white;
-      box-shadow: 0 0 0 2px #111827;
-    }
-
-    .marker-high {
-      background: #dc2626;
-    }
-
-    .marker-medium {
-      background: #f97316;
-    }
-
-    .marker-low {
-      background: #16a34a;
-    }
-
-    .marker-unknown {
-      background: #6b7280;
     }
 
     a {
       color: #1d4ed8;
+    }
+
+    @media (max-width: 950px) {
+      .dashboard {
+        grid-template-columns: 1fr;
+      }
+
+      .detail-panel {
+        position: static;
+      }
+
+      .australia-map {
+        height: 520px;
+      }
+
+      .point-label {
+        display: none;
+      }
     }
   </style>
 </head>
@@ -126,34 +318,87 @@
 <body>
   <header>
     <h1>AI Australia Watch</h1>
-    <p>A public-interest dashboard tracking AI infrastructure, policy, corporate influence, and accountability issues in Australia.</p>
+    <p>A public-interest dashboard tracking AI infrastructure, data centres, policy, corporate influence and accountability issues in Australia.</p>
   </header>
 
   <main>
-    <h2>Interactive Australia map</h2>
-    <p>Click a marker to view project status, risks, decision-makers, and source links.</p>
+    <section class="dashboard">
+      <div class="map-card">
+        <div class="map-header">
+          <div>
+            <h2>Australia AI infrastructure map</h2>
+            <p>Points show rough project locations. Click a point to view status, concerns, sources and project details.</p>
+          </div>
 
-    <div id="map"></div>
+          <div class="legend">
+            <span><i class="legend-dot risk-high"></i>High</span>
+            <span><i class="legend-dot risk-medium"></i>Medium</span>
+            <span><i class="legend-dot risk-low"></i>Low</span>
+            <span><i class="legend-dot risk-unknown"></i>Unknown</span>
+          </div>
+        </div>
 
-    <section class="grid">
-      <div class="card">
-        <h3>Data centres</h3>
-        <p>Track AI and cloud infrastructure projects by location, company, status, and risk.</p>
+        <div class="australia-map" id="map">
+          <svg class="australia-shape" viewBox="0 0 900 620" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <path
+              d="M146 304
+              C166 250 206 214 253 184
+              C306 150 369 121 438 115
+              C507 109 557 133 602 168
+              C659 213 727 218 766 265
+              C805 313 797 371 748 407
+              C705 438 654 442 609 470
+              C557 502 500 530 430 526
+              C370 522 337 492 296 479
+              C247 463 201 482 164 451
+              C126 419 118 359 146 304Z"
+              fill="#d9c7a3"
+              stroke="#8b7355"
+              stroke-width="4"
+            />
+            <path
+              d="M650 500
+              C674 486 708 492 723 515
+              C735 535 722 559 696 568
+              C670 577 641 568 630 546
+              C620 527 628 512 650 500Z"
+              fill="#d9c7a3"
+              stroke="#8b7355"
+              stroke-width="4"
+            />
+          </svg>
+
+          <div class="state-label" style="left: 22%; top: 54%;">WA</div>
+          <div class="state-label" style="left: 48%; top: 47%;">SA</div>
+          <div class="state-label" style="left: 70%; top: 38%;">QLD</div>
+          <div class="state-label" style="left: 78%; top: 63%;">NSW</div>
+          <div class="state-label" style="left: 72%; top: 77%;">VIC</div>
+          <div class="state-label" style="left: 75%; top: 87%;">TAS</div>
+          <div id="points"></div>
+        </div>
       </div>
 
-      <div class="card">
-        <h3>Policy tracker</h3>
-        <p>Follow bills, inquiries, approvals, and government decisions.</p>
-      </div>
+      <aside class="detail-panel" id="detail-panel">
+        <h2>Select a project</h2>
+        <div class="image-box">Project image will appear here when available.</div>
+        <p>Click a point on the Australia map to view details.</p>
+      </aside>
+    </section>
 
-      <div class="card">
-        <h3>Company tracker</h3>
-        <p>Monitor companies, lobbying, partnerships, privacy, security, energy, and water concerns.</p>
-      </div>
-
-      <div class="card">
+    <section class="summary-grid">
+      <div class="summary-card">
         <h3>Tracked projects</h3>
         <p id="project-count">Loading project records...</p>
+      </div>
+
+      <div class="summary-card">
+        <h3>Purpose</h3>
+        <p>Make AI infrastructure, policy and corporate influence visible and understandable.</p>
+      </div>
+
+      <div class="summary-card">
+        <h3>Next layer</h3>
+        <p>Companies, government actions, concerns, sources and public action pathways.</p>
       </div>
     </section>
 
@@ -163,39 +408,24 @@
     </section>
   </main>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
   <script>
     const SUPABASE_URL = 'https://gtelcczbtyyhloucuaad.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_I-Ws8RkklESe6lq50ZpCTg_ikbzt6Xz';
 
-    const map = L.map('map').setView([-25.2744, 133.7751], 4);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 18,
-      attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
+    let loadedProjects = [];
 
     function getRiskClass(riskLevel) {
       const risk = (riskLevel || 'unknown').toLowerCase();
-
       if (risk === 'high') return 'high';
       if (risk === 'medium') return 'medium';
       if (risk === 'low') return 'low';
-
       return 'unknown';
     }
 
-    function makeRiskIcon(riskLevel) {
+    function makeRiskTag(riskLevel) {
       const risk = getRiskClass(riskLevel);
-
-      return L.divIcon({
-        className: '',
-        html: `<div class="marker-dot marker-${risk}"></div>`,
-        iconSize: [24, 24],
-        iconAnchor: [12, 12],
-        popupAnchor: [0, -12]
-      });
+      const label = risk.charAt(0).toUpperCase() + risk.slice(1);
+      return `<span class="risk-tag ${risk}">${label} risk</span>`;
     }
 
     function makeSourceLinks(sourceLinks) {
@@ -204,15 +434,157 @@
       return sourceLinks
         .split('\n')
         .filter(link => link.trim() !== '')
-        .map(link => `<a href="${link.trim()}" target="_blank">${link.trim()}</a>`)
-        .join('<br>');
+        .map(link => `<a href="${link.trim()}" target="_blank" rel="noopener noreferrer">${link.trim()}</a>`)
+        .join('');
     }
 
-    function makeRiskTag(riskLevel) {
-      const risk = getRiskClass(riskLevel);
-      const label = risk.charAt(0).toUpperCase() + risk.slice(1);
+    function projectToPosition(project, index, allProjects) {
+      const lngMin = 112;
+      const lngMax = 154;
+      const latNorth = -10;
+      const latSouth = -44;
 
-      return `<span class="risk-tag risk-${risk}">${label}</span>`;
+      let x = ((Number(project.longitude) - lngMin) / (lngMax - lngMin)) * 100;
+      let y = ((latNorth - Number(project.latitude)) / (latNorth - latSouth)) * 100;
+
+      const nearbyBefore = allProjects
+        .slice(0, index)
+        .filter(other => {
+          const dx = Math.abs(Number(other.longitude) - Number(project.longitude));
+          const dy = Math.abs(Number(other.latitude) - Number(project.latitude));
+          return dx < 0.35 && dy < 0.35;
+        }).length;
+
+      const offsets = [
+        [0, 0],
+        [3.8, -3.2],
+        [-3.8, 3.2],
+        [5.2, 3.2],
+        [-5.2, -3.2],
+        [0, 5.2]
+      ];
+
+      const offset = offsets[nearbyBefore % offsets.length];
+
+      x = Math.max(5, Math.min(95, x + offset[0]));
+      y = Math.max(7, Math.min(93, y + offset[1]));
+
+      return { x, y };
+    }
+
+    function showProject(project) {
+      const panel = document.getElementById('detail-panel');
+      const imageHtml = project.image_url
+        ? `<img src="${project.image_url}" alt="${project.image_alt || project.project_name}">`
+        : `Image not added yet.<br><small>Later this can show a project photo, company image or planning document image.</small>`;
+
+      panel.innerHTML = `
+        <h2>${project.project_name}</h2>
+        <div class="image-box">${imageHtml}</div>
+        ${makeRiskTag(project.risk_level)}
+
+        <div class="detail-row">
+          <strong>Company</strong>
+          ${project.company_operator || 'Unknown'}
+        </div>
+
+        <div class="detail-row">
+          <strong>Location</strong>
+          ${project.location_name || 'Unknown'}${project.state ? ', ' + project.state : ''}
+        </div>
+
+        <div class="detail-row">
+          <strong>Status</strong>
+          ${project.status || 'Unknown'}
+        </div>
+
+        <div class="detail-row">
+          <strong>Decision maker</strong>
+          ${project.decision_maker || 'To verify'}
+        </div>
+
+        <div class="detail-row">
+          <strong>Approval status</strong>
+          ${project.approval_status || 'To verify'}
+        </div>
+
+        <div class="detail-row">
+          <strong>Summary</strong>
+          ${project.summary || 'No summary yet.'}
+        </div>
+
+        <div class="detail-row">
+          <strong>Energy concerns</strong>
+          ${project.energy_notes || 'No energy notes yet.'}
+        </div>
+
+        <div class="detail-row">
+          <strong>Water concerns</strong>
+          ${project.water_notes || 'No water notes yet.'}
+        </div>
+
+        <div class="detail-row sources">
+          <strong>Sources</strong>
+          ${makeSourceLinks(project.source_links)}
+        </div>
+      `;
+    }
+
+    function renderPoints(projects) {
+      const points = document.getElementById('points');
+      points.innerHTML = '';
+
+      projects.forEach((project, index) => {
+        if (!project.latitude || !project.longitude) return;
+
+        const position = projectToPosition(project, index, projects);
+        const risk = getRiskClass(project.risk_level);
+
+        const button = document.createElement('button');
+        button.className = 'project-point';
+        button.style.left = `${position.x}%`;
+        button.style.top = `${position.y}%`;
+        button.setAttribute('aria-label', project.project_name);
+
+        button.innerHTML = `
+          <span class="point-core risk-${risk}"></span>
+          <span class="point-label">${project.state || ''} ${project.risk_level || ''}</span>
+        `;
+
+        button.addEventListener('click', () => showProject(project));
+
+        points.appendChild(button);
+      });
+    }
+
+    function renderProjectList(projects) {
+      const list = document.getElementById('project-list');
+      list.innerHTML = '';
+
+      projects.forEach((project, index) => {
+        const item = document.createElement('div');
+        item.className = 'project-item';
+
+        item.innerHTML = `
+          <h3>${project.project_name}</h3>
+          <p>${makeRiskTag(project.risk_level)}</p>
+          <p><strong>Company:</strong> ${project.company_operator || 'Unknown'}</p>
+          <p><strong>Location:</strong> ${project.location_name || 'Unknown'}${project.state ? ', ' + project.state : ''}</p>
+          <p><strong>Status:</strong> ${project.status || 'Unknown'}</p>
+          <p>${project.summary || 'No summary yet.'}</p>
+          <button type="button" data-index="${index}">View details</button>
+        `;
+
+        list.appendChild(item);
+      });
+
+      list.querySelectorAll('button').forEach(button => {
+        button.addEventListener('click', () => {
+          const project = loadedProjects[Number(button.dataset.index)];
+          showProject(project);
+          window.scrollTo({ top: 0, behaviour: 'smooth' });
+        });
+      });
     }
 
     async function loadProjects() {
@@ -231,52 +603,17 @@
         return;
       }
 
+      loadedProjects = projects;
+
       document.getElementById('project-count').textContent =
         `${projects.length} project records loaded.`;
 
-      const list = document.getElementById('project-list');
-      list.innerHTML = '';
+      renderPoints(projects);
+      renderProjectList(projects);
 
-      projects.forEach(project => {
-        if (project.latitude && project.longitude) {
-          const marker = L.marker(
-            [project.latitude, project.longitude],
-            { icon: makeRiskIcon(project.risk_level) }
-          ).addTo(map);
-
-          marker.bindPopup(`
-            <strong>${project.project_name}</strong><br><br>
-            ${makeRiskTag(project.risk_level)}<br><br>
-            <strong>Company:</strong> ${project.company_operator || 'Unknown'}<br>
-            <strong>Location:</strong> ${project.location_name || 'Unknown'}, ${project.state || ''}<br>
-            <strong>Status:</strong> ${project.status || 'Unknown'}<br><br>
-            <strong>Decision maker:</strong> ${project.decision_maker || 'To verify'}<br>
-            <strong>Approval status:</strong> ${project.approval_status || 'To verify'}<br><br>
-            <strong>Summary:</strong><br>
-            ${project.summary || 'No summary yet.'}<br><br>
-            <strong>Energy:</strong><br>
-            ${project.energy_notes || 'No energy notes yet.'}<br><br>
-            <strong>Water:</strong><br>
-            ${project.water_notes || 'No water notes yet.'}<br><br>
-            <strong>Sources:</strong><br>
-            ${makeSourceLinks(project.source_links)}
-          `);
-        }
-
-        const item = document.createElement('div');
-        item.className = 'project-item';
-
-        item.innerHTML = `
-          <h3>${project.project_name}</h3>
-          <p>${makeRiskTag(project.risk_level)}</p>
-          <p><strong>Company:</strong> ${project.company_operator || 'Unknown'}</p>
-          <p><strong>Location:</strong> ${project.location_name || 'Unknown'}, ${project.state || ''}</p>
-          <p><strong>Status:</strong> ${project.status || 'Unknown'}</p>
-          <p>${project.summary || 'No summary yet.'}</p>
-        `;
-
-        list.appendChild(item);
-      });
+      if (projects.length > 0) {
+        showProject(projects[0]);
+      }
     }
 
     loadProjects();
