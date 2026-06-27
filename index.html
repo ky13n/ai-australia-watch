@@ -21,6 +21,10 @@
       --medium: #f97316;
       --low: #16a34a;
       --unknown: #6b7280;
+      --blue: #1d4ed8;
+      --green-bg: #ecfdf5;
+      --green-border: #bbf7d0;
+      --green-ink: #14532d;
     }
 
     body {
@@ -37,23 +41,32 @@
     }
 
     header p {
-      max-width: 900px;
+      max-width: 980px;
       line-height: 1.5;
     }
 
     main {
       padding: 24px;
-      max-width: 1320px;
+      max-width: 1440px;
       margin: auto;
     }
 
     .map-card,
     .project-list,
-    .summary-card {
+    .summary-card,
+    .action-card,
+    .campaign-section {
       background: var(--panel);
       border: 1px solid var(--border);
       border-radius: 18px;
       box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    }
+
+    .top-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(330px, 0.8fr);
+      gap: 20px;
+      align-items: stretch;
     }
 
     .map-card {
@@ -68,14 +81,18 @@
       margin-bottom: 12px;
     }
 
-    .map-header h2 {
+    .map-header h2,
+    .action-card h2,
+    .campaign-section h2 {
       margin: 0 0 8px 0;
     }
 
-    .map-header p {
+    .map-header p,
+    .action-card p,
+    .campaign-section p {
       margin: 0;
       color: var(--muted);
-      line-height: 1.4;
+      line-height: 1.45;
     }
 
     .record-count {
@@ -110,7 +127,7 @@
     }
 
     #map {
-      height: 560px;
+      height: 620px;
       width: 100%;
       border-radius: 18px;
       border: 1px solid #cbd5e1;
@@ -134,9 +151,79 @@
     .marker-low { background: var(--low); }
     .marker-unknown { background: var(--unknown); }
 
+    .action-card {
+      padding: 20px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 10px !important;
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: var(--green-bg);
+      border: 1px solid var(--green-border);
+      color: var(--green-ink) !important;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .action-focus {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 14px;
+      margin: 16px 0;
+    }
+
+    .action-focus strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .campaign-priorities {
+      margin: 16px 0;
+      padding-left: 18px;
+      color: var(--ink);
+      line-height: 1.45;
+    }
+
+    .campaign-priorities li {
+      margin-bottom: 8px;
+    }
+
+    .action-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .action-item {
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .action-item h3 {
+      margin: 0 0 8px 0;
+      font-size: 16px;
+    }
+
+    .action-item p {
+      margin: 8px 0;
+      color: var(--ink);
+      font-size: 14px;
+    }
+
+    .small-note {
+      font-size: 13px;
+      color: var(--muted) !important;
+      margin-top: 12px !important;
+    }
+
     .summary-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 16px;
       margin: 20px 0;
     }
@@ -150,6 +237,35 @@
     }
 
     .summary-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .campaign-section {
+      padding: 24px;
+      margin: 20px 0;
+    }
+
+    .campaign-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .campaign-box {
+      border: 1px solid #e2e8f0;
+      background: #f8fafc;
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .campaign-box h3 {
+      margin: 0 0 8px 0;
+    }
+
+    .campaign-box p {
       margin: 0;
       color: var(--muted);
       line-height: 1.45;
@@ -170,7 +286,8 @@
     }
 
     .project-item button,
-    .modal-close {
+    .modal-close,
+    .action-item button {
       border: 1px solid #cbd5e1;
       background: #f8fafc;
       border-radius: 10px;
@@ -224,7 +341,7 @@
 
     .modal-card {
       background: white;
-      max-width: 900px;
+      max-width: 940px;
       margin: 32px auto;
       border-radius: 18px;
       border: 1px solid #d1d5db;
@@ -297,10 +414,24 @@
     }
 
     a {
-      color: #1d4ed8;
+      color: var(--blue);
+    }
+
+    @media (max-width: 1050px) {
+      .top-grid {
+        grid-template-columns: 1fr;
+      }
+
+      #map {
+        height: 560px;
+      }
     }
 
     @media (max-width: 800px) {
+      main {
+        padding: 16px;
+      }
+
       .map-header {
         display: block;
       }
@@ -332,33 +463,62 @@
 <body>
   <header>
     <h1>AI Australia Watch</h1>
-    <p>A public-interest dashboard tracking AI infrastructure, data centres, policy, corporate influence and accountability issues in Australia.</p>
+    <p>A public-interest dashboard tracking AI infrastructure, data centres, clean energy accountability, policy, corporate influence and public action in Australia.</p>
   </header>
 
   <main>
-    <section class="map-card">
-      <div class="map-header">
-        <div>
-          <h2>Data centre locations</h2>
-          <p>Map of tracked AI and cloud data centre sites in Australia. Click a marker to view project details, risks and sources.</p>
-          <p class="record-count" id="project-count">Loading project records...</p>
+    <section class="top-grid">
+      <section class="map-card">
+        <div class="map-header">
+          <div>
+            <h2>Data centre locations</h2>
+            <p>Map of tracked AI and cloud data centre sites in Australia. Click a marker to view project details, risks, clean-energy issues and sources.</p>
+            <p class="record-count" id="project-count">Loading project records...</p>
+          </div>
+
+          <div class="legend">
+            <span><i class="legend-dot" style="background:#dc2626;"></i>High</span>
+            <span><i class="legend-dot" style="background:#f97316;"></i>Medium</span>
+            <span><i class="legend-dot" style="background:#16a34a;"></i>Low</span>
+            <span><i class="legend-dot" style="background:#6b7280;"></i>Unknown</span>
+          </div>
         </div>
 
-        <div class="legend">
-          <span><i class="legend-dot" style="background:#dc2626;"></i>High</span>
-          <span><i class="legend-dot" style="background:#f97316;"></i>Medium</span>
-          <span><i class="legend-dot" style="background:#16a34a;"></i>Low</span>
-          <span><i class="legend-dot" style="background:#6b7280;"></i>Unknown</span>
-        </div>
-      </div>
+        <div id="map"></div>
+      </section>
 
-      <div id="map"></div>
+      <aside class="action-card">
+        <p class="eyebrow">Get involved</p>
+        <h2>Clean energy accountability</h2>
+        <p>This project is not about arguing that all AI infrastructure should be stopped. It is about demanding clean energy, transparent planning, water disclosure and enforceable safeguards before major data centre growth is locked in.</p>
+
+        <div class="action-focus">
+          <strong>Core public ask</strong>
+          <p>New AI and cloud data centres should prove they are powered by additional clean energy, disclose diesel backup and water use, and face cumulative grid and emissions assessment.</p>
+        </div>
+
+        <ul class="campaign-priorities">
+          <li>Require additional new renewables for new data centre demand.</li>
+          <li>Restrict and publicly report diesel backup generator use.</li>
+          <li>Publish facility-level energy and water data.</li>
+          <li>Attach binding clean-energy conditions to fast-tracked approvals.</li>
+        </ul>
+
+        <p class="small-note"><strong>Live campaign links next:</strong> this panel currently shows project-based public asks. Verified submission, survey and campaign links will be added next.</p>
+
+        <div class="action-list" id="action-list">Loading public action asks...</div>
+      </aside>
     </section>
 
     <section class="summary-grid">
       <div class="summary-card">
         <h3>Data centres</h3>
         <p>Track AI and cloud infrastructure projects by location, company, status, energy use, water concerns and risk level.</p>
+      </div>
+
+      <div class="summary-card">
+        <h3>Clean energy accountability</h3>
+        <p>Track diesel backup, grid demand, renewable energy claims, fossil fuel links and whether clean-energy promises are binding.</p>
       </div>
 
       <div class="summary-card">
@@ -373,7 +533,34 @@
 
       <div class="summary-card">
         <h3>Public action tracker</h3>
-        <p>Track campaigns, submissions, community concerns and ways people can respond.</p>
+        <p>Track campaigns, submissions, surveys, community concerns and ways people can respond.</p>
+      </div>
+    </section>
+
+    <section class="campaign-section">
+      <h2>What the campaign focus is</h2>
+      <p>AI Australia Watch focuses on public-interest safeguards. The central question is not whether AI exists, but whether the infrastructure behind it is being approved with clean energy, water transparency and democratic accountability.</p>
+
+      <div class="campaign-grid">
+        <div class="campaign-box">
+          <h3>Clean power</h3>
+          <p>Require new data centre demand to be matched by additional renewable energy, not vague claims or existing certificates.</p>
+        </div>
+
+        <div class="campaign-box">
+          <h3>Diesel transparency</h3>
+          <p>Publish backup generator numbers, diesel storage, run hours, emissions and air-quality monitoring, especially near homes and schools.</p>
+        </div>
+
+        <div class="campaign-box">
+          <h3>Water disclosure</h3>
+          <p>Show how much water each facility uses, whether it is potable or recycled, and whether low-water claims are independently verified.</p>
+        </div>
+
+        <div class="campaign-box">
+          <h3>Enforceable policy</h3>
+          <p>Turn government expectations and company sustainability claims into binding approval conditions and contract requirements.</p>
+        </div>
       </div>
     </section>
 
@@ -436,13 +623,18 @@
       return value !== null && value !== undefined && String(value).trim() !== '';
     }
 
+    function formatText(value) {
+      if (!hasText(value)) return '';
+      return escapeHtml(value).replaceAll('\n', '<br>');
+    }
+
     function optionalDetailRow(label, value) {
       if (!hasText(value)) return '';
 
       return `
         <div class="detail-row">
           <strong>${escapeHtml(label)}</strong>
-          ${escapeHtml(value)}
+          ${formatText(value)}
         </div>
       `;
     }
@@ -477,7 +669,7 @@
     }
 
     function makeSourceLinks(sourceLinks) {
-      if (!sourceLinks) return 'No source links yet.';
+      if (!hasText(sourceLinks)) return 'No source links yet.';
 
       return sourceLinks
         .split('\n')
@@ -489,6 +681,31 @@
         .join('');
     }
 
+    function makeCleanEnergySection(project) {
+      const sectionRows = [
+        optionalDetailRow('Fossil fuel notes', project.fossil_fuel_notes),
+        optionalDetailRow('Clean energy notes', project.clean_energy_notes),
+        optionalDetailRow('Energy policy risk', project.energy_policy_risk)
+      ].join('');
+
+      const sourceRows = hasText(project.clean_energy_source_links)
+        ? `
+          <div class="detail-row sources">
+            <strong>Clean energy sources</strong>
+            ${makeSourceLinks(project.clean_energy_source_links)}
+          </div>
+        `
+        : '';
+
+      if (!sectionRows.trim() && !sourceRows.trim()) return '';
+
+      return `
+        <h3 class="detail-section-heading">Clean energy and fossil fuel accountability</h3>
+        ${sectionRows}
+        ${sourceRows}
+      `;
+    }
+
     function makeAccountabilitySection(project) {
       const sectionRows = [
         optionalDetailRow('Privacy / security', project.privacy_or_security_notes),
@@ -496,10 +713,11 @@
         optionalDetailRow('Campaign status', project.campaign_status),
         optionalDetailRow('What to watch', project.what_to_watch),
         optionalDetailRow('Public action notes', project.public_action_notes),
+        optionalDetailRow('What still needs verification', project.what_still_needs_verification),
         optionalDetailRow('Confidence level', project.confidence_level)
       ].join('');
 
-      if (!hasText(sectionRows)) return '';
+      if (!sectionRows.trim()) return '';
 
       return `
         <h3 class="detail-section-heading">Accountability and public action</h3>
@@ -537,6 +755,8 @@
             ${escapeHtml(project.location_name || 'Unknown')}${project.state ? ', ' + escapeHtml(project.state) : ''}
           </div>
 
+          ${optionalDetailRow('Coordinate precision', project.coordinate_precision)}
+
           <div class="detail-row">
             <strong>Status</strong>
             ${escapeHtml(project.status || 'Unknown')}
@@ -554,23 +774,27 @@
 
           <div class="detail-row">
             <strong>Summary</strong>
-            ${escapeHtml(project.summary || 'No summary yet.')}
+            ${formatText(project.summary || 'No summary yet.')}
           </div>
+
+          <h3 class="detail-section-heading">Energy and water</h3>
 
           <div class="detail-row">
             <strong>Energy concerns</strong>
-            ${escapeHtml(project.energy_notes || 'No energy notes yet.')}
+            ${formatText(project.energy_notes || 'No energy notes yet.')}
           </div>
 
           <div class="detail-row">
             <strong>Water concerns</strong>
-            ${escapeHtml(project.water_notes || 'No water notes yet.')}
+            ${formatText(project.water_notes || 'No water notes yet.')}
           </div>
+
+          ${makeCleanEnergySection(project)}
 
           ${makeAccountabilitySection(project)}
 
           <div class="detail-row sources">
-            <strong>Sources</strong>
+            <strong>Main sources</strong>
             ${makeSourceLinks(project.source_links)}
           </div>
         </div>
@@ -651,6 +875,71 @@
       }
     }
 
+    function getActionScore(project) {
+      let score = 0;
+      const risk = getRiskClass(project.risk_level);
+      const status = String(project.status || '').toLowerCase();
+      const campaignStatus = String(project.campaign_status || '').toLowerCase();
+
+      if (risk === 'high') score += 30;
+      if (risk === 'medium') score += 20;
+      if (risk === 'low') score += 10;
+
+      if (status.includes('proposed')) score += 20;
+      if (status.includes('planning')) score += 20;
+      if (status.includes('under assessment')) score += 20;
+      if (campaignStatus.includes('planning')) score += 15;
+      if (campaignStatus.includes('campaign')) score += 15;
+      if (hasText(project.fossil_fuel_notes)) score += 10;
+      if (hasText(project.energy_policy_risk)) score += 10;
+
+      return score;
+    }
+
+    function renderActionList(projects) {
+      const actionList = document.getElementById('action-list');
+
+      const actionProjects = projects
+        .filter(project =>
+          hasText(project.public_action_notes) ||
+          hasText(project.energy_policy_risk) ||
+          hasText(project.what_to_watch)
+        )
+        .sort((a, b) => getActionScore(b) - getActionScore(a))
+        .slice(0, 6);
+
+      actionList.innerHTML = '';
+
+      if (actionProjects.length === 0) {
+        actionList.textContent = 'No public action asks have been added yet.';
+        return;
+      }
+
+      actionProjects.forEach(project => {
+        const item = document.createElement('div');
+        item.className = 'action-item';
+
+        item.innerHTML = `
+          <h3>${escapeHtml(project.project_name || 'Project')}</h3>
+          ${makeRiskTag(project.risk_level)}
+          <p><strong>Current ask:</strong> ${formatText(project.public_action_notes || project.energy_policy_risk || 'Public action notes not added yet.')}</p>
+          ${hasText(project.what_to_watch) ? `<p><strong>Watch:</strong> ${formatText(project.what_to_watch)}</p>` : ''}
+          <button type="button">View project details</button>
+        `;
+
+        item.querySelector('button').addEventListener('click', () => {
+          if (project.latitude && project.longitude) {
+            map.setView([Number(project.latitude), Number(project.longitude)], 12);
+          }
+
+          openProjectModal(project);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        actionList.appendChild(item);
+      });
+    }
+
     function renderProjectList(projects) {
       const list = document.getElementById('project-list');
       list.innerHTML = '';
@@ -659,13 +948,17 @@
         const item = document.createElement('div');
         item.className = 'project-item';
 
+        const hasMapPin = project.latitude && project.longitude;
+
         item.innerHTML = `
           <h3>${escapeHtml(project.project_name)}</h3>
           <p>${makeRiskTag(project.risk_level)}</p>
           <p><strong>Company:</strong> ${escapeHtml(project.company_operator || 'Unknown')}</p>
           <p><strong>Location:</strong> ${escapeHtml(project.location_name || 'Unknown')}${project.state ? ', ' + escapeHtml(project.state) : ''}</p>
           <p><strong>Status:</strong> ${escapeHtml(project.status || 'Unknown')}</p>
-          <p>${escapeHtml(project.summary || 'No summary yet.')}</p>
+          ${hasMapPin ? '' : '<p><em>No public map pin because site coordinates are unavailable, undisclosed or not site-specific.</em></p>'}
+          <p>${formatText(project.summary || 'No summary yet.')}</p>
+          ${hasText(project.energy_policy_risk) ? `<p><strong>Energy policy risk:</strong> ${formatText(project.energy_policy_risk)}</p>` : ''}
           <button type="button" data-index="${index}">View details</button>
         `;
 
@@ -698,18 +991,22 @@
       if (!Array.isArray(projects)) {
         document.getElementById('project-count').textContent = 'Could not load project records.';
         document.getElementById('project-list').textContent = 'Could not load projects.';
+        document.getElementById('action-list').textContent = 'Could not load public action asks.';
         console.log(projects);
         return;
       }
 
       loadedProjects = projects;
 
-      const noun = projects.length === 1 ? 'project record' : 'project records';
+      const mappedProjects = projects.filter(project => project.latitude && project.longitude);
+      const recordNoun = projects.length === 1 ? 'record' : 'records';
+      const mapNoun = mappedProjects.length === 1 ? 'map location' : 'map locations';
 
       document.getElementById('project-count').textContent =
-        `${projects.length} ${noun} currently tracked.`;
+        `${projects.length} project ${recordNoun} tracked. ${mappedProjects.length} public ${mapNoun}.`;
 
       renderMarkers(projects);
+      renderActionList(projects);
       renderProjectList(projects);
     }
 
