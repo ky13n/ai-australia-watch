@@ -39,6 +39,7 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 16px;
+      margin-bottom: 24px;
     }
 
     .card {
@@ -48,14 +49,76 @@
       border: 1px solid #ddd;
     }
 
-    .tag {
+    .project-list {
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      border: 1px solid #ddd;
+    }
+
+    .project-item {
+      border-top: 1px solid #e5e7eb;
+      padding: 16px 0;
+    }
+
+    .project-item:first-child {
+      border-top: none;
+    }
+
+    .risk-tag {
       display: inline-block;
       padding: 4px 8px;
       border-radius: 999px;
-      background: #fee2e2;
-      color: #991b1b;
       font-size: 13px;
       font-weight: bold;
+    }
+
+    .risk-high {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .risk-medium {
+      background: #ffedd5;
+      color: #9a3412;
+    }
+
+    .risk-low {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .risk-unknown {
+      background: #e5e7eb;
+      color: #374151;
+    }
+
+    .marker-dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 3px solid white;
+      box-shadow: 0 0 0 2px #111827;
+    }
+
+    .marker-high {
+      background: #dc2626;
+    }
+
+    .marker-medium {
+      background: #f97316;
+    }
+
+    .marker-low {
+      background: #16a34a;
+    }
+
+    .marker-unknown {
+      background: #6b7280;
+    }
+
+    a {
+      color: #1d4ed8;
     }
   </style>
 </head>
@@ -93,6 +156,11 @@
         <p id="project-count">Loading project records...</p>
       </div>
     </section>
+
+    <section class="project-list">
+      <h2>Project list</h2>
+      <div id="project-list">Loading projects...</div>
+    </section>
   </main>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -108,8 +176,47 @@
       attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 
+    function getRiskClass(riskLevel) {
+      const risk = (riskLevel || 'unknown').toLowerCase();
+
+      if (risk === 'high') return 'high';
+      if (risk === 'medium') return 'medium';
+      if (risk === 'low') return 'low';
+
+      return 'unknown';
+    }
+
+    function makeRiskIcon(riskLevel) {
+      const risk = getRiskClass(riskLevel);
+
+      return L.divIcon({
+        className: '',
+        html: `<div class="marker-dot marker-${risk}"></div>`,
+        iconSize: [24, 24],
+        iconAnchor: [12, 12],
+        popupAnchor: [0, -12]
+      });
+    }
+
+    function makeSourceLinks(sourceLinks) {
+      if (!sourceLinks) return 'No source links yet.';
+
+      return sourceLinks
+        .split('\n')
+        .filter(link => link.trim() !== '')
+        .map(link => `<a href="${link.trim()}" target="_blank">${link.trim()}</a>`)
+        .join('<br>');
+    }
+
+    function makeRiskTag(riskLevel) {
+      const risk = getRiskClass(riskLevel);
+      const label = risk.charAt(0).toUpperCase() + risk.slice(1);
+
+      return `<span class="risk-tag risk-${risk}">${label}</span>`;
+    }
+
     async function loadProjects() {
-      const response = await fetch(`${SUPABASE_URL}/rest/v1/projects?select=*`, {
+      const response = await fetch(`${SUPABASE_URL}/rest/v1/projects?select=*&order=state.asc`, {
         headers: {
           apikey: SUPABASE_KEY
         }
@@ -117,29 +224,58 @@
 
       const projects = await response.json();
 
+      if (!Array.isArray(projects)) {
+        document.getElementById('project-count').textContent = 'Could not load project records.';
+        document.getElementById('project-list').textContent = 'Could not load projects.';
+        console.log(projects);
+        return;
+      }
+
       document.getElementById('project-count').textContent =
-        `${projects.length} project record loaded.`;
+        `${projects.length} project records loaded.`;
+
+      const list = document.getElementById('project-list');
+      list.innerHTML = '';
 
       projects.forEach(project => {
-        if (!project.latitude || !project.longitude) return;
+        if (project.latitude && project.longitude) {
+          const marker = L.marker(
+            [project.latitude, project.longitude],
+            { icon: makeRiskIcon(project.risk_level) }
+          ).addTo(map);
 
-        const marker = L.marker([project.latitude, project.longitude]).addTo(map);
+          marker.bindPopup(`
+            <strong>${project.project_name}</strong><br><br>
+            ${makeRiskTag(project.risk_level)}<br><br>
+            <strong>Company:</strong> ${project.company_operator || 'Unknown'}<br>
+            <strong>Location:</strong> ${project.location_name || 'Unknown'}, ${project.state || ''}<br>
+            <strong>Status:</strong> ${project.status || 'Unknown'}<br><br>
+            <strong>Decision maker:</strong> ${project.decision_maker || 'To verify'}<br>
+            <strong>Approval status:</strong> ${project.approval_status || 'To verify'}<br><br>
+            <strong>Summary:</strong><br>
+            ${project.summary || 'No summary yet.'}<br><br>
+            <strong>Energy:</strong><br>
+            ${project.energy_notes || 'No energy notes yet.'}<br><br>
+            <strong>Water:</strong><br>
+            ${project.water_notes || 'No water notes yet.'}<br><br>
+            <strong>Sources:</strong><br>
+            ${makeSourceLinks(project.source_links)}
+          `);
+        }
 
-        marker.bindPopup(`
-          <strong>${project.project_name}</strong><br><br>
-          <strong>Company:</strong> ${project.company_operator || 'Unknown'}<br>
-          <strong>Location:</strong> ${project.location_name || 'Unknown'}, ${project.state || ''}<br>
-          <strong>Status:</strong> ${project.status || 'Unknown'}<br>
-          <strong>Risk level:</strong> ${project.risk_level || 'Unknown'}<br><br>
-          <strong>Decision maker:</strong> ${project.decision_maker || 'To verify'}<br>
-          <strong>Approval status:</strong> ${project.approval_status || 'To verify'}<br><br>
-          <strong>Summary:</strong><br>
-          ${project.summary || 'No summary yet.'}<br><br>
-          <strong>Energy:</strong><br>
-          ${project.energy_notes || 'No energy notes yet.'}<br><br>
-          <strong>Water:</strong><br>
-          ${project.water_notes || 'No water notes yet.'}
-        `);
+        const item = document.createElement('div');
+        item.className = 'project-item';
+
+        item.innerHTML = `
+          <h3>${project.project_name}</h3>
+          <p>${makeRiskTag(project.risk_level)}</p>
+          <p><strong>Company:</strong> ${project.company_operator || 'Unknown'}</p>
+          <p><strong>Location:</strong> ${project.location_name || 'Unknown'}, ${project.state || ''}</p>
+          <p><strong>Status:</strong> ${project.status || 'Unknown'}</p>
+          <p>${project.summary || 'No summary yet.'}</p>
+        `;
+
+        list.appendChild(item);
       });
     }
 
