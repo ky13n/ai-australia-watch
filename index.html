@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI Australia Watch</title>
 
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
   <style>
     :root {
       --bg: #f4f1ea;
@@ -45,7 +47,7 @@
 
     .dashboard {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 380px;
+      grid-template-columns: minmax(0, 1fr) 390px;
       gap: 20px;
       align-items: start;
     }
@@ -107,70 +109,35 @@
       display: inline-block;
     }
 
-    .australia-map {
-      position: relative;
+    #map {
       height: 650px;
       border-radius: 18px;
-      background:
-        radial-gradient(circle at 85% 72%, rgba(59,130,246,0.12), transparent 18%),
-        radial-gradient(circle at 25% 70%, rgba(59,130,246,0.12), transparent 20%),
-        linear-gradient(180deg, #e7f0f7 0%, #dbeafe 100%);
       border: 1px solid #cbd5e1;
+      background:
+        radial-gradient(circle at 75% 70%, rgba(59,130,246,0.16), transparent 18%),
+        radial-gradient(circle at 26% 67%, rgba(59,130,246,0.13), transparent 20%),
+        linear-gradient(180deg, #e7f0f7 0%, #dbeafe 100%);
       overflow: hidden;
     }
 
-    .australia-shape {
-      position: absolute;
-      inset: 34px;
-      width: calc(100% - 68px);
-      height: calc(100% - 68px);
-      opacity: 0.92;
+    .leaflet-container {
+      background: transparent;
+      font-family: Arial, sans-serif;
+    }
+
+    .leaflet-control-attribution {
+      font-size: 11px;
     }
 
     .state-label {
-      position: absolute;
       font-size: 12px;
       font-weight: bold;
-      color: rgba(15, 23, 42, 0.45);
-      pointer-events: none;
-    }
-
-    .project-point {
-      position: absolute;
-      transform: translate(-50%, -50%);
-      border: none;
-      background: transparent;
-      cursor: pointer;
-      z-index: 5;
-    }
-
-    .point-core {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      border: 3px solid white;
-      box-shadow: 0 0 0 2px #111827, 0 8px 18px rgba(0,0,0,0.25);
-      display: block;
-    }
-
-    .point-label {
-      position: absolute;
-      left: 28px;
-      top: -4px;
-      background: rgba(255,255,255,0.95);
-      border: 1px solid #d1d5db;
+      color: rgba(15, 23, 42, 0.55);
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px solid rgba(148, 163, 184, 0.45);
       border-radius: 999px;
-      padding: 4px 8px;
-      font-size: 12px;
-      font-weight: bold;
-      white-space: nowrap;
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
+      padding: 3px 7px;
     }
-
-    .risk-high { background: var(--high); }
-    .risk-medium { background: var(--medium); }
-    .risk-low { background: var(--low); }
-    .risk-unknown { background: var(--unknown); }
 
     .detail-panel {
       padding: 20px;
@@ -304,12 +271,8 @@
         position: static;
       }
 
-      .australia-map {
-        height: 520px;
-      }
-
-      .point-label {
-        display: none;
+      #map {
+        height: 540px;
       }
     }
   </style>
@@ -327,55 +290,18 @@
         <div class="map-header">
           <div>
             <h2>Australia AI infrastructure map</h2>
-            <p>Points show rough project locations. Click a point to view status, concerns, sources and project details.</p>
+            <p>Points show rough project locations. Nearby Sydney points are slightly offset so individual projects can be selected.</p>
           </div>
 
           <div class="legend">
-            <span><i class="legend-dot risk-high"></i>High</span>
-            <span><i class="legend-dot risk-medium"></i>Medium</span>
-            <span><i class="legend-dot risk-low"></i>Low</span>
-            <span><i class="legend-dot risk-unknown"></i>Unknown</span>
+            <span><i class="legend-dot" style="background:#dc2626;"></i>High</span>
+            <span><i class="legend-dot" style="background:#f97316;"></i>Medium</span>
+            <span><i class="legend-dot" style="background:#16a34a;"></i>Low</span>
+            <span><i class="legend-dot" style="background:#6b7280;"></i>Unknown</span>
           </div>
         </div>
 
-        <div class="australia-map" id="map">
-          <svg class="australia-shape" viewBox="0 0 900 620" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-            <path
-              d="M146 304
-              C166 250 206 214 253 184
-              C306 150 369 121 438 115
-              C507 109 557 133 602 168
-              C659 213 727 218 766 265
-              C805 313 797 371 748 407
-              C705 438 654 442 609 470
-              C557 502 500 530 430 526
-              C370 522 337 492 296 479
-              C247 463 201 482 164 451
-              C126 419 118 359 146 304Z"
-              fill="#d9c7a3"
-              stroke="#8b7355"
-              stroke-width="4"
-            />
-            <path
-              d="M650 500
-              C674 486 708 492 723 515
-              C735 535 722 559 696 568
-              C670 577 641 568 630 546
-              C620 527 628 512 650 500Z"
-              fill="#d9c7a3"
-              stroke="#8b7355"
-              stroke-width="4"
-            />
-          </svg>
-
-          <div class="state-label" style="left: 22%; top: 54%;">WA</div>
-          <div class="state-label" style="left: 48%; top: 47%;">SA</div>
-          <div class="state-label" style="left: 70%; top: 38%;">QLD</div>
-          <div class="state-label" style="left: 78%; top: 63%;">NSW</div>
-          <div class="state-label" style="left: 72%; top: 77%;">VIC</div>
-          <div class="state-label" style="left: 75%; top: 87%;">TAS</div>
-          <div id="points"></div>
-        </div>
+        <div id="map"></div>
       </div>
 
       <aside class="detail-panel" id="detail-panel">
@@ -408,11 +334,27 @@
     </section>
   </main>
 
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
   <script>
     const SUPABASE_URL = 'https://gtelcczbtyyhloucuaad.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_I-Ws8RkklESe6lq50ZpCTg_ikbzt6Xz';
 
     let loadedProjects = [];
+
+    const map = L.map('map', {
+      zoomControl: true,
+      scrollWheelZoom: true,
+      minZoom: 3,
+      maxZoom: 8
+    });
+
+    const riskColours = {
+      high: '#dc2626',
+      medium: '#f97316',
+      low: '#16a34a',
+      unknown: '#6b7280'
+    };
 
     function getRiskClass(riskLevel) {
       const risk = (riskLevel || 'unknown').toLowerCase();
@@ -438,38 +380,30 @@
         .join('');
     }
 
-    function projectToPosition(project, index, allProjects) {
-      const lngMin = 112;
-      const lngMax = 154;
-      const latNorth = -10;
-      const latSouth = -44;
-
-      let x = ((Number(project.longitude) - lngMin) / (lngMax - lngMin)) * 100;
-      let y = ((latNorth - Number(project.latitude)) / (latNorth - latSouth)) * 100;
+    function getJitteredLatLng(project, index, allProjects) {
+      const lat = Number(project.latitude);
+      const lng = Number(project.longitude);
 
       const nearbyBefore = allProjects
         .slice(0, index)
         .filter(other => {
-          const dx = Math.abs(Number(other.longitude) - Number(project.longitude));
-          const dy = Math.abs(Number(other.latitude) - Number(project.latitude));
+          const dx = Math.abs(Number(other.longitude) - lng);
+          const dy = Math.abs(Number(other.latitude) - lat);
           return dx < 0.35 && dy < 0.35;
         }).length;
 
       const offsets = [
         [0, 0],
-        [3.8, -3.2],
-        [-3.8, 3.2],
-        [5.2, 3.2],
-        [-5.2, -3.2],
-        [0, 5.2]
+        [0.10, 0.10],
+        [-0.10, -0.10],
+        [0.14, -0.06],
+        [-0.14, 0.06],
+        [0.00, 0.16]
       ];
 
       const offset = offsets[nearbyBefore % offsets.length];
 
-      x = Math.max(5, Math.min(95, x + offset[0]));
-      y = Math.max(7, Math.min(93, y + offset[1]));
-
-      return { x, y };
+      return [lat + offset[0], lng + offset[1]];
     }
 
     function showProject(project) {
@@ -530,30 +464,75 @@
       `;
     }
 
-    function renderPoints(projects) {
-      const points = document.getElementById('points');
-      points.innerHTML = '';
+    async function loadAustraliaOutline() {
+      const response = await fetch('https://code.highcharts.com/mapdata/countries/au/au-all.geo.json');
+      const australiaGeoJson = await response.json();
 
+      const outline = L.geoJSON(australiaGeoJson, {
+        style: {
+          color: '#8b7355',
+          weight: 1.6,
+          fillColor: '#d9c7a3',
+          fillOpacity: 0.92
+        },
+        interactive: false
+      }).addTo(map);
+
+      map.fitBounds(outline.getBounds(), {
+        padding: [20, 20]
+      });
+
+      addStateLabels();
+    }
+
+    function addStateLabels() {
+      const labels = [
+        { name: 'WA', lat: -26.5, lng: 121.0 },
+        { name: 'NT', lat: -19.5, lng: 133.0 },
+        { name: 'SA', lat: -30.0, lng: 135.5 },
+        { name: 'QLD', lat: -22.5, lng: 145.0 },
+        { name: 'NSW', lat: -32.2, lng: 147.0 },
+        { name: 'VIC', lat: -37.0, lng: 144.0 },
+        { name: 'TAS', lat: -42.0, lng: 147.0 },
+        { name: 'ACT', lat: -35.3, lng: 149.1 }
+      ];
+
+      labels.forEach(label => {
+        L.marker([label.lat, label.lng], {
+          interactive: false,
+          icon: L.divIcon({
+            className: 'state-label',
+            html: label.name,
+            iconSize: null
+          })
+        }).addTo(map);
+      });
+    }
+
+    function renderPoints(projects) {
       projects.forEach((project, index) => {
         if (!project.latitude || !project.longitude) return;
 
-        const position = projectToPosition(project, index, projects);
         const risk = getRiskClass(project.risk_level);
+        const latLng = getJitteredLatLng(project, index, projects);
 
-        const button = document.createElement('button');
-        button.className = 'project-point';
-        button.style.left = `${position.x}%`;
-        button.style.top = `${position.y}%`;
-        button.setAttribute('aria-label', project.project_name);
+        const marker = L.circleMarker(latLng, {
+          radius: 9,
+          color: '#111827',
+          weight: 2,
+          fillColor: riskColours[risk],
+          fillOpacity: 0.95
+        }).addTo(map);
 
-        button.innerHTML = `
-          <span class="point-core risk-${risk}"></span>
-          <span class="point-label">${project.state || ''} ${project.risk_level || ''}</span>
-        `;
+        marker.bindTooltip(project.project_name, {
+          direction: 'top',
+          offset: [0, -8],
+          opacity: 0.95
+        });
 
-        button.addEventListener('click', () => showProject(project));
-
-        points.appendChild(button);
+        marker.on('click', () => {
+          showProject(project);
+        });
       });
     }
 
@@ -582,7 +561,7 @@
         button.addEventListener('click', () => {
           const project = loadedProjects[Number(button.dataset.index)];
           showProject(project);
-          window.scrollTo({ top: 0, behaviour: 'smooth' });
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         });
       });
     }
@@ -616,7 +595,12 @@
       }
     }
 
-    loadProjects();
+    async function start() {
+      await loadAustraliaOutline();
+      await loadProjects();
+    }
+
+    start();
   </script>
 </body>
 </html>
