@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI Australia Watch</title>
 
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+
   <style>
     :root {
       --bg: #f4f1ea;
@@ -17,9 +21,6 @@
       --medium: #f97316;
       --low: #16a34a;
       --unknown: #6b7280;
-      --land: #d9c7a3;
-      --land-stroke: #80684d;
-      --water: #dbeafe;
     }
 
     body {
@@ -110,90 +111,30 @@
       display: inline-block;
     }
 
-    .map-visual {
-      position: relative;
+    #map {
       height: 650px;
+      width: 100%;
       border-radius: 18px;
       border: 1px solid #cbd5e1;
       overflow: hidden;
-      background:
-        radial-gradient(circle at 80% 75%, rgba(59,130,246,0.16), transparent 18%),
-        radial-gradient(circle at 25% 68%, rgba(59,130,246,0.12), transparent 20%),
-        linear-gradient(180deg, #e7f0f7 0%, var(--water) 100%);
     }
 
-    .map-svg {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
+    .leaflet-container {
+      font-family: Arial, sans-serif;
     }
 
-    .land {
-      fill: var(--land);
-      stroke: var(--land-stroke);
-      stroke-width: 4;
-      stroke-linejoin: round;
-    }
-
-    .state-line {
-      fill: none;
-      stroke: rgba(80, 66, 50, 0.45);
-      stroke-width: 2;
-      stroke-dasharray: 6 6;
-    }
-
-    .state-label {
-      position: absolute;
-      z-index: 3;
-      font-size: 12px;
-      font-weight: bold;
-      color: rgba(15, 23, 42, 0.55);
-      background: rgba(255, 255, 255, 0.78);
-      border: 1px solid rgba(148, 163, 184, 0.45);
-      border-radius: 999px;
-      padding: 3px 7px;
-      pointer-events: none;
-    }
-
-    .project-point {
-      position: absolute;
-      z-index: 5;
-      transform: translate(-50%, -50%);
-      border: none;
-      background: transparent;
-      cursor: pointer;
-      padding: 0;
-    }
-
-    .point-core {
+    .marker-dot {
       width: 22px;
       height: 22px;
       border-radius: 50%;
       border: 3px solid white;
       box-shadow: 0 0 0 2px #111827, 0 8px 18px rgba(0,0,0,0.25);
-      display: block;
     }
 
-    .point-label {
-      position: absolute;
-      left: 29px;
-      top: -5px;
-      background: rgba(255,255,255,0.95);
-      border: 1px solid #d1d5db;
-      border-radius: 999px;
-      padding: 4px 8px;
-      font-size: 12px;
-      font-weight: bold;
-      white-space: nowrap;
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
-    }
-
-    .risk-high { background: var(--high); }
-    .risk-medium { background: var(--medium); }
-    .risk-low { background: var(--low); }
-    .risk-unknown { background: var(--unknown); }
+    .marker-high { background: var(--high); }
+    .marker-medium { background: var(--medium); }
+    .marker-low { background: var(--low); }
+    .marker-unknown { background: var(--unknown); }
 
     .detail-panel {
       padding: 20px;
@@ -327,12 +268,8 @@
         position: static;
       }
 
-      .map-visual {
+      #map {
         height: 520px;
-      }
-
-      .point-label {
-        display: none;
       }
     }
   </style>
@@ -350,44 +287,24 @@
         <div class="map-header">
           <div>
             <h2>Australia AI infrastructure map</h2>
-            <p>Points show rough project locations. Nearby Sydney points are slightly offset so individual projects can be selected.</p>
+            <p>Click a marker or cluster to inspect tracked AI infrastructure projects. Clusters help separate nearby Western Sydney sites.</p>
           </div>
 
           <div class="legend">
-            <span><i class="legend-dot risk-high"></i>High</span>
-            <span><i class="legend-dot risk-medium"></i>Medium</span>
-            <span><i class="legend-dot risk-low"></i>Low</span>
-            <span><i class="legend-dot risk-unknown"></i>Unknown</span>
+            <span><i class="legend-dot" style="background:#dc2626;"></i>High</span>
+            <span><i class="legend-dot" style="background:#f97316;"></i>Medium</span>
+            <span><i class="legend-dot" style="background:#16a34a;"></i>Low</span>
+            <span><i class="legend-dot" style="background:#6b7280;"></i>Unknown</span>
           </div>
         </div>
 
-        <div class="map-visual" id="map-visual">
-          <svg class="map-svg" viewBox="0 0 1000 720" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-            <polygon id="mainland-shape" class="land"></polygon>
-            <polygon id="tasmania-shape" class="land"></polygon>
-
-            <polyline id="wa-border" class="state-line"></polyline>
-            <polyline id="nt-sa-border" class="state-line"></polyline>
-            <polyline id="qld-border" class="state-line"></polyline>
-            <polyline id="nsw-vic-border" class="state-line"></polyline>
-          </svg>
-
-          <div class="state-label" style="left: 25%; top: 55%;">WA</div>
-          <div class="state-label" style="left: 48%; top: 34%;">NT</div>
-          <div class="state-label" style="left: 50%; top: 60%;">SA</div>
-          <div class="state-label" style="left: 72%; top: 39%;">QLD</div>
-          <div class="state-label" style="left: 77%; top: 66%;">NSW</div>
-          <div class="state-label" style="left: 72%; top: 78%;">VIC</div>
-          <div class="state-label" style="left: 78%; top: 88%;">TAS</div>
-
-          <div id="points"></div>
-        </div>
+        <div id="map"></div>
       </div>
 
       <aside class="detail-panel" id="detail-panel">
         <h2>Select a project</h2>
         <div class="image-box">Project image will appear here when available.</div>
-        <p>Click a point on the Australia map to view details.</p>
+        <p>Click a marker on the map to view details.</p>
       </aside>
     </section>
 
@@ -414,117 +331,42 @@
     </section>
   </main>
 
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+
   <script>
     const SUPABASE_URL = 'https://gtelcczbtyyhloucuaad.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_I-Ws8RkklESe6lq50ZpCTg_ikbzt6Xz';
 
     let loadedProjects = [];
+    let markerClusterGroup;
 
-    const mapBounds = {
-      lonMin: 112,
-      lonMax: 154,
-      latNorth: -9,
-      latSouth: -44.5
-    };
+    const map = L.map('map', {
+      scrollWheelZoom: true,
+      minZoom: 4,
+      maxZoom: 18,
+      maxBounds: [
+        [-46.8, 108.0],
+        [-8.0, 158.0]
+      ],
+      maxBoundsViscosity: 0.8
+    });
 
-    function projectLonLatToSvg(lon, lat) {
-      const x = ((lon - mapBounds.lonMin) / (mapBounds.lonMax - mapBounds.lonMin)) * 1000;
-      const y = ((mapBounds.latNorth - lat) / (mapBounds.latNorth - mapBounds.latSouth)) * 720;
-      return { x, y };
-    }
+    map.setView([-25.2744, 133.7751], 4);
 
-    function lonLatListToPoints(list) {
-      return list
-        .map(point => {
-          const projected = projectLonLatToSvg(point.lon, point.lat);
-          return `${projected.x.toFixed(1)},${projected.y.toFixed(1)}`;
-        })
-        .join(' ');
-    }
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
 
-    function drawAustralia() {
-      const mainland = [
-        { lon: 113.1, lat: -22.0 },
-        { lon: 114.0, lat: -20.0 },
-        { lon: 115.2, lat: -18.2 },
-        { lon: 118.5, lat: -18.1 },
-        { lon: 121.5, lat: -18.3 },
-        { lon: 123.3, lat: -16.5 },
-        { lon: 125.8, lat: -14.5 },
-        { lon: 128.5, lat: -14.8 },
-        { lon: 130.8, lat: -12.4 },
-        { lon: 133.5, lat: -12.0 },
-        { lon: 136.0, lat: -12.6 },
-        { lon: 138.5, lat: -16.4 },
-        { lon: 141.2, lat: -13.0 },
-        { lon: 142.8, lat: -10.8 },
-        { lon: 144.9, lat: -14.3 },
-        { lon: 146.2, lat: -17.4 },
-        { lon: 148.5, lat: -20.6 },
-        { lon: 151.3, lat: -24.5 },
-        { lon: 153.2, lat: -28.2 },
-        { lon: 152.2, lat: -31.6 },
-        { lon: 150.6, lat: -34.2 },
-        { lon: 149.5, lat: -37.2 },
-        { lon: 146.6, lat: -38.8 },
-        { lon: 144.0, lat: -38.4 },
-        { lon: 141.0, lat: -38.0 },
-        { lon: 138.2, lat: -36.2 },
-        { lon: 135.0, lat: -34.5 },
-        { lon: 132.0, lat: -32.4 },
-        { lon: 129.2, lat: -31.6 },
-        { lon: 126.5, lat: -32.4 },
-        { lon: 124.0, lat: -33.7 },
-        { lon: 120.5, lat: -34.2 },
-        { lon: 117.5, lat: -34.7 },
-        { lon: 115.2, lat: -33.2 },
-        { lon: 113.8, lat: -30.8 },
-        { lon: 114.8, lat: -28.7 },
-        { lon: 113.5, lat: -25.8 },
-        { lon: 113.1, lat: -22.0 }
-      ];
-
-      const tasmania = [
-        { lon: 144.6, lat: -40.7 },
-        { lon: 146.0, lat: -40.5 },
-        { lon: 147.8, lat: -41.4 },
-        { lon: 148.4, lat: -42.7 },
-        { lon: 147.2, lat: -43.8 },
-        { lon: 145.4, lat: -43.9 },
-        { lon: 144.0, lat: -42.8 },
-        { lon: 144.6, lat: -40.7 }
-      ];
-
-      const waBorder = [
-        { lon: 129.0, lat: -14.8 },
-        { lon: 129.0, lat: -31.7 }
-      ];
-
-      const ntSaBorder = [
-        { lon: 129.0, lat: -26.0 },
-        { lon: 138.0, lat: -26.0 }
-      ];
-
-      const qldBorder = [
-        { lon: 138.0, lat: -16.8 },
-        { lon: 138.0, lat: -26.0 },
-        { lon: 141.0, lat: -29.0 },
-        { lon: 153.0, lat: -29.0 }
-      ];
-
-      const nswVicBorder = [
-        { lon: 141.0, lat: -34.0 },
-        { lon: 144.0, lat: -36.0 },
-        { lon: 146.0, lat: -36.5 },
-        { lon: 149.0, lat: -37.5 }
-      ];
-
-      document.getElementById('mainland-shape').setAttribute('points', lonLatListToPoints(mainland));
-      document.getElementById('tasmania-shape').setAttribute('points', lonLatListToPoints(tasmania));
-      document.getElementById('wa-border').setAttribute('points', lonLatListToPoints(waBorder));
-      document.getElementById('nt-sa-border').setAttribute('points', lonLatListToPoints(ntSaBorder));
-      document.getElementById('qld-border').setAttribute('points', lonLatListToPoints(qldBorder));
-      document.getElementById('nsw-vic-border').setAttribute('points', lonLatListToPoints(nswVicBorder));
+    function escapeHtml(value) {
+      if (value === null || value === undefined) return '';
+      return String(value)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
     }
 
     function getRiskClass(riskLevel) {
@@ -544,101 +386,81 @@
       return `<span class="risk-tag ${risk}">${label} risk</span>`;
     }
 
+    function makeRiskIcon(riskLevel) {
+      const risk = getRiskClass(riskLevel);
+
+      return L.divIcon({
+        className: '',
+        html: `<div class="marker-dot marker-${risk}"></div>`,
+        iconSize: [28, 28],
+        iconAnchor: [14, 14],
+        popupAnchor: [0, -14]
+      });
+    }
+
     function makeSourceLinks(sourceLinks) {
       if (!sourceLinks) return 'No source links yet.';
 
       return sourceLinks
         .split('\n')
         .filter(link => link.trim() !== '')
-        .map(link => `<a href="${link.trim()}" target="_blank" rel="noopener noreferrer">${link.trim()}</a>`)
+        .map(link => {
+          const safeLink = escapeHtml(link.trim());
+          return `<a href="${safeLink}" target="_blank" rel="noopener noreferrer">${safeLink}</a>`;
+        })
         .join('');
-    }
-
-    function getPointPosition(project, index, allProjects) {
-      const lon = Number(project.longitude);
-      const lat = Number(project.latitude);
-      const projected = projectLonLatToSvg(lon, lat);
-
-      const nearbyBefore = allProjects
-        .slice(0, index)
-        .filter(other => {
-          const dx = Math.abs(Number(other.longitude) - lon);
-          const dy = Math.abs(Number(other.latitude) - lat);
-          return dx < 0.45 && dy < 0.45;
-        }).length;
-
-      const offsets = [
-        [0, 0],
-        [38, -30],
-        [-38, 30],
-        [52, 30],
-        [-52, -30],
-        [0, 52],
-        [62, -5],
-        [-62, 5]
-      ];
-
-      const offset = offsets[nearbyBefore % offsets.length];
-
-      const x = Math.max(30, Math.min(970, projected.x + offset[0]));
-      const y = Math.max(30, Math.min(690, projected.y + offset[1]));
-
-      return {
-        left: `${x / 10}%`,
-        top: `${y / 7.2}%`
-      };
     }
 
     function showProject(project) {
       const panel = document.getElementById('detail-panel');
 
       const imageHtml = project.image_url
-        ? `<img src="${project.image_url}" alt="${project.image_alt || project.project_name}">`
+        ? `<img src="${escapeHtml(project.image_url)}" alt="${escapeHtml(project.image_alt || project.project_name)}">`
         : `Image not added yet.<br><small>Later this can show a project photo, company image or planning document image.</small>`;
 
       panel.innerHTML = `
-        <h2>${project.project_name}</h2>
+        <h2>${escapeHtml(project.project_name)}</h2>
         <div class="image-box">${imageHtml}</div>
         ${makeRiskTag(project.risk_level)}
 
         <div class="detail-row">
           <strong>Company</strong>
-          ${project.company_operator || 'Unknown'}
+          ${escapeHtml(project.company_operator || 'Unknown')}
         </div>
 
         <div class="detail-row">
           <strong>Location</strong>
-          ${project.location_name || 'Unknown'}${project.state ? ', ' + project.state : ''}
+          ${escapeHtml(project.location_name || 'Unknown')}${project.state ? ', ' + escapeHtml(project.state) : ''}
         </div>
 
         <div class="detail-row">
           <strong>Status</strong>
-          ${project.status || 'Unknown'}
+          ${escapeHtml(project.status || 'Unknown')}
         </div>
 
         <div class="detail-row">
           <strong>Decision maker</strong>
-          ${project.decision_maker || 'To verify'}
+          ${escapeHtml(project.decision_maker || 'To verify')}
         </div>
 
         <div class="detail-row">
           <strong>Approval status</strong>
-          ${project.approval_status || 'To verify'}
+          ${escapeHtml(project.approval_status || 'To verify')}
         </div>
 
         <div class="detail-row">
           <strong>Summary</strong>
-          ${project.summary || 'No summary yet.'}
+          ${escapeHtml(project.summary || 'No summary yet.')}
         </div>
 
         <div class="detail-row">
           <strong>Energy concerns</strong>
-          ${project.energy_notes || 'No energy notes yet.'}
+          ${escapeHtml(project.energy_notes || 'No energy notes yet.')}
         </div>
 
         <div class="detail-row">
           <strong>Water concerns</strong>
-          ${project.water_notes || 'No water notes yet.'}
+          ${escapeHtml(project.water_notes || 'No water notes yet.')}
         </div>
 
         <div class="detail-row sources">
@@ -648,32 +470,55 @@
       `;
     }
 
-    function renderPoints(projects) {
-      const points = document.getElementById('points');
-      points.innerHTML = '';
+    function renderMarkers(projects) {
+      if (markerClusterGroup) {
+        map.removeLayer(markerClusterGroup);
+      }
 
-      projects.forEach((project, index) => {
+      markerClusterGroup = L.markerClusterGroup({
+        showCoverageOnHover: false,
+        spiderfyOnMaxZoom: true,
+        disableClusteringAtZoom: 12,
+        maxClusterRadius: 45
+      });
+
+      const markerBounds = [];
+
+      projects.forEach(project => {
         if (!project.latitude || !project.longitude) return;
 
-        const risk = getRiskClass(project.risk_level);
-        const position = getPointPosition(project, index, projects);
+        const lat = Number(project.latitude);
+        const lng = Number(project.longitude);
 
-        const button = document.createElement('button');
-        button.className = 'project-point';
-        button.style.left = position.left;
-        button.style.top = position.top;
-        button.setAttribute('aria-label', project.project_name);
-        button.title = project.project_name;
+        if (Number.isNaN(lat) || Number.isNaN(lng)) return;
 
-        button.innerHTML = `
-          <span class="point-core risk-${risk}"></span>
-          <span class="point-label">${project.project_name}</span>
-        `;
+        const marker = L.marker([lat, lng], {
+          icon: makeRiskIcon(project.risk_level),
+          title: project.project_name
+        });
 
-        button.addEventListener('click', () => showProject(project));
+        marker.bindTooltip(project.project_name, {
+          direction: 'top',
+          offset: [0, -12],
+          opacity: 0.95
+        });
 
-        points.appendChild(button);
+        marker.on('click', () => {
+          showProject(project);
+        });
+
+        markerClusterGroup.addLayer(marker);
+        markerBounds.push([lat, lng]);
       });
+
+      map.addLayer(markerClusterGroup);
+
+      if (markerBounds.length > 0) {
+        map.fitBounds(markerBounds, {
+          padding: [60, 60],
+          maxZoom: 5
+        });
+      }
     }
 
     function renderProjectList(projects) {
@@ -685,12 +530,12 @@
         item.className = 'project-item';
 
         item.innerHTML = `
-          <h3>${project.project_name}</h3>
+          <h3>${escapeHtml(project.project_name)}</h3>
           <p>${makeRiskTag(project.risk_level)}</p>
-          <p><strong>Company:</strong> ${project.company_operator || 'Unknown'}</p>
-          <p><strong>Location:</strong> ${project.location_name || 'Unknown'}${project.state ? ', ' + project.state : ''}</p>
-          <p><strong>Status:</strong> ${project.status || 'Unknown'}</p>
-          <p>${project.summary || 'No summary yet.'}</p>
+          <p><strong>Company:</strong> ${escapeHtml(project.company_operator || 'Unknown')}</p>
+          <p><strong>Location:</strong> ${escapeHtml(project.location_name || 'Unknown')}${project.state ? ', ' + escapeHtml(project.state) : ''}</p>
+          <p><strong>Status:</strong> ${escapeHtml(project.status || 'Unknown')}</p>
+          <p>${escapeHtml(project.summary || 'No summary yet.')}</p>
           <button type="button" data-index="${index}">View details</button>
         `;
 
@@ -701,6 +546,11 @@
         button.addEventListener('click', () => {
           const project = loadedProjects[Number(button.dataset.index)];
           showProject(project);
+
+          if (project.latitude && project.longitude) {
+            map.setView([Number(project.latitude), Number(project.longitude)], 12);
+          }
+
           window.scrollTo({ top: 0, behavior: 'smooth' });
         });
       });
@@ -729,7 +579,7 @@
       document.getElementById('project-count').textContent =
         `${projects.length} ${noun} loaded.`;
 
-      renderPoints(projects);
+      renderMarkers(projects);
       renderProjectList(projects);
 
       if (projects.length > 0) {
@@ -737,7 +587,6 @@
       }
     }
 
-    drawAustralia();
     loadProjects();
   </script>
 </body>
