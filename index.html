@@ -1,2 +1,150 @@
-https://gtelcczbtyyhloucuaad.supabase.co
-sb_publishable_I-Ws8RkklESe6lq50ZpCTg_ikbzt6Xz
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Australia Watch</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f6f6f3;
+      color: #1f2933;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      padding: 32px;
+    }
+
+    main {
+      padding: 24px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    #map {
+      height: 620px;
+      width: 100%;
+      border-radius: 14px;
+      border: 1px solid #d1d5db;
+      margin-bottom: 24px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid #ddd;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #fee2e2;
+      color: #991b1b;
+      font-size: 13px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>AI Australia Watch</h1>
+    <p>A public-interest dashboard tracking AI infrastructure, policy, corporate influence, and accountability issues in Australia.</p>
+  </header>
+
+  <main>
+    <h2>Interactive Australia map</h2>
+    <p>Click a marker to view project status, risks, decision-makers, and source links.</p>
+
+    <div id="map"></div>
+
+    <section class="grid">
+      <div class="card">
+        <h3>Data centres</h3>
+        <p>Track AI and cloud infrastructure projects by location, company, status, and risk.</p>
+      </div>
+
+      <div class="card">
+        <h3>Policy tracker</h3>
+        <p>Follow bills, inquiries, approvals, and government decisions.</p>
+      </div>
+
+      <div class="card">
+        <h3>Company tracker</h3>
+        <p>Monitor companies, lobbying, partnerships, privacy, security, energy, and water concerns.</p>
+      </div>
+
+      <div class="card">
+        <h3>Tracked projects</h3>
+        <p id="project-count">Loading project records...</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <script>
+    const SUPABASE_URL = 'https://gtelcczbtyyhloucuaad.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_I-Ws8RkklESe6lq50ZpCTg_ikbzt6Xz';
+
+    const map = L.map('map').setView([-25.2744, 133.7751], 4);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    async function loadProjects() {
+      const response = await fetch(`${SUPABASE_URL}/rest/v1/projects?select=*`, {
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${SUPABASE_KEY}`
+        }
+      });
+
+      const projects = await response.json();
+
+      document.getElementById('project-count').textContent =
+        `${projects.length} project record loaded.`;
+
+      projects.forEach(project => {
+        if (!project.latitude || !project.longitude) return;
+
+        const marker = L.marker([project.latitude, project.longitude]).addTo(map);
+
+        marker.bindPopup(`
+          <strong>${project.project_name}</strong><br><br>
+          <strong>Company:</strong> ${project.company_operator || 'Unknown'}<br>
+          <strong>Location:</strong> ${project.location_name || 'Unknown'}, ${project.state || ''}<br>
+          <strong>Status:</strong> ${project.status || 'Unknown'}<br>
+          <strong>Risk level:</strong> ${project.risk_level || 'Unknown'}<br><br>
+          <strong>Decision maker:</strong> ${project.decision_maker || 'To verify'}<br>
+          <strong>Approval status:</strong> ${project.approval_status || 'To verify'}<br><br>
+          <strong>Summary:</strong><br>
+          ${project.summary || 'No summary yet.'}<br><br>
+          <strong>Energy:</strong><br>
+          ${project.energy_notes || 'No energy notes yet.'}<br><br>
+          <strong>Water:</strong><br>
+          ${project.water_notes || 'No water notes yet.'}
+        `);
+      });
+    }
+
+    loadProjects();
+  </script>
+</body>
+</html>
