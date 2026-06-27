@@ -47,15 +47,7 @@
       margin: auto;
     }
 
-    .dashboard {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 390px;
-      gap: 20px;
-      align-items: start;
-    }
-
     .map-card,
-    .detail-panel,
     .project-list,
     .summary-card {
       background: var(--panel);
@@ -112,7 +104,7 @@
     }
 
     #map {
-      height: 650px;
+      height: 560px;
       width: 100%;
       border-radius: 18px;
       border: 1px solid #cbd5e1;
@@ -135,82 +127,6 @@
     .marker-medium { background: var(--medium); }
     .marker-low { background: var(--low); }
     .marker-unknown { background: var(--unknown); }
-
-    .detail-panel {
-      padding: 20px;
-      position: sticky;
-      top: 20px;
-    }
-
-    .detail-panel h2 {
-      margin-top: 0;
-    }
-
-    .image-box {
-      height: 190px;
-      border-radius: 14px;
-      background: #e5e7eb;
-      border: 1px solid #d1d5db;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #475569;
-      text-align: center;
-      padding: 16px;
-      overflow: hidden;
-      margin-bottom: 16px;
-    }
-
-    .image-box img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .risk-tag {
-      display: inline-block;
-      padding: 5px 10px;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: bold;
-      margin-bottom: 12px;
-    }
-
-    .risk-tag.high {
-      background: #fee2e2;
-      color: #991b1b;
-    }
-
-    .risk-tag.medium {
-      background: #ffedd5;
-      color: #9a3412;
-    }
-
-    .risk-tag.low {
-      background: #dcfce7;
-      color: #166534;
-    }
-
-    .risk-tag.unknown {
-      background: #e5e7eb;
-      color: #374151;
-    }
-
-    .detail-row {
-      margin: 10px 0;
-      line-height: 1.45;
-    }
-
-    .detail-row strong {
-      display: block;
-      margin-bottom: 2px;
-    }
-
-    .sources a {
-      display: block;
-      overflow-wrap: anywhere;
-      margin-bottom: 8px;
-    }
 
     .summary-grid {
       display: grid;
@@ -246,7 +162,8 @@
       border-top: none;
     }
 
-    .project-item button {
+    .project-item button,
+    .modal-close {
       border: 1px solid #cbd5e1;
       background: #f8fafc;
       border-radius: 10px;
@@ -255,21 +172,144 @@
       font-weight: bold;
     }
 
+    .risk-tag {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    .risk-tag.high {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .risk-tag.medium {
+      background: #ffedd5;
+      color: #9a3412;
+    }
+
+    .risk-tag.low {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .risk-tag.unknown {
+      background: #e5e7eb;
+      color: #374151;
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.62);
+      z-index: 9999;
+      padding: 24px;
+      overflow-y: auto;
+    }
+
+    .modal-overlay.open {
+      display: block;
+    }
+
+    .modal-card {
+      background: white;
+      max-width: 860px;
+      margin: 32px auto;
+      border-radius: 18px;
+      border: 1px solid #d1d5db;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+      overflow: hidden;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+      padding: 20px 24px;
+      border-bottom: 1px solid #e5e7eb;
+      background: #f8fafc;
+    }
+
+    .modal-header h2 {
+      margin: 0;
+    }
+
+    .modal-body {
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: 24px;
+    }
+
+    .image-box {
+      height: 210px;
+      border-radius: 14px;
+      background: #e5e7eb;
+      border: 1px solid #d1d5db;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #475569;
+      text-align: center;
+      padding: 16px;
+      overflow: hidden;
+    }
+
+    .image-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .detail-row {
+      margin: 0 0 14px 0;
+      line-height: 1.45;
+    }
+
+    .detail-row strong {
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .sources a {
+      display: block;
+      overflow-wrap: anywhere;
+      margin-bottom: 8px;
+    }
+
     a {
       color: #1d4ed8;
     }
 
-    @media (max-width: 950px) {
-      .dashboard {
-        grid-template-columns: 1fr;
+    @media (max-width: 800px) {
+      .map-header {
+        display: block;
       }
 
-      .detail-panel {
-        position: static;
+      .legend {
+        justify-content: flex-start;
+        margin-top: 12px;
       }
 
       #map {
-        height: 520px;
+        height: 500px;
+      }
+
+      .modal-body {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-overlay {
+        padding: 12px;
+      }
+
+      .modal-card {
+        margin: 16px auto;
       }
     }
   </style>
@@ -282,30 +322,22 @@
   </header>
 
   <main>
-    <section class="dashboard">
-      <div class="map-card">
-        <div class="map-header">
-          <div>
-            <h2>Australia AI infrastructure map</h2>
-            <p>Click a marker or cluster to inspect tracked AI infrastructure projects. Clusters help separate nearby Western Sydney sites.</p>
-          </div>
-
-          <div class="legend">
-            <span><i class="legend-dot" style="background:#dc2626;"></i>High</span>
-            <span><i class="legend-dot" style="background:#f97316;"></i>Medium</span>
-            <span><i class="legend-dot" style="background:#16a34a;"></i>Low</span>
-            <span><i class="legend-dot" style="background:#6b7280;"></i>Unknown</span>
-          </div>
+    <section class="map-card">
+      <div class="map-header">
+        <div>
+          <h2>Australia AI infrastructure map</h2>
+          <p>Click a marker or cluster to inspect tracked AI infrastructure projects. Clusters help separate nearby Western Sydney sites.</p>
         </div>
 
-        <div id="map"></div>
+        <div class="legend">
+          <span><i class="legend-dot" style="background:#dc2626;"></i>High</span>
+          <span><i class="legend-dot" style="background:#f97316;"></i>Medium</span>
+          <span><i class="legend-dot" style="background:#16a34a;"></i>Low</span>
+          <span><i class="legend-dot" style="background:#6b7280;"></i>Unknown</span>
+        </div>
       </div>
 
-      <aside class="detail-panel" id="detail-panel">
-        <h2>Select a project</h2>
-        <div class="image-box">Project image will appear here when available.</div>
-        <p>Click a marker on the map to view details.</p>
-      </aside>
+      <div id="map"></div>
     </section>
 
     <section class="summary-grid">
@@ -330,6 +362,17 @@
       <div id="project-list">Loading projects...</div>
     </section>
   </main>
+
+  <div class="modal-overlay" id="project-modal" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2 id="modal-title">Project details</h2>
+        <button class="modal-close" type="button" id="modal-close">Close</button>
+      </div>
+
+      <div class="modal-body" id="modal-body"></div>
+    </div>
+  </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
@@ -411,64 +454,96 @@
         .join('');
     }
 
-    function showProject(project) {
-      const panel = document.getElementById('detail-panel');
+    function openProjectModal(project) {
+      const modal = document.getElementById('project-modal');
+      const title = document.getElementById('modal-title');
+      const body = document.getElementById('modal-body');
+
+      title.textContent = project.project_name || 'Project details';
 
       const imageHtml = project.image_url
         ? `<img src="${escapeHtml(project.image_url)}" alt="${escapeHtml(project.image_alt || project.project_name)}">`
         : `Image not added yet.<br><small>Later this can show a project photo, company image or planning document image.</small>`;
 
-      panel.innerHTML = `
-        <h2>${escapeHtml(project.project_name)}</h2>
-        <div class="image-box">${imageHtml}</div>
-        ${makeRiskTag(project.risk_level)}
-
-        <div class="detail-row">
-          <strong>Company</strong>
-          ${escapeHtml(project.company_operator || 'Unknown')}
+      body.innerHTML = `
+        <div>
+          <div class="image-box">${imageHtml}</div>
+          ${project.image_credit ? `<p><small>${escapeHtml(project.image_credit)}</small></p>` : ''}
         </div>
 
-        <div class="detail-row">
-          <strong>Location</strong>
-          ${escapeHtml(project.location_name || 'Unknown')}${project.state ? ', ' + escapeHtml(project.state) : ''}
-        </div>
+        <div>
+          ${makeRiskTag(project.risk_level)}
 
-        <div class="detail-row">
-          <strong>Status</strong>
-          ${escapeHtml(project.status || 'Unknown')}
-        </div>
+          <div class="detail-row">
+            <strong>Company</strong>
+            ${escapeHtml(project.company_operator || 'Unknown')}
+          </div>
 
-        <div class="detail-row">
-          <strong>Decision maker</strong>
-          ${escapeHtml(project.decision_maker || 'To verify')}
-        </div>
+          <div class="detail-row">
+            <strong>Location</strong>
+            ${escapeHtml(project.location_name || 'Unknown')}${project.state ? ', ' + escapeHtml(project.state) : ''}
+          </div>
 
-        <div class="detail-row">
-          <strong>Approval status</strong>
-          ${escapeHtml(project.approval_status || 'To verify')}
-        </div>
+          <div class="detail-row">
+            <strong>Status</strong>
+            ${escapeHtml(project.status || 'Unknown')}
+          </div>
 
-        <div class="detail-row">
-          <strong>Summary</strong>
-          ${escapeHtml(project.summary || 'No summary yet.')}
-        </div>
+          <div class="detail-row">
+            <strong>Decision maker</strong>
+            ${escapeHtml(project.decision_maker || 'To verify')}
+          </div>
 
-        <div class="detail-row">
-          <strong>Energy concerns</strong>
-          ${escapeHtml(project.energy_notes || 'No energy notes yet.')}
-        </div>
+          <div class="detail-row">
+            <strong>Approval status</strong>
+            ${escapeHtml(project.approval_status || 'To verify')}
+          </div>
 
-        <div class="detail-row">
-          <strong>Water concerns</strong>
-          ${escapeHtml(project.water_notes || 'No water notes yet.')}
-        </div>
+          <div class="detail-row">
+            <strong>Summary</strong>
+            ${escapeHtml(project.summary || 'No summary yet.')}
+          </div>
 
-        <div class="detail-row sources">
-          <strong>Sources</strong>
-          ${makeSourceLinks(project.source_links)}
+          <div class="detail-row">
+            <strong>Energy concerns</strong>
+            ${escapeHtml(project.energy_notes || 'No energy notes yet.')}
+          </div>
+
+          <div class="detail-row">
+            <strong>Water concerns</strong>
+            ${escapeHtml(project.water_notes || 'No water notes yet.')}
+          </div>
+
+          <div class="detail-row sources">
+            <strong>Sources</strong>
+            ${makeSourceLinks(project.source_links)}
+          </div>
         </div>
       `;
+
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
     }
+
+    function closeProjectModal() {
+      const modal = document.getElementById('project-modal');
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+    }
+
+    document.getElementById('modal-close').addEventListener('click', closeProjectModal);
+
+    document.getElementById('project-modal').addEventListener('click', event => {
+      if (event.target.id === 'project-modal') {
+        closeProjectModal();
+      }
+    });
+
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape') {
+        closeProjectModal();
+      }
+    });
 
     function renderMarkers(projects) {
       if (markerClusterGroup) {
@@ -504,7 +579,7 @@
         });
 
         marker.on('click', () => {
-          showProject(project);
+          openProjectModal(project);
         });
 
         markerClusterGroup.addLayer(marker);
@@ -545,12 +620,12 @@
       list.querySelectorAll('button').forEach(button => {
         button.addEventListener('click', () => {
           const project = loadedProjects[Number(button.dataset.index)];
-          showProject(project);
 
           if (project.latitude && project.longitude) {
             map.setView([Number(project.latitude), Number(project.longitude)], 12);
           }
 
+          openProjectModal(project);
           window.scrollTo({ top: 0, behavior: 'smooth' });
         });
       });
@@ -581,10 +656,6 @@
 
       renderMarkers(projects);
       renderProjectList(projects);
-
-      if (projects.length > 0) {
-        showProject(projects[0]);
-      }
     }
 
     loadProjects();
