@@ -835,9 +835,9 @@
             </article>
           </div>
 
-          <h3 class="subsection-heading">Infrastructure-linked policy and influence records</h3>
-          <p class="subsection-text">These records come from project-level notes already in the database. Dedicated policy, lobbying and social-impact tables can be added later.</p>
-          <div class="tracker-grid" id="influence-list">Loading influence tracker...</div>
+          <div class="notice-box">
+            Detailed policy, lobbying and social-impact records can be added as separate database tables later. For now, this section gives visitors the main public-interest areas to watch without repeating the data centre project cards.
+          </div>
         </div>
       </details>
     </section>
@@ -1347,53 +1347,6 @@
       });
     }
 
-    function renderInfluenceTracker(projects) {
-      const list = document.getElementById('influence-list');
-
-      const influenceProjects = projects
-        .filter(project =>
-          hasText(project.lobbying_or_influence_notes) ||
-          hasText(project.campaign_status) ||
-          hasText(project.what_to_watch) ||
-          hasText(project.privacy_or_security_notes)
-        )
-        .sort((a, b) => {
-          const scoreA = getRiskScore(a) + getStatusScore(a);
-          const scoreB = getRiskScore(b) + getStatusScore(b);
-
-          return scoreB - scoreA;
-        });
-
-      list.innerHTML = '';
-
-      if (influenceProjects.length === 0) {
-        list.innerHTML = '<div class="empty-message">No infrastructure-linked policy, lobbying or regulation records have been added yet.</div>';
-        return;
-      }
-
-      influenceProjects.forEach(project => {
-        const item = document.createElement('article');
-        item.className = 'tracker-card';
-
-        item.innerHTML = `
-          <h3>${escapeHtml(project.project_name || 'Project')}</h3>
-          ${makeRiskTag(project)}
-          <p><strong>Company</strong>${escapeHtml(project.company_operator || 'Unknown')}</p>
-          ${optionalTrackerBlock('Privacy or security notes', project.privacy_or_security_notes)}
-          ${optionalTrackerBlock('Lobbying / influence', project.lobbying_or_influence_notes)}
-          ${optionalTrackerBlock('Campaign status', project.campaign_status)}
-          ${optionalTrackerBlock('What to watch', project.what_to_watch)}
-          <button type="button">View full record</button>
-        `;
-
-        item.querySelector('button').addEventListener('click', () => {
-          openProjectFromCard(project);
-        });
-
-        list.appendChild(item);
-      });
-    }
-
     function getPriorityScore(priority) {
       const value = String(priority || '').toLowerCase();
 
@@ -1533,7 +1486,6 @@
       if (!Array.isArray(projects)) {
         document.getElementById('project-count').textContent = 'Could not load project records.';
         document.getElementById('project-list').textContent = 'Could not load projects.';
-        document.getElementById('influence-list').textContent = 'Could not load policy tracker.';
         console.log(projects);
         return;
       }
@@ -1549,7 +1501,6 @@
 
       renderMarkers(projects);
       renderProjectList(projects);
-      renderInfluenceTracker(projects);
     }
 
     loadProjects();
