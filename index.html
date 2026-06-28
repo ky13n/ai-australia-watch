@@ -659,9 +659,7 @@
 
     .modal-body {
       padding: 24px;
-      display: grid;
-      grid-template-columns: 280px minmax(0, 1fr);
-      gap: 24px;
+      display: block;
     }
 
     .image-box {
@@ -760,7 +758,7 @@
       }
 
       .modal-body {
-        grid-template-columns: 1fr;
+        display: block;
       }
 
       .modal-overlay {
@@ -898,7 +896,7 @@
             </article>
 
             <article class="info-card">
-              <h3>Data risks and rights</h3>
+              <h3>Data risks, rights and responsibilities</h3>
               <p>Tracks data sovereignty, government data use, classified cloud, data-sharing powers, data rights, cyber security and responsibilities attached to storing or processing Australian public data.</p>
             </article>
           </div>
@@ -1064,6 +1062,16 @@
       `;
     }
 
+    function displayLinkedProject(value) {
+      const normalised = normaliseKey(value || '');
+
+      if (!hasText(value) || normalised === 'general_policy' || normalised === 'broad_policy' || normalised === 'general') {
+        return 'Broad / general';
+      }
+
+      return value;
+    }
+
     function getRiskClass(riskLevel) {
       const risk = normaliseKey(riskLevel || 'unknown');
 
@@ -1216,21 +1224,11 @@
 
       title.textContent = project.project_name || 'Project details';
 
-      const imageHtml = project.image_url
-        ? `<img src="${escapeHtml(project.image_url)}" alt="${escapeHtml(project.image_alt || project.project_name)}">`
-        : `Image not added yet.<br><small>Later this can show a project photo, company image or planning document image.</small>`;
-
       body.innerHTML = `
-        <div>
-          <div class="image-box">${imageHtml}</div>
-          ${project.image_credit ? `<p><small>${escapeHtml(project.image_credit)}</small></p>` : ''}
-        </div>
-
         <div>
           ${makeRiskTag(project)}
 
           ${optionalDetailRow('Risk summary', project.risk_summary)}
-          ${makeDriverPills(project.primary_risk_drivers)}
           ${optionalDetailRow('Evidence confidence', formatKeyLabel(project.evidence_confidence))}
           ${optionalDetailRow('Assessment status', formatKeyLabel(project.assessment_status))}
 
@@ -1529,7 +1527,7 @@
 
           ${optionalTrackerBlock('Organiser', action.organiser_or_government_body)}
           ${optionalTrackerBlock('Jurisdiction', action.jurisdiction)}
-          ${optionalTrackerBlock('Linked project', action.linked_project_name)}
+          ${optionalTrackerBlock('Linked project', displayLinkedProject(action.linked_project_name))}
           ${optionalTrackerBlock('Summary', action.summary)}
           ${optionalTrackerBlock('Why it matters', action.why_it_matters)}
           ${optionalTrackerBlock('Suggested ask', action.suggested_ask)}
