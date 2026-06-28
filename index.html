@@ -37,6 +37,13 @@
       --blue-bg: #eff6ff;
       --blue-border: #bfdbfe;
       --blue-ink: #1e3a8a;
+      --policy-paper: #fbfaf7;
+      --policy-card: #ffffff;
+      --policy-line: #e6e2d8;
+      --policy-accent: #2f6b54;
+      --policy-accent-soft: #eaf1ed;
+      --policy-flag: #a9551f;
+      --policy-flag-soft: #f6ede4;
     }
 
     body {
@@ -109,6 +116,7 @@
 
     .nav-card:focus,
     .data-centre-card:focus,
+    .policy-card:focus,
     .action-choice-card:focus {
       outline: 3px solid #93c5fd;
       outline-offset: 3px;
@@ -585,6 +593,7 @@
       box-shadow: 0 12px 28px rgba(15, 23, 42, 0.12);
     }
 
+    .policy-card,
     .action-choice-card {
       text-align: left;
       cursor: pointer;
@@ -593,6 +602,7 @@
       transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
 
+    .policy-card:hover,
     .action-choice-card:hover {
       transform: translateY(-2px);
       box-shadow: 0 12px 28px rgba(15, 23, 42, 0.12);
@@ -717,6 +727,148 @@
       color: var(--blue);
     }
 
+
+
+    .modal-body .popup {
+      position: relative;
+      background: var(--policy-card);
+      border: 1px solid var(--policy-line);
+      border-radius: 12px;
+      padding: 34px 36px 36px 72px;
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    .modal-body .popup__num {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 48px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 34px;
+      border-right: 1px solid var(--policy-line);
+      background: var(--policy-accent-soft);
+      border-radius: 12px 0 0 12px;
+      font-weight: bold;
+      font-size: 22px;
+      color: var(--policy-accent);
+    }
+
+    .modal-body .popup__eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--policy-accent);
+      margin: 0 0 10px;
+      font-weight: bold;
+    }
+
+    .modal-body .popup__title {
+      font-weight: bold;
+      font-size: 27px;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      margin: 0 0 14px;
+    }
+
+    .modal-body .popup__lead {
+      margin: 0 0 14px;
+      color: #27323c;
+    }
+
+    .modal-body .popup__tracked {
+      margin: 0 0 4px;
+      font-size: 14.5px;
+      color: var(--muted);
+    }
+
+    .modal-body .popup__tracked b {
+      color: var(--ink);
+      font-weight: bold;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .modal-body .block {
+      margin-top: 26px;
+    }
+
+    .modal-body .block__head {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin: 0 0 12px;
+      padding-bottom: 7px;
+      border-bottom: 1px solid var(--policy-line);
+    }
+
+    .modal-body .links,
+    .modal-body .feed {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .modal-body .links li {
+      margin: 0 0 9px;
+    }
+
+    .modal-body .links a {
+      display: flex;
+      gap: 8px;
+      align-items: baseline;
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 15px;
+    }
+
+    .modal-body .links a:hover .links__name {
+      text-decoration: underline;
+    }
+
+    .modal-body .links__name {
+      font-weight: bold;
+    }
+
+    .modal-body .links__url {
+      margin-left: auto;
+      font-size: 11.5px;
+      color: var(--policy-accent);
+      white-space: nowrap;
+    }
+
+    .modal-body .feed li {
+      display: flex;
+      gap: 14px;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--policy-line);
+      font-size: 15px;
+    }
+
+    .modal-body .feed li:last-child {
+      border-bottom: 0;
+    }
+
+    .modal-body .feed time {
+      flex: 0 0 96px;
+      font-size: 11px;
+      letter-spacing: 0.02em;
+      color: var(--policy-flag);
+      background: var(--policy-flag-soft);
+      border-radius: 6px;
+      padding: 3px 7px;
+      height: max-content;
+      text-align: center;
+      font-weight: bold;
+    }
+
     @media (max-width: 1100px) {
       .top-layout {
         grid-template-columns: 1fr;
@@ -783,6 +935,46 @@
         height: 460px;
       }
     }
+
+
+    @media (max-width: 560px) {
+      .modal-body .popup {
+        padding: 26px 20px 28px 20px;
+      }
+
+      .modal-body .popup__num {
+        position: static;
+        width: auto;
+        height: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--policy-line);
+        border-radius: 12px 12px 0 0;
+        padding: 8px 0 8px 20px;
+        justify-content: flex-start;
+        margin: -26px -20px 20px;
+      }
+
+      .modal-body .links a {
+        flex-wrap: wrap;
+        gap: 2px 8px;
+      }
+
+      .modal-body .links__url {
+        margin-left: 0;
+        flex-basis: 100%;
+      }
+
+      .modal-body .feed li {
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .modal-body .feed time {
+        flex-basis: auto;
+        width: max-content;
+      }
+    }
+
   </style>
 </head>
 
@@ -880,25 +1072,25 @@
           <p class="section-intro">AI development is shaped by laws, procurement decisions, data-sharing rules, planning pathways, industry lobbying and government partnerships. This section tracks the policy settings that determine whether AI and cloud infrastructure serve the public interest.</p>
 
           <div class="info-grid">
-            <article class="info-card">
+            <button class="info-card policy-card" type="button" data-policy-template="policy-template-legislation">
               <h3>Digital legislation and regulation</h3>
               <p>Tracks federal and state AI regulation, data policy, privacy reform, automated decision-making rules, procurement standards and public-sector use of algorithmic systems.</p>
-            </article>
+            </button>
 
-            <article class="info-card">
+            <button class="info-card policy-card" type="button" data-policy-template="policy-template-lobbying">
               <h3>Lobbying and corporate influence</h3>
               <p>Tracks submissions, industry groups, commissioned reports, government partnerships, meetings and policy pressure by major AI, cloud and data centre companies.</p>
-            </article>
+            </button>
 
-            <article class="info-card">
+            <button class="info-card policy-card" type="button" data-policy-template="policy-template-privacy">
               <h3>Privacy, surveillance and eSafety</h3>
               <p>Tracks how personal information, biometric data, online safety systems, surveillance tools and sensitive records are collected, shared, analysed and reused.</p>
-            </article>
+            </button>
 
-            <article class="info-card">
+            <button class="info-card policy-card" type="button" data-policy-template="policy-template-data">
               <h3>Data risks, rights and responsibilities</h3>
               <p>Tracks data sovereignty, government data use, classified cloud, data-sharing powers, data rights, cyber security and responsibilities attached to storing or processing Australian public data.</p>
-            </article>
+            </button>
           </div>
         </div>
       </details>
@@ -947,6 +1139,216 @@
       </details>
     </section>
   </main>
+
+  <template id="policy-template-legislation">
+<article class="popup" id="popup-legislation">
+    <div class="popup__num">01</div>
+    <p class="popup__eyebrow">Policy tracker · 01 / 04</p>
+    <h2 class="popup__title">Digital legislation and regulation</h2>
+
+    <p class="popup__lead">
+      Australia has no single, dedicated AI law. The rules that govern AI are spread across
+      privacy legislation, consumer and anti-discrimination law, sector regulators, government
+      procurement policy and a shifting set of reforms. This section tracks how those settings
+      evolve at federal and state level, where accountability sits, and whether new rules are
+      enforceable rather than voluntary.
+    </p>
+    <p class="popup__tracked">
+      <b>What's tracked here</b>
+      Federal and state AI regulation, data and privacy reform, automated decision-making rules,
+      public-sector algorithmic systems, procurement standards, and the regulators responsible
+      for oversight.
+    </p>
+
+    <div class="block">
+      <h3 class="block__head">Track it</h3>
+      <ul class="links">
+        <li><a href="https://consult.industry.gov.au/ai-mandatory-guardrails" target="_blank" rel="noopener"><span class="links__name">DISR mandatory guardrails consultation</span><span class="links__url">consult.industry.gov.au</span></a></li>
+        <li><a href="https://www.industry.gov.au" target="_blank" rel="noopener"><span class="links__name">National AI Centre, Guidance for AI Adoption</span><span class="links__url">industry.gov.au</span></a></li>
+        <li><a href="https://www.dta.gov.au" target="_blank" rel="noopener"><span class="links__name">DTA, responsible use of AI in government</span><span class="links__url">dta.gov.au</span></a></li>
+        <li><a href="https://www.oaic.gov.au" target="_blank" rel="noopener"><span class="links__name">OAIC, automated decision-making guidance</span><span class="links__url">oaic.gov.au</span></a></li>
+        <li><a href="https://www.aph.gov.au" target="_blank" rel="noopener"><span class="links__name">Parliamentary bills and inquiries</span><span class="links__url">aph.gov.au</span></a></li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <h3 class="block__head">Recent developments</h3>
+      <ul class="feed">
+        <li><time>Dec 2025</time><span>National AI Plan released. The proposed 2024 mandatory guardrails are shelved in favour of existing technology-neutral laws and sector regulators.</span></li>
+        <li><time>Oct 2025</time><span>National AI Centre publishes Guidance for AI Adoption, six essential practices that supersede the Voluntary AI Safety Standard.</span></li>
+        <li><time>Early 2026</time><span>Australian AI Safety Institute launches with 29.9 million dollars to test systems, assess risks and recommend reforms.</span></li>
+        <li><time>Dec 2026</time><span>Upcoming: new Privacy Act obligations require disclosure of substantially automated decisions that significantly affect individuals.</span></li>
+        <li><time>Feb 2026</time><span>NSW passes work health and safety duties for businesses using AI and automation to allocate work.</span></li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <h3 class="block__head">Campaigns and advocacy</h3>
+      <ul class="links">
+        <li><a href="https://humanrights.gov.au" target="_blank" rel="noopener"><span class="links__name">Australian Human Rights Commission</span><span class="links__url">humanrights.gov.au</span></a></li>
+        <li><a href="https://www.uts.edu.au/human-technology-institute" target="_blank" rel="noopener"><span class="links__name">Human Technology Institute, FRT Model Law</span><span class="links__url">uts.edu.au</span></a></li>
+        <li><a href="https://australiainstitute.org.au" target="_blank" rel="noopener"><span class="links__name">Australia Institute, Centre for Responsible Technology</span><span class="links__url">australiainstitute.org.au</span></a></li>
+        <li><a href="https://au.reset.tech" target="_blank" rel="noopener"><span class="links__name">Reset Tech Australia</span><span class="links__url">au.reset.tech</span></a></li>
+      </ul>
+    </div>
+  </article>
+  </template>
+
+  <template id="policy-template-lobbying">
+<article class="popup" id="popup-lobbying">
+    <div class="popup__num">02</div>
+    <p class="popup__eyebrow">Policy tracker · 02 / 04</p>
+    <h2 class="popup__title">Lobbying and corporate influence</h2>
+
+    <p class="popup__lead">
+      The companies building AI, cloud and data centre infrastructure also help shape the
+      policies that govern them, through submissions, funded research, industry groups,
+      partnerships and meetings. This section makes that activity visible: who is influencing
+      policy, how, and on whose behalf. Note that the federal lobbyist code only covers
+      third-party lobbyists, so most in-house corporate lobbying sits outside the public register
+      and has to be tracked through submissions and disclosures.
+    </p>
+    <p class="popup__tracked">
+      <b>What's tracked here</b>
+      Industry submissions, lobbying registrations, industry associations, commissioned reports,
+      government partnerships, ministerial meetings and public policy campaigns.
+    </p>
+
+    <div class="block">
+      <h3 class="block__head">Track it</h3>
+      <ul class="links">
+        <li><a href="https://lobbyists.ag.gov.au/register" target="_blank" rel="noopener"><span class="links__name">Federal Register of Lobbyists</span><span class="links__url">lobbyists.ag.gov.au</span></a></li>
+        <li><a href="https://www.ag.gov.au/integrity/australian-government-register-lobbyists" target="_blank" rel="noopener"><span class="links__name">Lobbying Code of Conduct</span><span class="links__url">ag.gov.au</span></a></li>
+        <li><a href="https://www.ag.gov.au/integrity/foreign-influence-transparency-scheme" target="_blank" rel="noopener"><span class="links__name">Foreign Influence Transparency Scheme</span><span class="links__url">ag.gov.au</span></a></li>
+        <li><a href="https://www.elections.nsw.gov.au/Funding-and-disclosure/public-register-and-lists/Register-of-Third-Party-Lobbyists" target="_blank" rel="noopener"><span class="links__name">NSW third-party lobbyist register</span><span class="links__url">elections.nsw.gov.au</span></a></li>
+        <li><a href="https://www.aph.gov.au" target="_blank" rel="noopener"><span class="links__name">Public submissions to inquiries</span><span class="links__url">aph.gov.au</span></a></li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <h3 class="block__head">Recent developments</h3>
+      <ul class="feed">
+        <li><time>Feb 2026</time><span>SOMO investigation documents tech-sector lobbying against privacy and AI regulation via industry groups including DIGI, the AIIA, the Tech Council and the BSA.</span></li>
+        <li><time>Jul 2025</time><span>OpenAI launches "AI in Australia: An Economic Blueprint", arguing the country should not regulate AI too heavily.</span></li>
+        <li><time>2025</time><span>Industry-funded research is cited in support of light-touch settings; over 300 submissions inform the decision to shelve mandatory guardrails.</span></li>
+        <li><time>2025</time><span>Business Council of Australia and the Productivity Commission welcome the pivot away from AI-specific guardrails.</span></li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <h3 class="block__head">Campaigns and advocacy</h3>
+      <ul class="links">
+        <li><a href="https://www.centreforpublicintegrity.org.au" target="_blank" rel="noopener"><span class="links__name">The Centre for Public Integrity</span><span class="links__url">centreforpublicintegrity.org.au</span></a></li>
+        <li><a href="https://australiainstitute.org.au" target="_blank" rel="noopener"><span class="links__name">The Australia Institute</span><span class="links__url">australiainstitute.org.au</span></a></li>
+        <li><a href="https://www.hrlc.org.au" target="_blank" rel="noopener"><span class="links__name">Human Rights Law Centre</span><span class="links__url">hrlc.org.au</span></a></li>
+      </ul>
+    </div>
+  </article>
+  </template>
+
+  <template id="policy-template-privacy">
+<article class="popup" id="popup-privacy">
+    <div class="popup__num">03</div>
+    <p class="popup__eyebrow">Policy tracker · 03 / 04</p>
+    <h2 class="popup__title">Privacy, surveillance and eSafety</h2>
+
+    <p class="popup__lead">
+      AI systems run on personal information, and biometric tools, online safety systems and
+      surveillance technologies are expanding what is collected and reused, often in ways people
+      are not aware of. This section tracks how personal and sensitive data moves through these
+      systems, and whether privacy and oversight protections are keeping pace with the technology.
+    </p>
+    <p class="popup__tracked">
+      <b>What's tracked here</b>
+      Collection and reuse of personal information, biometric and facial recognition systems,
+      online safety systems, surveillance tools, data sharing between agencies and companies, and
+      the rules that apply.
+    </p>
+
+    <div class="block">
+      <h3 class="block__head">Track it</h3>
+      <ul class="links">
+        <li><a href="https://www.oaic.gov.au" target="_blank" rel="noopener"><span class="links__name">Office of the Australian Information Commissioner</span><span class="links__url">oaic.gov.au</span></a></li>
+        <li><a href="https://www.esafety.gov.au" target="_blank" rel="noopener"><span class="links__name">eSafety Commissioner</span><span class="links__url">esafety.gov.au</span></a></li>
+        <li><a href="https://www.oaic.gov.au/privacy/privacy-guidance-for-organisations-and-government-agencies/organisations/facial-recognition-technology-a-guide-to-assessing-the-privacy-risks" target="_blank" rel="noopener"><span class="links__name">OAIC facial recognition guidance</span><span class="links__url">oaic.gov.au</span></a></li>
+        <li><a href="https://www.oaic.gov.au/privacy/privacy-for-kids" target="_blank" rel="noopener"><span class="links__name">Children's Online Privacy Code</span><span class="links__url">oaic.gov.au</span></a></li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <h3 class="block__head">Recent developments</h3>
+      <ul class="feed">
+        <li><time>Feb 2026</time><span>Administrative Review Tribunal partially overturns the OAIC's Bunnings facial recognition determination, the first tribunal ruling on FRT under the Privacy Act.</span></li>
+        <li><time>2026</time><span>OAIC names facial recognition, biometric scanning and app and vehicle location tracking as enforcement priorities; investigations into Bunnings and Kmart continue.</span></li>
+        <li><time>Mar–Jun 2026</time><span>OAIC consults on the Children's Online Privacy Code, with registration targeted for December 2026.</span></li>
+        <li><time>Ongoing</time><span>OAIC takes on a privacy regulator role for the expanding Digital ID system.</span></li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <h3 class="block__head">Campaigns and advocacy</h3>
+      <ul class="links">
+        <li><a href="https://digitalrightswatch.org.au" target="_blank" rel="noopener"><span class="links__name">Digital Rights Watch</span><span class="links__url">digitalrightswatch.org.au</span></a></li>
+        <li><a href="https://www.efa.org.au" target="_blank" rel="noopener"><span class="links__name">Electronic Frontiers Australia</span><span class="links__url">efa.org.au</span></a></li>
+        <li><a href="https://privacy.org.au" target="_blank" rel="noopener"><span class="links__name">Australian Privacy Foundation</span><span class="links__url">privacy.org.au</span></a></li>
+        <li><a href="https://www.choice.com.au" target="_blank" rel="noopener"><span class="links__name">CHOICE</span><span class="links__url">choice.com.au</span></a></li>
+      </ul>
+    </div>
+  </article>
+  </template>
+
+  <template id="policy-template-data">
+<article class="popup" id="popup-data">
+    <div class="popup__num">04</div>
+    <p class="popup__eyebrow">Policy tracker · 04 / 04</p>
+    <h2 class="popup__title">Data risks, rights and responsibilities</h2>
+
+    <p class="popup__lead">
+      Where Australian data is stored, who can access it, and what obligations attach to handling
+      it are core public-interest questions, especially as government records and sensitive
+      workloads move onto commercial cloud infrastructure run by large overseas providers. This
+      section tracks data sovereignty, public-sector data use, the rights people have over their
+      data, and the responsibilities of the organisations storing and processing it.
+    </p>
+    <p class="popup__tracked">
+      <b>What's tracked here</b>
+      Data sovereignty and onshore storage, government data use and sharing powers, classified
+      and sensitive cloud workloads, data rights, cyber security obligations, and accountability
+      for breaches or misuse.
+    </p>
+
+    <div class="block">
+      <h3 class="block__head">Track it</h3>
+      <ul class="links">
+        <li><a href="https://www.dataanddigital.gov.au/strategy/missions/trusted-and-secure" target="_blank" rel="noopener"><span class="links__name">Data and Digital Strategy and the DAT Act</span><span class="links__url">dataanddigital.gov.au</span></a></li>
+        <li><a href="https://www.cyber.gov.au" target="_blank" rel="noopener"><span class="links__name">Australian Cyber Security Centre</span><span class="links__url">cyber.gov.au</span></a></li>
+        <li><a href="https://www.homeaffairs.gov.au" target="_blank" rel="noopener"><span class="links__name">2023–2030 Cyber Security Strategy</span><span class="links__url">homeaffairs.gov.au</span></a></li>
+        <li><a href="https://www.oaic.gov.au" target="_blank" rel="noopener"><span class="links__name">Notifiable Data Breaches scheme</span><span class="links__url">oaic.gov.au</span></a></li>
+        <li><a href="https://www.dta.gov.au" target="_blank" rel="noopener"><span class="links__name">DTA Hosting Certification Framework</span><span class="links__url">dta.gov.au</span></a></li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <h3 class="block__head">Recent developments</h3>
+      <ul class="feed">
+        <li><time>Ongoing</time><span>Hosting Certification Framework requires sensitive government data to be stored within Australian borders under enhanced sovereignty and security rules.</span></li>
+        <li><time>2026</time><span>Onshore demand driven by the Security of Critical Infrastructure Act and hosting certification; data sovereignty now ranked a top board-level risk.</span></li>
+        <li><time>Ongoing</time><span>US CLOUD Act tension: US-based providers can be compelled to hand over data even when it is physically stored in Australia.</span></li>
+        <li><time>Ongoing</time><span>Government commits to periodic review of the Data Availability and Transparency Act and further investment in the Notifiable Data Breaches scheme.</span></li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <h3 class="block__head">Campaigns and advocacy</h3>
+      <ul class="links">
+        <li><a href="https://digitalrightswatch.org.au" target="_blank" rel="noopener"><span class="links__name">Digital Rights Watch</span><span class="links__url">digitalrightswatch.org.au</span></a></li>
+        <li><a href="https://www.efa.org.au" target="_blank" rel="noopener"><span class="links__name">Electronic Frontiers Australia</span><span class="links__url">efa.org.au</span></a></li>
+        <li><a href="https://australiainstitute.org.au" target="_blank" rel="noopener"><span class="links__name">The Australia Institute</span><span class="links__url">australiainstitute.org.au</span></a></li>
+        <li><a href="https://www.maiamnayriwingara.org" target="_blank" rel="noopener"><span class="links__name">Maiam nayri Wingara, Indigenous data sovereignty</span><span class="links__url">maiamnayriwingara.org</span></a></li>
+      </ul>
+    </div>
+  </article>
+  </template>
 
   <div class="modal-overlay" id="project-modal" aria-hidden="true">
     <div class="modal-card">
@@ -1216,6 +1618,29 @@
         }, 0);
       });
     });
+
+
+    document.querySelectorAll('.policy-card').forEach(card => {
+      card.addEventListener('click', () => {
+        openPolicyModal(card.dataset.policyTemplate);
+      });
+    });
+
+    function openPolicyModal(templateId) {
+      const template = document.getElementById(templateId);
+      const modal = document.getElementById('project-modal');
+      const title = document.getElementById('modal-title');
+      const body = document.getElementById('modal-body');
+
+      if (!template || !modal || !title || !body) return;
+
+      title.textContent = 'Government policy tracker';
+      body.innerHTML = '';
+      body.appendChild(template.content.cloneNode(true));
+
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+    }
 
     function openProjectModal(project) {
       const modal = document.getElementById('project-modal');
