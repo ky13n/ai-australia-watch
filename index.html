@@ -49,36 +49,37 @@
       padding: 32px;
     }
 
+    header h1 {
+      margin-top: 0;
+    }
+
     header p {
-      max-width: 980px;
-      line-height: 1.5;
-    }
-
-    .header-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 18px;
-    }
-
-    .header-links a {
-      color: white;
-      text-decoration: none;
-      border: 1px solid rgba(255,255,255,0.35);
-      border-radius: 999px;
-      padding: 8px 12px;
-      font-size: 14px;
+      max-width: 1050px;
+      line-height: 1.55;
     }
 
     main {
       padding: 24px;
-      max-width: 1440px;
+      max-width: 1480px;
       margin: auto;
     }
 
+    .top-layout {
+      display: grid;
+      grid-template-columns: 360px minmax(0, 1fr);
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .side-nav {
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .nav-card,
     .map-card,
     .project-list,
-    .summary-card,
     .tracker-section,
     .campaign-section {
       background: var(--panel);
@@ -87,12 +88,40 @@
       box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
     }
 
+    .nav-card {
+      display: block;
+      padding: 18px;
+      text-decoration: none;
+      color: var(--ink);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .nav-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.12);
+    }
+
+    .nav-card h2 {
+      font-size: 18px;
+      margin: 0 0 8px 0;
+    }
+
+    .nav-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.45;
+      font-size: 14px;
+    }
+
+    .nav-card .section-label {
+      margin-bottom: 10px;
+    }
+
     .map-card {
       padding: 20px;
     }
 
-    .map-header,
-    .section-header {
+    .map-header {
       display: flex;
       justify-content: space-between;
       gap: 16px;
@@ -100,19 +129,15 @@
       margin-bottom: 12px;
     }
 
-    .map-header h2,
-    .section-header h2,
-    .campaign-section h2 {
+    .map-header h2 {
       margin: 0 0 8px 0;
     }
 
-    .map-header p,
-    .section-header p,
-    .campaign-section p {
+    .map-header p {
       margin: 0;
       color: var(--muted);
       line-height: 1.45;
-      max-width: 900px;
+      max-width: 850px;
     }
 
     .record-count {
@@ -147,7 +172,7 @@
     }
 
     #map {
-      height: 620px;
+      height: 640px;
       width: 100%;
       border-radius: 18px;
       border: 1px solid #cbd5e1;
@@ -171,36 +196,79 @@
     .marker-low { background: var(--low); }
     .marker-unknown { background: var(--unknown); }
 
-    .summary-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
+    .tracker-section,
+    .campaign-section {
       margin: 20px 0;
+      overflow: hidden;
     }
 
-    .summary-card {
-      padding: 18px;
+    .tracker-section details,
+    .campaign-section details {
+      padding: 0;
     }
 
-    .summary-card h3 {
+    .tracker-section summary,
+    .campaign-section summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 24px;
+    }
+
+    .tracker-section summary::-webkit-details-marker,
+    .campaign-section summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .summary-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 18px;
+    }
+
+    .summary-top h2 {
       margin: 0 0 8px 0;
     }
 
-    .summary-card p {
+    .summary-top p {
       margin: 0;
       color: var(--muted);
       line-height: 1.45;
+      max-width: 1000px;
     }
 
-    .tracker-section,
-    .campaign-section {
-      padding: 24px;
-      margin: 20px 0;
+    .toggle-hint {
+      white-space: nowrap;
+      font-size: 13px;
+      font-weight: bold;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      border-radius: 999px;
+      padding: 7px 10px;
+      color: #334155;
+    }
+
+    details[open] .toggle-hint::after {
+      content: "Hide";
+    }
+
+    details:not([open]) .toggle-hint::after {
+      content: "Open";
+    }
+
+    .section-body {
+      padding: 0 24px 24px 24px;
+    }
+
+    .section-intro {
+      color: var(--ink);
+      line-height: 1.55;
+      max-width: 1050px;
+      margin: 0 0 16px 0;
     }
 
     .section-label {
       display: inline-block;
-      margin-bottom: 10px;
       padding: 5px 9px;
       border-radius: 999px;
       font-size: 13px;
@@ -356,36 +424,12 @@
       color: #1e40af;
     }
 
-    .campaign-focus-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 14px;
-      margin-top: 16px;
-    }
-
-    .campaign-box {
-      border: 1px solid #e2e8f0;
-      background: #f8fafc;
-      border-radius: 14px;
-      padding: 16px;
-    }
-
-    .campaign-box h3 {
-      margin: 0 0 8px 0;
-    }
-
-    .campaign-box p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.45;
-    }
-
     .notice-box {
       background: #eff6ff;
       border: 1px solid #bfdbfe;
       border-radius: 14px;
       padding: 14px;
-      margin-top: 16px;
+      margin: 16px 0;
       color: #1e3a8a;
       line-height: 1.45;
     }
@@ -393,6 +437,15 @@
     .project-list {
       padding: 24px;
       margin-top: 20px;
+    }
+
+    .project-list h2 {
+      margin-top: 0;
+    }
+
+    .project-list > p {
+      color: var(--muted);
+      line-height: 1.45;
     }
 
     .project-item {
@@ -533,10 +586,29 @@
       color: var(--blue);
     }
 
+    @media (max-width: 1100px) {
+      .top-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .side-nav {
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      }
+
+      #map {
+        height: 560px;
+      }
+    }
+
     @media (max-width: 900px) {
       .map-header,
-      .section-header {
+      .summary-top {
         display: block;
+      }
+
+      .toggle-hint {
+        display: inline-block;
+        margin-top: 12px;
       }
 
       .legend {
@@ -580,139 +652,131 @@
 <body>
   <header>
     <h1>AI Australia Watch</h1>
-    <p>A public-interest dashboard tracking AI infrastructure, data centres, clean energy accountability, fossil fuel risk, policy influence and public action in Australia.</p>
-
-    <div class="header-links">
-      <a href="#map-section">Map</a>
-      <a href="#get-involved">Take action</a>
-      <a href="#clean-energy-tracker">Clean energy and fossil fuels</a>
-      <a href="#influence-tracker">Lobbying and influence</a>
-      <a href="#project-records">Project records</a>
-    </div>
+    <p>AI Australia Watch is an independent, public-access hub tracking policy and regulatory frameworks, corporate interests, active lobbying, and infrastructure developments shaping Australia's digital future. The platform aggregates public records to map the broad social, political and environmental landscape surrounding AI expansion across state and federal levels.</p>
+    <p>Its purpose is to provide clear information for those looking to help shape technology governance and ensure the safe deployment of automated systems that prioritise democratic accountability, environmental sustainability and the broader public interest. AI Australia Watch is non-affiliated, operates free from commercial influence, and holds no alliances, funding ties or attachments to corporate entities or political parties.</p>
   </header>
 
   <main>
-    <section class="map-card" id="map-section">
-      <div class="map-header">
-        <div>
-          <h2>Data centre map</h2>
-          <p>Tracked AI and cloud data centre sites in Australia. The map shows location, operator, status and risk. Fossil fuel, clean energy, lobbying and public action information is separated into dedicated trackers below.</p>
-          <p class="record-count" id="project-count">Loading project records...</p>
+    <section class="top-layout">
+      <nav class="side-nav" aria-label="Section navigation">
+        <a class="nav-card" href="#clean-energy-tracker">
+          <span class="section-label label-fossil">Tracker</span>
+          <h2>Energy, Water &amp; Environmental Impacts</h2>
+          <p>Monitoring the physical footprint of the digital boom. This database tracks utility demands, data centre resource consumption, municipal water usage, grid capacity constraints and associated fossil fuel interests.</p>
+        </a>
+
+        <a class="nav-card" href="#influence-tracker">
+          <span class="section-label label-influence">Tracker</span>
+          <h2>Government Policy, Lobbying and Regulation</h2>
+          <p>Auditing the mechanisms of tech governance. This section tracks corporate lobbying efforts, industry group influence, and evolving state and federal policy frameworks, mapping regulatory gaps and public-interest risks.</p>
+        </a>
+
+        <a class="nav-card" href="#get-involved">
+          <span class="section-label label-action">Take action</span>
+          <h2>Take Action / Get Involved</h2>
+          <p>Empowering public participation in technology policy. Access a centralised directory of open government consultations, parliamentary submissions, advocacy campaigns and petitions.</p>
+        </a>
+      </nav>
+
+      <section class="map-card" id="map-section">
+        <div class="map-header">
+          <div>
+            <h2>Data centre map</h2>
+            <p>Tracked AI and cloud data centre sites in Australia. The map shows location, operator, status and risk. Energy, water, fossil fuel, lobbying and public action information is separated into the trackers below.</p>
+            <p class="record-count" id="project-count">Loading project records...</p>
+          </div>
+
+          <div class="legend">
+            <span><i class="legend-dot" style="background:#dc2626;"></i>High</span>
+            <span><i class="legend-dot" style="background:#f97316;"></i>Medium</span>
+            <span><i class="legend-dot" style="background:#16a34a;"></i>Low</span>
+            <span><i class="legend-dot" style="background:#6b7280;"></i>Unknown</span>
+          </div>
         </div>
 
-        <div class="legend">
-          <span><i class="legend-dot" style="background:#dc2626;"></i>High</span>
-          <span><i class="legend-dot" style="background:#f97316;"></i>Medium</span>
-          <span><i class="legend-dot" style="background:#16a34a;"></i>Low</span>
-          <span><i class="legend-dot" style="background:#6b7280;"></i>Unknown</span>
-        </div>
-      </div>
-
-      <div id="map"></div>
-    </section>
-
-    <section class="summary-grid">
-      <div class="summary-card">
-        <h3>Data centre map</h3>
-        <p>Track project locations, operators, status and basic risk.</p>
-      </div>
-
-      <div class="summary-card">
-        <h3>Take action</h3>
-        <p>Find formal submissions, official processes, campaigns and petitions people can use now.</p>
-      </div>
-
-      <div class="summary-card">
-        <h3>Clean energy and fossil fuels</h3>
-        <p>Track diesel backup, gas risk, grid demand, renewable claims and whether claims are enforceable.</p>
-      </div>
-
-      <div class="summary-card">
-        <h3>Lobbying and influence</h3>
-        <p>Track fast-tracking, ministerial promotion, industry bodies, investor links and policy pressure.</p>
-      </div>
-    </section>
-
-    <section class="tracker-section" id="get-involved">
-      <div class="section-header">
-        <div>
-          <span class="section-label label-action">Take Action / Get Involved</span>
-          <h2>Current actions, submissions, campaigns and petitions</h2>
-          <p>This section is for things people can actually click: official submissions, parliamentary processes, petitions, campaigns and archived inquiries worth tracking. Live actions are shown before closed archive items.</p>
-        </div>
-      </div>
-
-      <div class="notice-box">
-        The campaign frame is clean-energy accountability, not anti-AI messaging. The public asks are about additional renewables, diesel reporting, water disclosure, cumulative grid assessment and enforceable safeguards.
-      </div>
-
-      <div class="action-category">
-        <h3>Formal submissions and official processes</h3>
-        <p>Government consultations, parliamentary inquiries, planning exhibitions and official petitions.</p>
-        <div class="action-grid" id="formal-actions-list">Loading formal actions...</div>
-      </div>
-
-      <div class="action-category">
-        <h3>Community-led campaigns and petitions</h3>
-        <p>Community, environment and public-interest campaigns people can sign, share or use to contact decision-makers.</p>
-        <div class="action-grid" id="community-actions-list">Loading community actions...</div>
-      </div>
+        <div id="map"></div>
+      </section>
     </section>
 
     <section class="tracker-section" id="clean-energy-tracker">
-      <div class="section-header">
-        <div>
-          <span class="section-label label-fossil">Clean energy and fossil fuel tracker</span>
-          <h2>Fossil fuel links, diesel backup and clean-energy claims</h2>
-          <p>This section is separated from the map so the campaign focus is clear: data centres should be powered by additional clean energy, disclose diesel backup and water use, and avoid locking in fossil fuel demand.</p>
-        </div>
-      </div>
+      <details>
+        <summary>
+          <div class="summary-top">
+            <div>
+              <span class="section-label label-fossil">Energy, Water &amp; Environmental Impacts</span>
+              <h2>Resource demand, fossil fuel risk and environmental impacts</h2>
+              <p>Click to expand project-level information on electricity demand, water use, diesel backup, renewable energy claims and fossil fuel risk.</p>
+            </div>
+            <span class="toggle-hint"></span>
+          </div>
+        </summary>
 
-      <div class="tracker-grid" id="clean-energy-list">Loading clean energy tracker...</div>
+        <div class="section-body">
+          <p class="section-intro">As the computational demands of artificial intelligence scale, the physical infrastructure supporting these systems can impose a significant, often obscured toll on Australia's natural resources. This section provides a data-driven log of the material footprint required by both operational and proposed data centres nationwide. By aggregating environmental impact statements, local council planning applications and state utility reports where available, the platform maps electricity demand, water consumption, grid constraints, diesel backup and renewable energy commitments.</p>
+          <div class="tracker-grid" id="clean-energy-list">Loading clean energy tracker...</div>
+        </div>
+      </details>
     </section>
 
     <section class="tracker-section" id="influence-tracker">
-      <div class="section-header">
-        <div>
-          <span class="section-label label-influence">Lobbying and influence tracker</span>
-          <h2>Government promotion, fast-tracking and corporate influence</h2>
-          <p>This section tracks public, documentable influence: government announcements, fast-track pathways, industry bodies, commissioned research, investor links and policy asks.</p>
-        </div>
-      </div>
+      <details>
+        <summary>
+          <div class="summary-top">
+            <div>
+              <span class="section-label label-influence">Government Policy, Lobbying and Regulation</span>
+              <h2>Policy settings, lobbying and regulatory gaps</h2>
+              <p>Click to expand records on government promotion, fast-tracked approvals, industry bodies, policy influence and regulatory settings.</p>
+            </div>
+            <span class="toggle-hint"></span>
+          </div>
+        </summary>
 
-      <div class="tracker-grid" id="influence-list">Loading influence tracker...</div>
+        <div class="section-body">
+          <p class="section-intro">The pace of technological deployment can outstrip the development of democratic oversight, leaving critical public institutions and individual rights vulnerable to unregulated automated systems. This section tracks the evolution of AI governance, automated decision-making protocols, privacy law, planning fast-tracking, government procurement and corporate influence at state and federal levels.</p>
+          <div class="tracker-grid" id="influence-list">Loading influence tracker...</div>
+        </div>
+      </details>
     </section>
 
-    <section class="campaign-section">
-      <h2>Core campaign focus</h2>
-      <p>The campaign frame is clean-energy accountability, not anti-AI messaging. The public should be able to see what these projects demand from the electricity grid and water systems, who is influencing policy, and where enforceable safeguards are missing.</p>
+    <section class="tracker-section" id="get-involved">
+      <details open>
+        <summary>
+          <div class="summary-top">
+            <div>
+              <span class="section-label label-action">Take Action / Get Involved</span>
+              <h2>Current actions, submissions, campaigns and petitions</h2>
+              <p>Click to expand open consultations, official processes, community campaigns and petitions where people can influence technology policy and infrastructure decisions.</p>
+            </div>
+            <span class="toggle-hint"></span>
+          </div>
+        </summary>
 
-      <div class="campaign-focus-grid">
-        <div class="campaign-box">
-          <h3>Additional clean energy</h3>
-          <p>Require new data centre demand to be matched by additional renewable generation, not vague claims or existing certificates.</p>
-        </div>
+        <div class="section-body">
+          <p class="section-intro">Democratic technology governance requires active, informed civic involvement. This section acts as a functional bridge between public-access data and direct democratic participation, providing a centralised toolkit for individuals, community organisations and advocates seeking to influence Australia's digital trajectory.</p>
+          <p class="section-intro">It lists open federal and state parliamentary inquiries, public consultation projects and official feedback processes where public input can shape policy. Direct links to official portals are provided alongside active grassroots campaigns, advocacy actions and public petitions. Submission templates and additional briefing tools can be added as the project develops.</p>
 
-        <div class="campaign-box">
-          <h3>Diesel transparency</h3>
-          <p>Publish generator numbers, diesel storage, run hours, emissions and air-quality monitoring, especially near homes and schools.</p>
-        </div>
+          <div class="notice-box">
+            The campaign frame is clean-energy accountability, democratic oversight and transparent planning, not anti-AI messaging. Public asks focus on additional renewables, diesel reporting, water disclosure, cumulative grid assessment and enforceable safeguards.
+          </div>
 
-        <div class="campaign-box">
-          <h3>Water disclosure</h3>
-          <p>Show how much water each facility uses, whether it is potable or recycled, and whether low-water claims are independently verified.</p>
-        </div>
+          <div class="action-category">
+            <h3>Formal submissions and official processes</h3>
+            <p>Government consultations, parliamentary inquiries, planning exhibitions and official petitions.</p>
+            <div class="action-grid" id="formal-actions-list">Loading formal actions...</div>
+          </div>
 
-        <div class="campaign-box">
-          <h3>Enforceable safeguards</h3>
-          <p>Turn government expectations and company sustainability claims into binding approval conditions and contract requirements.</p>
+          <div class="action-category">
+            <h3>Community-led campaigns and petitions</h3>
+            <p>Community, environment and public-interest campaigns people can sign, share or use to contact decision-makers.</p>
+            <div class="action-grid" id="community-actions-list">Loading community actions...</div>
+          </div>
         </div>
-      </div>
+      </details>
     </section>
 
     <section class="project-list" id="project-records">
       <h2>Basic project records</h2>
-      <p>This list keeps the project tracker simple. Clean energy, fossil fuel, lobbying and action details are shown in the separate sections above.</p>
+      <p>This list keeps the project tracker simple. Energy, water, fossil fuel, lobbying and action details are shown in the expandable sections above.</p>
       <div id="project-list">Loading projects...</div>
     </section>
   </main>
@@ -862,6 +926,21 @@
         .join('');
     }
 
+    function openDetailsById(id) {
+      const section = document.getElementById(id);
+      if (!section) return;
+
+      const details = section.querySelector('details');
+      if (details) details.open = true;
+    }
+
+    document.querySelectorAll('.nav-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const targetId = card.getAttribute('href').replace('#', '');
+        openDetailsById(targetId);
+      });
+    });
+
     function openProjectModal(project) {
       const modal = document.getElementById('project-modal');
       const title = document.getElementById('modal-title');
@@ -914,14 +993,14 @@
             ${formatText(project.summary || 'No summary yet.')}
           </div>
 
-          <h3 class="detail-section-heading">Clean energy and fossil fuel accountability</h3>
+          <h3 class="detail-section-heading">Energy, water and environmental impacts</h3>
           ${optionalDetailRow('Fossil fuel notes', project.fossil_fuel_notes)}
           ${optionalDetailRow('Clean energy notes', project.clean_energy_notes)}
           ${optionalDetailRow('Energy policy risk', project.energy_policy_risk)}
           ${optionalDetailRow('Energy concerns', project.energy_notes)}
           ${optionalDetailRow('Water concerns', project.water_notes)}
 
-          <h3 class="detail-section-heading">Lobbying, influence and public action</h3>
+          <h3 class="detail-section-heading">Government policy, lobbying and public action</h3>
           ${optionalDetailRow('Lobbying / influence', project.lobbying_or_influence_notes)}
           ${optionalDetailRow('Campaign status', project.campaign_status)}
           ${optionalDetailRow('What to watch', project.what_to_watch)}
@@ -1045,7 +1124,7 @@
       list.innerHTML = '';
 
       if (cleanEnergyProjects.length === 0) {
-        list.innerHTML = '<div class="empty-message">No clean energy or fossil fuel tracker records have been added yet.</div>';
+        list.innerHTML = '<div class="empty-message">No energy, water or fossil fuel tracker records have been added yet.</div>';
         return;
       }
 
@@ -1090,7 +1169,7 @@
       list.innerHTML = '';
 
       if (influenceProjects.length === 0) {
-        list.innerHTML = '<div class="empty-message">No lobbying or influence tracker records have been added yet.</div>';
+        list.innerHTML = '<div class="empty-message">No policy, lobbying or regulation records have been added yet.</div>';
         return;
       }
 
@@ -1287,8 +1366,8 @@
       if (!Array.isArray(projects)) {
         document.getElementById('project-count').textContent = 'Could not load project records.';
         document.getElementById('project-list').textContent = 'Could not load projects.';
-        document.getElementById('clean-energy-list').textContent = 'Could not load clean energy tracker.';
-        document.getElementById('influence-list').textContent = 'Could not load influence tracker.';
+        document.getElementById('clean-energy-list').textContent = 'Could not load energy tracker.';
+        document.getElementById('influence-list').textContent = 'Could not load policy tracker.';
         console.log(projects);
         return;
       }
