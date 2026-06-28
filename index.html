@@ -1785,21 +1785,203 @@
       }
     }
 
+    /* ---------------------------------------------------------------
+       Closed policy archive and submission templates
+    ---------------------------------------------------------------- */
+    .closed-policy-details {
+      margin-top: 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--policy-paper);
+      overflow: hidden;
+    }
+
+    .closed-policy-details > summary {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 12px 16px;
+      list-style: none;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--policy-accent);
+      border-bottom: 1px solid transparent;
+    }
+
+    .closed-policy-details[open] > summary {
+      border-bottom-color: var(--border);
+    }
+
+    .closed-policy-details > summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .closed-policy-count {
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: 0.04em;
+      text-transform: none;
+    }
+
+    .closed-policy-note {
+      margin: 0;
+      padding: 12px 16px 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .policy-timeline-closed {
+      padding: 12px 16px 16px;
+    }
+
+    .policy-dev.compact {
+      grid-template-columns: 104px minmax(0, 1fr) auto;
+      padding: 11px 13px;
+      border-left-width: 3px;
+      background: #fffefa;
+    }
+
+    .policy-dev.compact .policy-dev__title {
+      margin-bottom: 4px;
+      font-size: 15px;
+    }
+
+    .policy-dev.compact .policy-dev__act,
+    .policy-dev.compact .policy-dev__participation,
+    .policy-dev.compact .policy-dev__text {
+      display: none;
+    }
+
+    .template-grid {
+      margin-top: 18px;
+    }
+
+    .template-card h3 {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--policy-accent);
+    }
+
+    .template-card p strong {
+      font-family: "Spectral", Georgia, serif;
+      font-size: 21px;
+      color: var(--ink);
+    }
+
+    .submission-template {
+      background: var(--policy-card);
+      border: 1px solid var(--policy-line);
+      border-radius: var(--radius);
+      padding: 28px;
+    }
+
+    .submission-template__eyebrow {
+      margin: 0 0 8px;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--policy-accent);
+    }
+
+    .submission-template__title {
+      margin: 0 0 10px;
+      font-family: "Spectral", Georgia, serif;
+      font-size: 28px;
+      line-height: 1.15;
+    }
+
+    .submission-template__summary {
+      margin: 0 0 18px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .template-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 0 0 18px;
+    }
+
+    .template-action-btn {
+      border: 1px solid var(--policy-accent);
+      background: var(--policy-accent);
+      color: #fffefa;
+      border-radius: var(--radius);
+      padding: 9px 12px;
+      cursor: pointer;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .template-action-btn.secondary {
+      background: #fffefa;
+      color: var(--policy-accent);
+    }
+
+    .template-action-btn:hover {
+      filter: brightness(0.96);
+    }
+
+    .template-copy-status {
+      min-height: 20px;
+      margin: -8px 0 12px;
+      font-size: 13px;
+      color: var(--policy-accent);
+    }
+
+    .template-text {
+      white-space: pre-wrap;
+      overflow-x: auto;
+      background: var(--policy-paper);
+      border: 1px solid var(--policy-line);
+      border-radius: var(--radius);
+      padding: 18px;
+      font-family: "IBM Plex Sans", Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--ink);
+    }
+
+    @media (max-width: 640px) {
+      .policy-dev.compact {
+        grid-template-columns: 1fr;
+      }
+
+      .policy-timeline-closed {
+        padding: 10px;
+      }
+
+      .template-text {
+        font-size: 14px;
+      }
+    }
+
   </style>
 </head>
 
 <body>
   <header>
     <h1>AI Australia Watch</h1>
-    <p>AI Australia Watch is an independent, public-access hub tracking infrastructure developments, policy and regulatory frameworks, corporate interests and active lobbying actions shaping Australia's digital future. The platform aggregates public records to map the broad social, political, and environmental landscape surrounding AI expansion across both state and federal levels. The sites purpose is to provide clear information for those looking to help shape technology governance to ensure the safe deployment of automated systems that prioritise democratic accountability, environmental sustainability, and the broader public interest.
+    <p>AI Australia Watch is an independent, public-access hub tracking infrastructure developments, policy and regulatory frameworks, corporate interests and active lobbying actions shaping Australia's digital future. The platform aggregates public records to map the broad social, political, and environmental landscape surrounding AI expansion across both state and federal levels. The site's purpose is to provide clear information for those looking to help shape technology governance to ensure the safe deployment of automated systems that prioritise democratic accountability, environmental sustainability, and the broader public interest.</p>
   </header>
 
   <main>
     <section class="top-layout">
       <nav class="side-nav" aria-label="Section navigation">
         <a class="nav-card" href="#clean-energy-tracker">
-          <h2>Energy, Water &amp; Environmental Impacts</h2>
-          <p>Electricity demand, renewable-energy accountability, diesel backup, water use, cooling systems and cumulative infrastructure pressure.</p>
+          <h2>Data Centres &amp; Environmental Impacts</h2>
+          <p>Data centre project records, electricity demand, water use, diesel backup, grid constraints, renewable-energy claims and environmental governance risk.</p>
         </a>
 
         <a class="nav-card" href="#influence-tracker">
@@ -1809,7 +1991,7 @@
 
         <a class="nav-card" href="#get-involved">
           <h2>Take action and get involved</h2>
-          <p>Government submissions, parliamentary inquiries, petitions, community campaigns and public participation pathways.</p>
+          <p>Submission templates and practical tools for contacting policy makers, regulators, planning authorities and elected representatives.</p>
         </a>
       </nav>
 
@@ -1838,14 +2020,14 @@
         <summary>
           <div class="summary-top">
             <div>
-              <h2>Energy, Water &amp; Environmental Impacts</h2>
+              <h2>Data Centres &amp; Environmental Impacts</h2>
             </div>
             <span class="toggle-hint"></span>
           </div>
         </summary>
 
         <div class="section-body">
-          <p class="section-intro">AI and cloud infrastructure can create major electricity, water, land-use and backup-power demands. Select a data centre below to review the available energy, water, diesel backup, clean-energy and verification information for that project.</p>
+          <p class="section-intro">This section tracks the physical footprint of AI and cloud data centre infrastructure in Australia, including electricity demand, water use, diesel backup, grid constraints, renewable-energy claims, planning status and environmental governance risk. Select a data centre below to review the available project-level evidence.</p>
 
           <div class="notice-box">
             Future AI and cloud data centre proposals should be required to demonstrate additional, local and enforceable renewable energy supply, clear water-use reporting, diesel backup transparency and cumulative grid-impact assessment. Company sustainability claims are treated as claims unless they are site-specific, measurable and enforceable.
@@ -1887,6 +2069,15 @@
             </div>
             <p class="record-count" id="policy-count"></p>
             <div class="policy-timeline" id="policy-timeline">Loading developments...</div>
+
+            <details class="closed-policy-details" id="closed-policy-details">
+              <summary>
+                <span>Closed and archived policy developments</span>
+                <span class="closed-policy-count" id="policy-closed-count"></span>
+              </summary>
+              <p class="closed-policy-note">Closed consultations and archived policy milestones are kept here for context without crowding the active tracker.</p>
+              <div class="policy-timeline policy-timeline-closed" id="policy-closed-timeline"></div>
+            </details>
 
             <div class="policy-participate" id="policy-participate">
               <h3>Where to track it and have your say</h3>
@@ -1935,32 +2126,32 @@
         </summary>
 
         <div class="section-body">
-          <p class="section-intro">This section links public-access information to direct ways people can participate in AI, data centre, privacy, planning and energy policy decisions.</p>
+          <p class="section-intro">Democratic technology governance is not limited to experts, companies or government departments. Members of the public can make submissions, respond to consultations, write to elected representatives, contact regulators and ask planning authorities to apply stronger safeguards.</p>
+
+          <p class="section-intro">These templates are starting points for people who want to raise environmental, privacy, surveillance, data-rights or AI accountability concerns. Personalise the wording with your own location, experience and the exact name of the consultation, inquiry, project or bill before sending.</p>
 
           <div class="notice-box">
-            The campaign frame is clean-energy accountability, democratic oversight and transparent planning, not anti-AI messaging. Public asks focus on additional renewables, diesel reporting, water disclosure, cumulative grid assessment, privacy protections and enforceable safeguards.
+            Public submissions are more effective when they are specific, respectful and personalised. Add your suburb or state, explain how the issue affects you or your community, and include the exact action you want the decision-maker to take.
           </div>
 
-          <div class="info-grid action-choice-grid">
-            <button class="info-card action-choice-card" type="button" data-action-target="formal-action-panel">
-              <h3>Government planning submissions, parliamentary inquiries and petitions</h3>
-              <p>Open government consultations, parliamentary inquiries, planning exhibitions and official petitions.</p>
+          <div class="info-grid template-grid">
+            <button class="info-card template-card" type="button" data-template-id="template-1">
+              <h3>Submission template 1</h3>
+              <p><strong>Data Centres, Energy and the Grid</strong></p>
+              <p>For planning submissions, energy consultations, environmental assessments and letters about data centre electricity demand, renewable additionality, offsets, grid impacts and diesel backup.</p>
             </button>
 
-            <button class="info-card action-choice-card" type="button" data-action-target="community-action-panel">
-              <h3>Community-led campaigns and petitions</h3>
-              <p>Community, environment and public-interest campaigns people can sign, share or use to contact decision-makers.</p>
+            <button class="info-card template-card" type="button" data-template-id="template-2">
+              <h3>Submission template 2</h3>
+              <p><strong>Privacy, Biometrics and Children's Data</strong></p>
+              <p>For privacy, biometric surveillance, age-assurance, facial recognition, children's data, Digital ID and online safety consultations.</p>
             </button>
-          </div>
 
-          <div class="nested-action-sections">
-            <section class="action-panel hidden" id="formal-action-panel" aria-live="polite">
-              <div class="action-grid" id="formal-actions-list">Loading formal actions...</div>
-            </section>
-
-            <section class="action-panel hidden" id="community-action-panel" aria-live="polite">
-              <div class="action-grid" id="community-actions-list">Loading community actions...</div>
-            </section>
+            <button class="info-card template-card" type="button" data-template-id="template-3">
+              <h3>Submission template 3</h3>
+              <p><strong>Automated Decision-Making and AI Accountability</strong></p>
+              <p>For AI accountability, automated decision-making, public-sector AI, workplace algorithmic management, welfare, essential services and transparency consultations.</p>
+            </button>
           </div>
         </div>
       </details>
@@ -2799,6 +2990,102 @@
       });
     }
 
+
+    const submissionTemplates = [
+      {
+            "id": "template-1",
+            "number": "Submission template 1",
+            "title": "Data Centres, Energy and the Grid",
+            "summary": "Use this template for planning submissions, energy consultations, environmental assessments and letters about data centre electricity demand, renewable additionality, offsets, grid impacts and diesel backup.",
+            "body": "SUBMISSION 1: Data Centres, Energy and the Grid\n\n[Your Name or Organisation Name]\n[Your Residential Address / Business Address]\n[Your Email Address]\n[Your Phone Number]\n[Date]\n\nTo the Secretariat / Consultation Committee,\n\nRE: Submission regarding the environmental and grid impacts of data centre and AI infrastructure development in Australia [insert exact title of the consultation or inquiry if applicable].\n\n1. Administrative Disclosures\n\n\nCapacity: I am writing this submission as a concerned [local resident / energy consumer / citizen / small business owner].\nConfidentiality: This submission is public. I consent to my name and the contents of this text being published.\n\n\n2. Executive Summary and Core Position: Conditional Non-Consent\n\nI welcome the opportunity to provide feedback on the framework managing data centre expansion.\n\nI wish to state clearly and unequivocally that I do not consent to the unmitigated approval, fast-tracking or grid connection of new commercial data centre operations or AI computing infrastructure in Australia, unless approvals are legally bound to a strict mandate of 100 per cent new, local renewable energy generation.\n\nFurthermore, I explicitly reject the use of retroactive carbon offsets, generic carbon accounting tools, or pre-existing Large-scale Generation Certificates (LGCs) as a valid pathway to meet environmental compliance.\n\n3. Key Policy Demands and Technical Arguments\n\nDemand 1: Mandating true additionality over legacy infrastructure\n\nData centres are uniquely intense, around-the-clock baseload power consumers. Allowing these facilities to hook into the grid under the guise of \"net zero\" by simply buying up power from existing solar and wind farms does nothing to reduce overall emissions. It cannibalises the clean energy currently allocated to decarbonise everyday Australian households, driving up wholesale electricity prices for the public.\n\n\nRecommendation: Approvals must be contingent on additionality. Operators must directly underwrite, build or contractually fund entirely new renewable generation assets and local battery storage equivalents to cover 100 per cent of their projected operational load. This obligation must rest on the facility, and must not be satisfied by reassigning generation that already exists or that is already counted toward other commitments.\n\n\nDemand 2: Explicit rejection of carbon offsets\n\nClimate outcomes cannot be bartered through creative accounting. I oppose any framework that allows a data centre to run on fossil-fuel grid power while neutralising its pollution by purchasing land offsets, reforestation credits or international carbon offsets. Offsets do not stop local fossil-fuel generation from burning to keep servers cool during peak grid demand.\n\n\nRecommendation: The framework must enforce a strict physical reduction policy. \"Carbon neutral\" claims backed by offset portfolios must be legally treated as deceptive marketing, a form of AI-washing, under Australian Consumer Law, and barred from state and federal environmental planning approvals.\n\n\nDemand 3: 24/7 time-matching and grid accountability\n\nTrue sustainability requires data centres to match their power consumption with clean energy in real time, hour by hour, not averaged out over a calendar year.\n\n\nRecommendation: Operators must be required to prove 24/7 temporal matching of their energy use with local renewable sources, ensuring they are not quietly leaning on coal-fired power during night-time hours or periods of low wind.\n\n\n4. Personal / Community Impact Statement\n\n[OPTIONAL: Insert 2 to 3 sentences here. For example: \"As an everyday power consumer in [state], I am highly concerned that unmitigated data centre growth will inflate my household electricity bills and prolong the life of ageing coal generators in my state.\"]\n\n5. Conclusion\n\nDigital innovation must not come at the expense of our national emissions targets, our power grid stability, or everyday consumers. If a global tech firm or hyperscale developer wishes to benefit from Australia's digital economy, they must bring their own new, clean power to the table.\n\nThank you for your time and for considering this submission.\n\nSincerely,\n[Your Signature / Type Your Name]"
+      },
+      {
+            "id": "template-2",
+            "number": "Submission template 2",
+            "title": "Privacy, Biometrics and Children's Data",
+            "summary": "Use this template for consultations or complaints about privacy, biometric surveillance, age assurance, facial recognition, children's data, Digital ID and online safety.",
+            "body": "SUBMISSION 2: Privacy, Biometrics and Children's Data\n\n[Your Name or Organisation Name]\n[Your Contact Address]\n[Your Email Address]\n[Your Phone Number]\n[Date]\n\nTo the Consultation Secretariat / Regulatory Policy Team,\n\nRE: Submission on [insert exact title of the consultation, inquiry or draft bill if applicable].\n\n1. Administrative Disclosures\n\n\nCapacity: I am submitting feedback as an [individual citizen / digital privacy advocate / parent / small business operator / consumer].\nConfidentiality: [Select Option A or Option B]\n\nOption A: This submission is public. I consent to my name and contents being published.\nOption B: This submission is anonymous. Please redact my name and identifying details prior to publication.\n\n\n\n\n\n2. Executive Summary and Core Position\n\nI welcome the opportunity to provide feedback. Digital technologies, identity verification systems and safety verification measures must never be deployed at the expense of fundamental human rights to privacy, bodily autonomy and data minimisation.\n\nMy core position is that as Australia expands its digital frameworks, including age-assurance systems, the digital identity ecosystem and commercial retail monitoring, the regulator must enforce explicit boundaries against surveillance creep. Safety objectives must be achieved via data-lean protocols, not the hyper-collection of sensitive biometrics.\n\n3. Detailed Policy Stances and Requirements\n\nStance 1: Complete ban on unnecessary biometric collection\n\nBiometric identifiers, including facial templates, voiceprints and gait analysis, are immutable. Unlike passwords, they cannot be reset if a database is breached. Regulators must resist the commercial and public-sector trend of defaulting to biometric enrolment for basic access.\n\n\nRecommendation: Implement a strict necessity test. Biometric data collection must be legally barred unless the provider can prove that no other, less-invasive verification method exists.\n\n\nStance 2: Strict statutory limits on facial recognition and age assurance\n\nWe are seeing a dangerous normalisation of facial scanning across retail and verification settings. Age estimation, scanning features to guess age, and age verification must not become a back-door mechanism for permanent digital tracking.\n\n\nRecommendation: Any age-assurance or retail identity scan must operate on a zero-retention baseline. Legally mandate that facial templates used for verification be processed transiently and destroyed immediately after the verification event, with zero metadata logs retained. The brief or transient nature of processing must not be treated as exempting an operator from consent and notification obligations.\n\n\nStance 3: Absolute privacy-by-default frameworks for children\n\nOnline products, games and platforms likely to be accessed by minors must be secure by design. Children must not be forced to barter their personal profiles to navigate the digital world.\n\n\nRecommendation: The best-interests-of-the-child principle must override platform monetisation strategies. All tracking, behavioural profiling, location pinging and targeted algorithmic recommendation engines must be completely turned off by default for accounts belonging to, or inferred to belong to, minors.\n\n\nStance 4: Explicit, granular consent and enforceable opt-out rights\n\nBundled consent, where a user must agree to a long terms-of-service document just to use an app or enter a store, is not true consent.\n\n\nRecommendation: Mandate clear, layered consent protocols. Consumers must have a seamless, unpenalised right to opt out of advanced data tracking and automated processing without losing access to the core utility of the service or product.\n\n\nStance 5: Compulsory independent audits and enforcement\n\nSelf-regulation in tech has fundamentally failed. Regulators cannot rely on corporate internal reviews to verify data safety compliance.\n\n\nRecommendation: System participants, especially accredited identity providers and high-risk platforms, must submit to mandatory, annual, third-party independent privacy and algorithmic audits. These audit summaries must be made easily accessible to the public.\n\n\nStance 6: Explicit prohibition on data reuse for AI training and profiling\n\nSensitive consumer metadata, identity verification assets and children's interactions must never be quietly recycled to build commercial value for tech firms.\n\n\nRecommendation: Legally prohibit the harvesting or reuse of any sensitive personal data, biometric files or public-sector interaction history for the purposes of training generative AI models, refining algorithmic automation pipelines or constructing behavioural ad profiles.\n\n\n4. Conclusion\n\nTrue digital safety and trusted identity networks cannot be built on a foundation of mass surveillance. I urge the regulatory team to codify these bright-line limitations into the final framework to ensure all Australians remain safe, sovereign and secure online.\n\nThank you for your consideration of this submission.\n\nSincerely,\n[Your Name / Signature]"
+      },
+      {
+            "id": "template-3",
+            "number": "Submission template 3",
+            "title": "Automated Decision-Making and AI Accountability",
+            "summary": "Use this template for AI accountability, automated decision-making, public-sector AI, workplace algorithmic management, welfare, essential services and transparency consultations.",
+            "body": "SUBMISSION 3: Automated Decision-Making and AI Accountability\n\n[Your Name or Organisation Name]\n[Your Contact Address]\n[Your Email Address]\n[Your Phone Number]\n[Date]\n\nTo the Consultation Secretariat / Policy Team,\n\nRE: Submission on [insert exact title of the consultation, inquiry or draft bill if applicable].\n\n1. Administrative Disclosures\n\n\nCapacity: I am making this submission as an [individual citizen / public servant / digital rights advocate / worker / consumer].\nConfidentiality: [Select Option A or Option B]\n\nOption A: This submission is public. I consent to my name and contents being published.\nOption B: This submission is anonymous. I consent to publication but request my name and identifying details be redacted.\n\n\n\n\n\n2. Executive Summary and Core Position\n\nI welcome the opportunity to provide feedback on the regulation of automated decision-making (ADM) and AI accountability. As Australia leans on a sector-led approach that relies on existing laws rather than dedicated AI rules, it is vital that the deployment of algorithmic systems, especially in public welfare, essential services and workplace management, does not outpace human oversight.\n\nMy core position is that efficiency must never trump accountability. The rules being drafted must ensure that citizens are never subjected to black-box decisions that affect their livelihood, rights or access to essential services without guaranteed human review and clear appeal pathways.\n\n3. Detailed Policy Requirements\n\nStance 1: Mandatory disclosure and public-sector transparency registers\n\nTransparency standards for automated systems must be strictly enforced across all tiers of government and enterprise.\n\n\nRecommendation: Mandate plain-English disclosure whenever an individual interacts with, or is assessed by, an automated system. Require all public-sector agencies, by law, to publish publicly accessible AI registers detailing every algorithmic system in use, its purpose and its data sources.\n\n\nStance 2: Prohibiting secret algorithmic scoring in essential services\n\nWhether determining welfare eligibility, housing access or workplace shift allocation, individuals have a fundamental right to know how they are being judged.\n\n\nRecommendation: Strictly ban secret algorithmic scoring and profiling in all essential service and welfare contexts. If an algorithm is used to assess a citizen or worker, the exact parameters and metrics used by the system must be fully visible to the individual being assessed.\n\n\nStance 3: Guaranteed human review for consequential decisions\n\nAlgorithms make statistical guesses. They do not understand context, vulnerability or edge cases. Transparency alone is not enough, and Australia has already seen what unaccountable automation does to vulnerable people when human oversight is removed.\n\n\nRecommendation: Mandate a human-in-the-loop requirement for any decision that significantly affects a person's rights, finances or employment. Automated systems may assist in sorting data, but the final consequential decision must be explicitly reviewed and signed off by a legally accountable human.\n\n\nStance 4: Mandatory pre-deployment algorithmic impact assessments\n\nHarm reduction must be proactive, not reactive. Regulators should not wait for an automated system to illegally deny welfare or exhibit discriminatory bias before stepping in.\n\n\nRecommendation: Legally require organisations deploying high-risk ADM systems to conduct and publish algorithmic impact assessments, measuring bias, data safety and human-rights impacts, prior to procurement and deployment, not after the fact.\n\n\nStance 5: Dedicated appeal and complaint pathways\n\nWhen a computer makes a mistake, the burden of fixing it must not fall on the citizen. If a worker's shifts are slashed by an AI manager, or a citizen's welfare is suspended by an automated flag, they need immediate recourse.\n\n\nRecommendation: Explicitly codify the right to a rapid, human-led appeal process for any automated decision. Provide a clear, accessible complaint pathway to an independent regulator where an ADM system causes systemic harm.\n\n\n4. Conclusion\n\nThe true test of Australia's AI regulatory ecosystem is how it protects its most vulnerable citizens from unaccountable automation. I urge you to integrate these accountability measures, impact assessments, human review and clear appeal rights, into the final legal framework.\n\nThank you for considering this submission.\n\nSincerely,\n[Your Name / Signature]"
+      }
+];
+
+    function getSubmissionTemplate(templateId) {
+      return submissionTemplates.find(template => template.id === templateId);
+    }
+
+    function downloadSubmissionTemplate(templateId) {
+      const template = getSubmissionTemplate(templateId);
+      if (!template) return;
+
+      const blob = new Blob([template.body], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${template.number.toLowerCase().replaceAll(' ', '-')}-${template.title.toLowerCase().replaceAll(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}.txt`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    async function copySubmissionTemplate(templateId) {
+      const template = getSubmissionTemplate(templateId);
+      const status = document.getElementById('template-copy-status');
+      if (!template || !status) return;
+
+      try {
+        await navigator.clipboard.writeText(template.body);
+        status.textContent = 'Template copied. Personalise it before sending.';
+      } catch (error) {
+        status.textContent = 'Copy did not work in this browser. Select the text below and copy it manually.';
+      }
+    }
+
+    function openSubmissionTemplate(templateId) {
+      const template = getSubmissionTemplate(templateId);
+      const modal = document.getElementById('project-modal');
+      const title = document.getElementById('modal-title');
+      const body = document.getElementById('modal-body');
+
+      if (!template || !modal || !title || !body) return;
+
+      title.textContent = template.number;
+      body.innerHTML = `
+        <article class="submission-template">
+          <p class="submission-template__eyebrow">${escapeHtml(template.number)}</p>
+          <h2 class="submission-template__title">${escapeHtml(template.title)}</h2>
+          <p class="submission-template__summary">${escapeHtml(template.summary)}</p>
+          <div class="template-actions">
+            <button type="button" class="template-action-btn" id="copy-template-btn">Copy template</button>
+            <button type="button" class="template-action-btn secondary" id="download-template-btn">Download text</button>
+          </div>
+          <p class="template-copy-status" id="template-copy-status" aria-live="polite"></p>
+          <pre class="template-text">${escapeHtml(template.body)}</pre>
+        </article>
+      `;
+
+      const copyBtn = document.getElementById('copy-template-btn');
+      const downloadBtn = document.getElementById('download-template-btn');
+
+      if (copyBtn) copyBtn.addEventListener('click', () => copySubmissionTemplate(template.id));
+      if (downloadBtn) downloadBtn.addEventListener('click', () => downloadSubmissionTemplate(template.id));
+
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+    }
+
+    function buildSubmissionTemplates() {
+      document.querySelectorAll('.template-card').forEach(card => {
+        card.addEventListener('click', () => openSubmissionTemplate(card.dataset.templateId));
+      });
+    }
+
     async function loadActions() {
       const response = await fetch(`${SUPABASE_URL}/rest/v1/actions?select=*&order=action_category.asc`, {
         headers: {
@@ -3269,48 +3556,72 @@
         return haystack.includes(q);
       }
 
+      function renderDevelopmentRow(d, compact = false) {
+        const row = document.createElement('div');
+        row.className = compact ? 'policy-dev compact' : 'policy-dev';
+        const tag = d.status ? `<span class="policy-dev__tag">${escapeHtml(d.status)}</span>` : '';
+        const sourceButton = d.sourceUrl
+          ? `<a class="policy-dev__btn" href="${escapeHtml(d.sourceUrl)}" target="_blank" rel="noopener noreferrer" aria-label="Open main information link for ${escapeHtml(d.title)}">Main link</a>`
+          : '';
+        const engageButton = d.engageUrl && !compact
+          ? `<a class="policy-dev__btn secondary" href="${escapeHtml(d.engageUrl)}" target="_blank" rel="noopener noreferrer" aria-label="Open participation link for ${escapeHtml(d.title)}">Engage</a>`
+          : '';
+        row.innerHTML = `
+          <span class="policy-dev__date">${escapeHtml(d.dateLabel)}</span>
+          <div class="policy-dev__main">
+            <span class="policy-dev__cat">${escapeHtml(d.catLabel)}${tag}</span>
+            <h4 class="policy-dev__title">${escapeHtml(d.title)}</h4>
+            <p class="policy-dev__act"><strong>Act / policy:</strong> ${escapeHtml(d.actPolicy)}</p>
+            <div class="policy-dev__text">${escapeHtml(d.overview)}</div>
+            <p class="policy-dev__participation"><strong>Participation:</strong> ${escapeHtml(d.participation)}</p>
+          </div>
+          <div class="policy-dev__actions">
+            ${sourceButton}
+            ${engageButton}
+          </div>
+        `;
+        return row;
+      }
+
       function renderTimeline() {
         const q = query.trim().toLowerCase();
         const filtered = developments
           .filter(d => (activeCat === 'all' || d.catId === activeCat) && developmentMatchesQuery(d, q))
           .sort((a, b) => a.order - b.order);
 
+        const activeDevelopments = filtered.filter(d => String(d.status || '').toLowerCase() !== 'closed');
+        const closedDevelopments = filtered.filter(d => String(d.status || '').toLowerCase() === 'closed');
+
         if (countEl) {
-          countEl.textContent = `${filtered.length} development${filtered.length === 1 ? '' : 's'} shown`;
+          countEl.textContent = `${activeDevelopments.length} current development${activeDevelopments.length === 1 ? '' : 's'} shown`;
+        }
+
+        const closedCountEl = document.getElementById('policy-closed-count');
+        const closedTimelineEl = document.getElementById('policy-closed-timeline');
+
+        if (closedCountEl) {
+          closedCountEl.textContent = `${closedDevelopments.length} closed`;
         }
 
         timelineEl.innerHTML = '';
-        if (filtered.length === 0) {
-          timelineEl.innerHTML = '<div class="policy-empty">No developments match this filter yet.</div>';
-          return;
+        if (activeDevelopments.length === 0) {
+          timelineEl.innerHTML = '<div class="policy-empty">No current developments match this filter. Check the closed archive below.</div>';
+        } else {
+          activeDevelopments.forEach(d => {
+            timelineEl.appendChild(renderDevelopmentRow(d, false));
+          });
         }
 
-        filtered.forEach(d => {
-          const row = document.createElement('div');
-          row.className = 'policy-dev';
-          const tag = d.status ? `<span class="policy-dev__tag">${escapeHtml(d.status)}</span>` : '';
-          const sourceButton = d.sourceUrl
-            ? `<a class="policy-dev__btn" href="${escapeHtml(d.sourceUrl)}" target="_blank" rel="noopener noreferrer" aria-label="Open main information link for ${escapeHtml(d.title)}">Main link</a>`
-            : '';
-          const engageButton = d.engageUrl
-            ? `<a class="policy-dev__btn secondary" href="${escapeHtml(d.engageUrl)}" target="_blank" rel="noopener noreferrer" aria-label="Open participation link for ${escapeHtml(d.title)}">Engage</a>`
-            : '';
-          row.innerHTML = `
-            <span class="policy-dev__date">${escapeHtml(d.dateLabel)}</span>
-            <div class="policy-dev__main">
-              <span class="policy-dev__cat">${escapeHtml(d.catLabel)}${tag}</span>
-              <h4 class="policy-dev__title">${escapeHtml(d.title)}</h4>
-              <p class="policy-dev__act"><strong>Act / policy:</strong> ${escapeHtml(d.actPolicy)}</p>
-              <div class="policy-dev__text">${escapeHtml(d.overview)}</div>
-              <p class="policy-dev__participation"><strong>Participation:</strong> ${escapeHtml(d.participation)}</p>
-            </div>
-            <div class="policy-dev__actions">
-              ${sourceButton}
-              ${engageButton}
-            </div>
-          `;
-          timelineEl.appendChild(row);
-        });
+        if (closedTimelineEl) {
+          closedTimelineEl.innerHTML = '';
+          if (closedDevelopments.length === 0) {
+            closedTimelineEl.innerHTML = '<div class="policy-empty">No closed developments match this filter.</div>';
+          } else {
+            closedDevelopments.forEach(d => {
+              closedTimelineEl.appendChild(renderDevelopmentRow(d, true));
+            });
+          }
+        }
       }
 
       if (searchEl) {
@@ -3336,8 +3647,8 @@
     }
 
     loadProjects();
-    loadActions();
     buildPolicyTracker();
+    buildSubmissionTemplates();
   </script>
 </body>
 </html>
