@@ -34,6 +34,9 @@
       --purple-bg: #f5f3ff;
       --purple-border: #ddd6fe;
       --purple-ink: #5b21b6;
+      --blue-bg: #eff6ff;
+      --blue-border: #bfdbfe;
+      --blue-ink: #1e3a8a;
     }
 
     body {
@@ -79,7 +82,6 @@
 
     .nav-card,
     .map-card,
-    .project-list,
     .tracker-section,
     .campaign-section {
       background: var(--panel);
@@ -299,6 +301,7 @@
       color: var(--red-ink);
     }
 
+    .info-grid,
     .tracker-grid,
     .action-grid {
       display: grid;
@@ -307,6 +310,7 @@
       margin-top: 16px;
     }
 
+    .info-card,
     .tracker-card,
     .action-card {
       border: 1px solid #e2e8f0;
@@ -315,15 +319,23 @@
       padding: 16px;
     }
 
+    .info-card h3,
     .tracker-card h3,
     .action-card h3 {
       margin: 0 0 8px 0;
       font-size: 18px;
     }
 
+    .info-card p,
     .tracker-card p,
     .action-card p {
       margin: 10px 0;
+      line-height: 1.45;
+    }
+
+    .info-card ul {
+      margin: 10px 0 0 20px;
+      padding: 0;
       line-height: 1.45;
     }
 
@@ -334,7 +346,6 @@
     }
 
     .tracker-card button,
-    .project-item button,
     .modal-close,
     .action-link {
       border: 1px solid #cbd5e1;
@@ -353,6 +364,17 @@
       background: var(--dark);
       color: white;
       border-color: var(--dark);
+    }
+
+    .subsection-heading {
+      margin: 28px 0 6px 0;
+    }
+
+    .subsection-text {
+      color: var(--muted);
+      line-height: 1.45;
+      margin: 0 0 12px 0;
+      max-width: 1050px;
     }
 
     .action-category {
@@ -387,19 +409,22 @@
       color: #334155;
     }
 
-    .pill.high {
+    .pill.high,
+    .pill.very_high {
       background: #fee2e2;
       border-color: #fecaca;
       color: #991b1b;
     }
 
-    .pill.medium {
+    .pill.medium,
+    .pill.medium_high {
       background: #ffedd5;
       border-color: #fed7aa;
       color: #9a3412;
     }
 
-    .pill.low {
+    .pill.low,
+    .pill.medium_low {
       background: #dcfce7;
       border-color: #bbf7d0;
       color: #166534;
@@ -418,43 +443,21 @@
       color: #374151;
     }
 
-    .pill.no_deadline_found {
+    .pill.no_deadline_found,
+    .pill.unknown_monitor {
       background: #eff6ff;
       border-color: #bfdbfe;
       color: #1e40af;
     }
 
     .notice-box {
-      background: #eff6ff;
-      border: 1px solid #bfdbfe;
+      background: var(--blue-bg);
+      border: 1px solid var(--blue-border);
       border-radius: 14px;
       padding: 14px;
       margin: 16px 0;
-      color: #1e3a8a;
+      color: var(--blue-ink);
       line-height: 1.45;
-    }
-
-    .project-list {
-      padding: 24px;
-      margin-top: 20px;
-    }
-
-    .project-list h2 {
-      margin-top: 0;
-    }
-
-    .project-list > p {
-      color: var(--muted);
-      line-height: 1.45;
-    }
-
-    .project-item {
-      border-top: 1px solid #e5e7eb;
-      padding: 16px 0;
-    }
-
-    .project-item:first-child {
-      border-top: none;
     }
 
     .risk-tag {
@@ -466,24 +469,45 @@
       margin: 4px 0 10px 0;
     }
 
-    .risk-tag.high {
+    .risk-tag.high,
+    .risk-tag.very_high {
       background: #fee2e2;
       color: #991b1b;
     }
 
-    .risk-tag.medium {
+    .risk-tag.medium,
+    .risk-tag.medium_high {
       background: #ffedd5;
       color: #9a3412;
     }
 
-    .risk-tag.low {
+    .risk-tag.low,
+    .risk-tag.medium_low {
       background: #dcfce7;
       color: #166534;
     }
 
-    .risk-tag.unknown {
+    .risk-tag.unknown,
+    .risk-tag.unknown_monitor {
       background: #e5e7eb;
       color: #374151;
+    }
+
+    .driver-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 8px 0 10px 0;
+    }
+
+    .driver-pill {
+      display: inline-block;
+      background: #ffffff;
+      border: 1px solid #dbe4ef;
+      border-radius: 999px;
+      padding: 5px 8px;
+      font-size: 12px;
+      color: #334155;
     }
 
     .modal-overlay {
@@ -652,29 +676,29 @@
 <body>
   <header>
     <h1>AI Australia Watch</h1>
-    <p>AI Australia Watch is an independent, public-access hub tracking policy and regulatory frameworks, corporate interests, active lobbying, and infrastructure developments shaping Australia's digital future. The platform aggregates public records to map the broad social, political and environmental landscape surrounding AI expansion across state and federal levels.</p>
-    <p>Its purpose is to provide clear information for those looking to help shape technology governance and ensure the safe deployment of automated systems that prioritise democratic accountability, environmental sustainability and the broader public interest. AI Australia Watch is non-affiliated, operates free from commercial influence, and holds no alliances, funding ties or attachments to corporate entities or political parties.</p>
+    <p>AI Australia Watch is an independent, public-access hub tracking policy and regulatory frameworks, corporate interests, lobbying, infrastructure developments and environmental impacts shaping Australia's digital future.</p>
+    <p>The focus is not to stop AI development. The focus is to track whether AI systems and the data centre infrastructure behind them are being governed in the public interest, with enforceable clean-energy requirements, water transparency, diesel backup disclosure, privacy protections and democratic accountability.</p>
   </header>
 
   <main>
     <section class="top-layout">
       <nav class="side-nav" aria-label="Section navigation">
         <a class="nav-card" href="#clean-energy-tracker">
-          <span class="section-label label-fossil">Tracker</span>
+          <span class="section-label label-fossil">Section 1</span>
           <h2>Energy, Water &amp; Environmental Impacts</h2>
-          <p>Monitoring the physical footprint of the digital boom. This database tracks utility demands, data centre resource consumption, municipal water usage, grid capacity constraints and associated fossil fuel interests.</p>
+          <p>Data centre infrastructure, electricity demand, renewable-energy accountability, diesel backup, water use, cooling systems and environmental governance risk.</p>
         </a>
 
         <a class="nav-card" href="#influence-tracker">
-          <span class="section-label label-influence">Tracker</span>
-          <h2>Government Policy, Lobbying and Regulation</h2>
-          <p>Auditing the mechanisms of tech governance. This section tracks corporate lobbying efforts, industry group influence, and evolving state and federal policy frameworks, mapping regulatory gaps and public-interest risks.</p>
+          <span class="section-label label-influence">Section 2</span>
+          <h2>Government Policy, Legislation, Lobbying &amp; Regulation</h2>
+          <p>AI policy, data sovereignty, corporate influence, privacy, social services, public-sector automation, security laws and government data use.</p>
         </a>
 
         <a class="nav-card" href="#get-involved">
-          <span class="section-label label-action">Take action</span>
+          <span class="section-label label-action">Section 3</span>
           <h2>Take Action / Get Involved</h2>
-          <p>Empowering public participation in technology policy. Access a centralised directory of open government consultations, parliamentary submissions, advocacy campaigns and petitions.</p>
+          <p>Official consultations, parliamentary processes, community campaigns, petitions, participation guides and templates for contacting decision-makers.</p>
         </a>
       </nav>
 
@@ -682,7 +706,7 @@
         <div class="map-header">
           <div>
             <h2>Data centre map</h2>
-            <p>Tracked AI and cloud data centre sites in Australia. The map shows location, operator, status and risk. Energy, water, fossil fuel, lobbying and public action information is separated into the trackers below.</p>
+            <p>Tracked AI and cloud data centre sites in Australia. The map shows public site locations, operators, status and broad risk level. Program-level records are listed below but are not mapped unless public coordinates are available.</p>
             <p class="record-count" id="project-count">Loading project records...</p>
           </div>
 
@@ -704,16 +728,61 @@
           <div class="summary-top">
             <div>
               <span class="section-label label-fossil">Energy, Water &amp; Environmental Impacts</span>
-              <h2>Resource demand, fossil fuel risk and environmental impacts</h2>
-              <p>Click to expand project-level information on electricity demand, water use, diesel backup, renewable energy claims and fossil fuel risk.</p>
+              <h2>Energy, Water &amp; Environmental Impacts</h2>
+              <p>Click to expand information on data centre electricity demand, renewables, fossil fuel exposure, diesel backup, water use and environmental governance risk.</p>
             </div>
             <span class="toggle-hint"></span>
           </div>
         </summary>
 
         <div class="section-body">
-          <p class="section-intro">As the computational demands of artificial intelligence scale, the physical infrastructure supporting these systems can impose a significant, often obscured toll on Australia's natural resources. This section provides a data-driven log of the material footprint required by both operational and proposed data centres nationwide. By aggregating environmental impact statements, local council planning applications and state utility reports where available, the platform maps electricity demand, water consumption, grid constraints, diesel backup and renewable energy commitments.</p>
-          <div class="tracker-grid" id="clean-energy-list">Loading clean energy tracker...</div>
+          <p class="section-intro">AI and cloud infrastructure can create major electricity, water, land-use and backup-power demands. This section tracks proposed and operational data centre projects in Australia, with a focus on whether clean energy, water transparency, diesel reporting and enforceable planning safeguards are in place.</p>
+
+          <div class="notice-box">
+            Future AI and cloud data centre proposals should be required to demonstrate additional, local and enforceable renewable energy supply, clear water-use reporting, diesel backup transparency and cumulative grid-impact assessment. Company sustainability claims are treated as claims unless they are site-specific, measurable and enforceable.
+          </div>
+
+          <div class="info-grid">
+            <article class="info-card">
+              <h3>AI energy demand</h3>
+              <p>Large AI and cloud facilities can add continuous electricity demand to local grids. The key issue is whether new demand is matched by new clean generation, network investment and transparent load planning.</p>
+            </article>
+
+            <article class="info-card">
+              <h3>Renewables and additionality</h3>
+              <p>Renewable claims should show whether clean energy is additional, local to the load, time-matched and enforceable. Annual certificate matching is not the same as proving a facility runs on new clean energy at the time it uses power.</p>
+            </article>
+
+            <article class="info-card">
+              <h3>Fossil fuel and diesel backup</h3>
+              <p>Data centres often rely on backup generators and large fuel storage for resilience. Diesel backup creates local air pollution, spill, fire, testing and emergency-management risks that should be publicly disclosed.</p>
+            </article>
+
+            <article class="info-card">
+              <h3>Water and cooling</h3>
+              <p>Cooling design affects water demand, heat management and drought resilience. Public records should identify expected water use, water source, recycled-water use and whether cooling commitments are enforceable.</p>
+            </article>
+
+            <article class="info-card">
+              <h3>Cumulative infrastructure pressure</h3>
+              <p>One project may appear manageable in isolation. Clusters of data centres can create larger impacts on grids, substations, transmission, water infrastructure, roads, emergency services and nearby communities.</p>
+            </article>
+
+            <article class="info-card">
+              <h3>Environmental governance risk method</h3>
+              <p>The risk rating asks whether environmental harm or public burden could occur because energy, water, diesel backup, planning, consultation or disclosure controls are not strong enough for the scale of the project.</p>
+              <ul>
+                <li><strong>Very high:</strong> major scale or major unresolved controls.</li>
+                <li><strong>High:</strong> significant safeguards are unclear, voluntary or not evidenced.</li>
+                <li><strong>Medium:</strong> material issues remain but some controls are clearer.</li>
+                <li><strong>Unknown / monitor:</strong> not enough verified public information.</li>
+              </ul>
+            </article>
+          </div>
+
+          <h3 class="subsection-heading" id="project-records">Data centre project records</h3>
+          <p class="subsection-text">Each record shows a project-level environmental governance risk rating and the main issues that still need public evidence or enforceable controls.</p>
+          <div class="tracker-grid" id="project-list">Loading project records...</div>
         </div>
       </details>
     </section>
@@ -723,40 +792,74 @@
         <summary>
           <div class="summary-top">
             <div>
-              <span class="section-label label-influence">Government Policy, Lobbying and Regulation</span>
-              <h2>Policy settings, lobbying and regulatory gaps</h2>
-              <p>Click to expand records on government promotion, fast-tracked approvals, industry bodies, policy influence and regulatory settings.</p>
+              <span class="section-label label-influence">Government Policy, Legislation, Lobbying &amp; Regulation</span>
+              <h2>Government Policy, Legislation, Lobbying &amp; Regulation</h2>
+              <p>Click to expand information on AI governance, data sovereignty, corporate influence, privacy, social services, security laws and public-sector data use.</p>
             </div>
             <span class="toggle-hint"></span>
           </div>
         </summary>
 
         <div class="section-body">
-          <p class="section-intro">The pace of technological deployment can outstrip the development of democratic oversight, leaving critical public institutions and individual rights vulnerable to unregulated automated systems. This section tracks the evolution of AI governance, automated decision-making protocols, privacy law, planning fast-tracking, government procurement and corporate influence at state and federal levels.</p>
+          <p class="section-intro">AI development is shaped by laws, procurement decisions, data-sharing rules, planning pathways, industry lobbying and government partnerships. This section tracks the policy settings that determine whether AI and cloud infrastructure serve the public interest.</p>
+
+          <div class="info-grid">
+            <article class="info-card">
+              <h3>Current AI policy and legislation</h3>
+              <p>Tracks federal and state AI regulation, privacy reform, automated decision-making rules, procurement standards and public-sector use of algorithmic systems.</p>
+            </article>
+
+            <article class="info-card">
+              <h3>Data sovereignty and cloud infrastructure</h3>
+              <p>Tracks sovereign cloud, classified cloud, national-security infrastructure, government hosting arrangements and who controls Australian public data.</p>
+            </article>
+
+            <article class="info-card">
+              <h3>Lobbying and corporate influence</h3>
+              <p>Tracks submissions, industry groups, commissioned reports, government partnerships, meetings and policy pressure by major AI, cloud and data centre companies.</p>
+            </article>
+
+            <article class="info-card">
+              <h3>AI in social services and human services</h3>
+              <p>Tracks how AI, automation and data systems are used in welfare, housing, health, disability, child protection, employment services, migration and other public systems.</p>
+            </article>
+
+            <article class="info-card">
+              <h3>Privacy, surveillance and data rights</h3>
+              <p>Tracks how personal information, biometric data, public-sector data and sensitive records are collected, shared, analysed and reused.</p>
+            </article>
+
+            <article class="info-card">
+              <h3>Security laws and government data use</h3>
+              <p>Tracks changes to national-security, cyber, intelligence, cloud and data-sharing laws that affect how government can collect, store or use people's data.</p>
+            </article>
+          </div>
+
+          <h3 class="subsection-heading">Infrastructure-linked policy and influence records</h3>
+          <p class="subsection-text">These records come from project-level notes already in the database. Dedicated policy, lobbying and social-impact tables can be added later.</p>
           <div class="tracker-grid" id="influence-list">Loading influence tracker...</div>
         </div>
       </details>
     </section>
 
     <section class="tracker-section" id="get-involved">
-      <details open>
+      <details>
         <summary>
           <div class="summary-top">
             <div>
               <span class="section-label label-action">Take Action / Get Involved</span>
-              <h2>Current actions, submissions, campaigns and petitions</h2>
-              <p>Click to expand open consultations, official processes, community campaigns and petitions where people can influence technology policy and infrastructure decisions.</p>
+              <h2>Take Action / Get Involved</h2>
+              <p>Click to expand open consultations, official processes, community campaigns, petitions and practical ways to contact decision-makers.</p>
             </div>
             <span class="toggle-hint"></span>
           </div>
         </summary>
 
         <div class="section-body">
-          <p class="section-intro">Democratic technology governance requires active, informed civic involvement. This section acts as a functional bridge between public-access data and direct democratic participation, providing a centralised toolkit for individuals, community organisations and advocates seeking to influence Australia's digital trajectory.</p>
-          <p class="section-intro">It lists open federal and state parliamentary inquiries, public consultation projects and official feedback processes where public input can shape policy. Direct links to official portals are provided alongside active grassroots campaigns, advocacy actions and public petitions. Submission templates and additional briefing tools can be added as the project develops.</p>
+          <p class="section-intro">Democratic technology governance requires active, informed civic involvement. This section links public-access information to direct ways people can participate in AI, data centre, privacy, planning and energy policy decisions.</p>
 
           <div class="notice-box">
-            The campaign frame is clean-energy accountability, democratic oversight and transparent planning, not anti-AI messaging. Public asks focus on additional renewables, diesel reporting, water disclosure, cumulative grid assessment and enforceable safeguards.
+            The campaign frame is clean-energy accountability, democratic oversight and transparent planning, not anti-AI messaging. Public asks focus on additional renewables, diesel reporting, water disclosure, cumulative grid assessment, privacy protections and enforceable safeguards.
           </div>
 
           <div class="action-category">
@@ -770,14 +873,32 @@
             <p>Community, environment and public-interest campaigns people can sign, share or use to contact decision-makers.</p>
             <div class="action-grid" id="community-actions-list">Loading community actions...</div>
           </div>
+
+          <div class="info-grid">
+            <article class="info-card">
+              <h3>How to find hidden consultation opportunities</h3>
+              <p>AI and data infrastructure consultations are not always labelled as AI. They may appear under industrial development, cloud procurement, digital economy strategy, planning fast-track reform, energy infrastructure, cyber security, sovereign capability or innovation precincts.</p>
+            </article>
+
+            <article class="info-card">
+              <h3>Questions to ask decision-makers</h3>
+              <ul>
+                <li>Will the project use additional renewable energy?</li>
+                <li>Will energy supply be local, time-matched and enforceable?</li>
+                <li>How much water will be used each year?</li>
+                <li>How many diesel generators and fuel tanks are proposed?</li>
+                <li>What public consultation has occurred?</li>
+                <li>Who pays for grid, water and road upgrades?</li>
+              </ul>
+            </article>
+
+            <article class="info-card">
+              <h3>Submission and contact templates</h3>
+              <p>Templates can be added here for council objections, parliamentary submissions, MP emails, planning portal comments and questions to companies about energy, water, privacy and public-interest safeguards.</p>
+            </article>
+          </div>
         </div>
       </details>
-    </section>
-
-    <section class="project-list" id="project-records">
-      <h2>Basic project records</h2>
-      <p>This list keeps the project tracker simple. Energy, water, fossil fuel, lobbying and action details are shown in the expandable sections above.</p>
-      <div id="project-list">Loading projects...</div>
     </section>
   </main>
 
@@ -839,6 +960,40 @@
       return escapeHtml(value).replaceAll('\n', '<br>');
     }
 
+    function normaliseKey(value) {
+      return String(value || '')
+        .trim()
+        .toLowerCase()
+        .replaceAll(' ', '_')
+        .replaceAll('-', '_')
+        .replaceAll('/', '_');
+    }
+
+    function formatKeyLabel(value) {
+      const key = normaliseKey(value);
+      if (!key) return 'Unknown';
+
+      const labels = {
+        very_high: 'Very high',
+        high: 'High',
+        medium_high: 'Medium-high',
+        medium: 'Medium',
+        medium_low: 'Medium-low',
+        low: 'Low',
+        unknown: 'Unknown',
+        unknown_monitor: 'Unknown / monitor',
+        low_medium: 'Low-medium'
+      };
+
+      if (labels[key]) return labels[key];
+
+      return key
+        .split('_')
+        .filter(Boolean)
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+    }
+
     function optionalDetailRow(label, value) {
       if (!hasText(value)) return '';
 
@@ -862,20 +1017,31 @@
     }
 
     function getRiskClass(riskLevel) {
-      const risk = (riskLevel || 'unknown').toLowerCase();
+      const risk = normaliseKey(riskLevel || 'unknown');
 
-      if (risk === 'high') return 'high';
-      if (risk === 'medium') return 'medium';
+      if (risk === 'very_high' || risk === 'high' || risk === 'medium_high') return 'high';
+      if (risk === 'medium' || risk === 'medium_low') return 'medium';
       if (risk === 'low') return 'low';
 
       return 'unknown';
     }
 
-    function getRiskScore(project) {
-      const risk = getRiskClass(project.risk_level);
+    function getEnvironmentalRiskKey(project) {
+      if (hasText(project.environmental_governance_risk)) {
+        return normaliseKey(project.environmental_governance_risk);
+      }
 
-      if (risk === 'high') return 30;
-      if (risk === 'medium') return 20;
+      return normaliseKey(project.risk_level || 'unknown');
+    }
+
+    function getRiskScore(project) {
+      const risk = getEnvironmentalRiskKey(project);
+
+      if (risk === 'very_high') return 45;
+      if (risk === 'high') return 40;
+      if (risk === 'medium_high') return 35;
+      if (risk === 'medium') return 25;
+      if (risk === 'medium_low') return 18;
       if (risk === 'low') return 10;
 
       return 0;
@@ -888,17 +1054,20 @@
       if (status.includes('proposed')) score += 20;
       if (status.includes('planning')) score += 20;
       if (status.includes('under assessment')) score += 20;
+      if (status.includes('prepare eis')) score += 20;
       if (status.includes('mou')) score += 15;
       if (status.includes('approved')) score += 8;
 
       return score;
     }
 
-    function makeRiskTag(riskLevel) {
-      const risk = getRiskClass(riskLevel);
-      const label = risk.charAt(0).toUpperCase() + risk.slice(1);
+    function makeRiskTag(project) {
+      const riskKey = getEnvironmentalRiskKey(project);
+      const riskClass = ['very_high', 'high', 'medium_high', 'medium', 'medium_low', 'low', 'unknown_monitor'].includes(riskKey)
+        ? riskKey
+        : getRiskClass(project.risk_level);
 
-      return `<span class="risk-tag ${risk}">${label} risk</span>`;
+      return `<span class="risk-tag ${riskClass}">${escapeHtml(formatKeyLabel(riskKey))} environmental governance risk</span>`;
     }
 
     function makeRiskIcon(riskLevel) {
@@ -911,6 +1080,25 @@
         iconAnchor: [14, 14],
         popupAnchor: [0, -14]
       });
+    }
+
+    function makeDriverPills(drivers) {
+      let driverList = drivers;
+
+      if (typeof drivers === 'string') {
+        driverList = drivers
+          .split(',')
+          .map(item => item.trim())
+          .filter(Boolean);
+      }
+
+      if (!Array.isArray(driverList) || driverList.length === 0) return '';
+
+      return `
+        <div class="driver-list">
+          ${driverList.map(driver => `<span class="driver-pill">${escapeHtml(driver)}</span>`).join('')}
+        </div>
+      `;
     }
 
     function makeSourceLinks(sourceLinks) {
@@ -932,10 +1120,15 @@
 
       const details = section.querySelector('details');
       if (details) details.open = true;
+
+      window.setTimeout(() => {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 0);
     }
 
     document.querySelectorAll('.nav-card').forEach(card => {
-      card.addEventListener('click', () => {
+      card.addEventListener('click', event => {
+        event.preventDefault();
         const targetId = card.getAttribute('href').replace('#', '');
         openDetailsById(targetId);
       });
@@ -959,7 +1152,12 @@
         </div>
 
         <div>
-          ${makeRiskTag(project.risk_level)}
+          ${makeRiskTag(project)}
+
+          ${optionalDetailRow('Risk summary', project.risk_summary)}
+          ${makeDriverPills(project.primary_risk_drivers)}
+          ${optionalDetailRow('Evidence confidence', formatKeyLabel(project.evidence_confidence))}
+          ${optionalDetailRow('Assessment status', formatKeyLabel(project.assessment_status))}
 
           <div class="detail-row">
             <strong>Company</strong>
@@ -1105,40 +1303,39 @@
       }
     }
 
-    function renderCleanEnergyTracker(projects) {
-      const list = document.getElementById('clean-energy-list');
-
-      const cleanEnergyProjects = projects
-        .filter(project =>
-          hasText(project.fossil_fuel_notes) ||
-          hasText(project.clean_energy_notes) ||
-          hasText(project.energy_policy_risk)
-        )
-        .sort((a, b) => {
-          const scoreA = getRiskScore(a) + getStatusScore(a);
-          const scoreB = getRiskScore(b) + getStatusScore(b);
-
-          return scoreB - scoreA;
-        });
-
+    function renderProjectList(projects) {
+      const list = document.getElementById('project-list');
       list.innerHTML = '';
 
-      if (cleanEnergyProjects.length === 0) {
-        list.innerHTML = '<div class="empty-message">No energy, water or fossil fuel tracker records have been added yet.</div>';
+      const sortedProjects = [...projects].sort((a, b) => {
+        const scoreA = getRiskScore(a) + getStatusScore(a);
+        const scoreB = getRiskScore(b) + getStatusScore(b);
+
+        if (scoreB !== scoreA) return scoreB - scoreA;
+
+        return String(a.project_name || '').localeCompare(String(b.project_name || ''));
+      });
+
+      if (sortedProjects.length === 0) {
+        list.innerHTML = '<div class="empty-message">No data centre project records have been added yet.</div>';
         return;
       }
 
-      cleanEnergyProjects.forEach(project => {
+      sortedProjects.forEach(project => {
         const item = document.createElement('article');
         item.className = 'tracker-card';
 
+        const hasMapPin = project.latitude && project.longitude;
+
         item.innerHTML = `
           <h3>${escapeHtml(project.project_name || 'Project')}</h3>
-          ${makeRiskTag(project.risk_level)}
+          ${makeRiskTag(project)}
           <p><strong>Company</strong>${escapeHtml(project.company_operator || 'Unknown')}</p>
-          ${optionalTrackerBlock('Fossil fuel notes', project.fossil_fuel_notes)}
-          ${optionalTrackerBlock('Clean energy notes', project.clean_energy_notes)}
-          ${optionalTrackerBlock('Energy policy risk', project.energy_policy_risk)}
+          <p><strong>Location</strong>${escapeHtml(project.location_name || 'Unknown')}${project.state ? ', ' + escapeHtml(project.state) : ''}</p>
+          <p><strong>Status</strong>${escapeHtml(project.status || 'Unknown')}</p>
+          ${optionalTrackerBlock('Risk summary', project.risk_summary)}
+          ${makeDriverPills(project.primary_risk_drivers)}
+          ${hasMapPin ? '' : '<p><em>No public map pin because site coordinates are unavailable, undisclosed or not site-specific.</em></p>'}
           <button type="button">View full record</button>
         `;
 
@@ -1157,7 +1354,8 @@
         .filter(project =>
           hasText(project.lobbying_or_influence_notes) ||
           hasText(project.campaign_status) ||
-          hasText(project.what_to_watch)
+          hasText(project.what_to_watch) ||
+          hasText(project.privacy_or_security_notes)
         )
         .sort((a, b) => {
           const scoreA = getRiskScore(a) + getStatusScore(a);
@@ -1169,7 +1367,7 @@
       list.innerHTML = '';
 
       if (influenceProjects.length === 0) {
-        list.innerHTML = '<div class="empty-message">No policy, lobbying or regulation records have been added yet.</div>';
+        list.innerHTML = '<div class="empty-message">No infrastructure-linked policy, lobbying or regulation records have been added yet.</div>';
         return;
       }
 
@@ -1179,8 +1377,9 @@
 
         item.innerHTML = `
           <h3>${escapeHtml(project.project_name || 'Project')}</h3>
-          ${makeRiskTag(project.risk_level)}
+          ${makeRiskTag(project)}
           <p><strong>Company</strong>${escapeHtml(project.company_operator || 'Unknown')}</p>
+          ${optionalTrackerBlock('Privacy or security notes', project.privacy_or_security_notes)}
           ${optionalTrackerBlock('Lobbying / influence', project.lobbying_or_influence_notes)}
           ${optionalTrackerBlock('Campaign status', project.campaign_status)}
           ${optionalTrackerBlock('What to watch', project.what_to_watch)}
@@ -1192,38 +1391,6 @@
         });
 
         list.appendChild(item);
-      });
-    }
-
-    function renderProjectList(projects) {
-      const list = document.getElementById('project-list');
-      list.innerHTML = '';
-
-      projects.forEach((project, index) => {
-        const item = document.createElement('div');
-        item.className = 'project-item';
-
-        const hasMapPin = project.latitude && project.longitude;
-
-        item.innerHTML = `
-          <h3>${escapeHtml(project.project_name || 'Project')}</h3>
-          <p>${makeRiskTag(project.risk_level)}</p>
-          <p><strong>Company:</strong> ${escapeHtml(project.company_operator || 'Unknown')}</p>
-          <p><strong>Location:</strong> ${escapeHtml(project.location_name || 'Unknown')}${project.state ? ', ' + escapeHtml(project.state) : ''}</p>
-          <p><strong>Status:</strong> ${escapeHtml(project.status || 'Unknown')}</p>
-          ${hasMapPin ? '' : '<p><em>No public map pin because site coordinates are unavailable, undisclosed or not site-specific.</em></p>'}
-          <p>${formatText(project.summary || 'No summary yet.')}</p>
-          <button type="button" data-index="${index}">View full record</button>
-        `;
-
-        list.appendChild(item);
-      });
-
-      list.querySelectorAll('button').forEach(button => {
-        button.addEventListener('click', () => {
-          const project = loadedProjects[Number(button.dataset.index)];
-          openProjectFromCard(project);
-        });
       });
     }
 
@@ -1366,7 +1533,6 @@
       if (!Array.isArray(projects)) {
         document.getElementById('project-count').textContent = 'Could not load project records.';
         document.getElementById('project-list').textContent = 'Could not load projects.';
-        document.getElementById('clean-energy-list').textContent = 'Could not load energy tracker.';
         document.getElementById('influence-list').textContent = 'Could not load policy tracker.';
         console.log(projects);
         return;
@@ -1382,9 +1548,8 @@
         `${projects.length} project ${recordNoun} tracked. ${mappedProjects.length} public ${mapNoun}.`;
 
       renderMarkers(projects);
-      renderCleanEnergyTracker(projects);
-      renderInfluenceTracker(projects);
       renderProjectList(projects);
+      renderInfluenceTracker(projects);
     }
 
     loadProjects();
