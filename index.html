@@ -9,6 +9,10 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Spectral:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+
   <style>
     :root {
       --bg: #f4f1ea;
@@ -972,6 +976,515 @@
       .modal-body .feed time {
         flex-basis: auto;
         width: max-content;
+      }
+    }
+
+  
+
+    /* ---------------------------------------------------------------
+       Visual system pass: public-interest civic archive style
+    ---------------------------------------------------------------- */
+    :root {
+      --bg: #fbfaf7;
+      --ink: #16212b;
+      --muted: #5b6670;
+      --panel: #ffffff;
+      --border: #e6e2d8;
+      --dark: #16212b;
+      --blue: #2f6b54;
+      --green-bg: #eaf1ed;
+      --green-border: #c8d9d1;
+      --green-ink: #214f3e;
+      --amber-bg: #f6ede4;
+      --amber-border: #e7cab4;
+      --amber-ink: #8a4319;
+      --red-bg: #f8e9e8;
+      --red-border: #edc5c0;
+      --red-ink: #8e2722;
+      --purple-bg: #f1ece4;
+      --purple-border: #dfd4c5;
+      --purple-ink: #5b4633;
+      --blue-bg: #eaf1ed;
+      --blue-border: #c8d9d1;
+      --blue-ink: #214f3e;
+      --policy-paper: #fbfaf7;
+      --policy-card: #ffffff;
+      --policy-line: #e6e2d8;
+      --policy-accent: #2f6b54;
+      --policy-accent-soft: #eaf1ed;
+      --policy-flag: #a9551f;
+      --policy-flag-soft: #f6ede4;
+      --shadow-soft: 0 10px 30px rgba(22, 33, 43, 0.06);
+      --radius: 8px;
+    }
+
+    body {
+      font-family: "IBM Plex Sans", Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.55;
+      background:
+        radial-gradient(circle at top left, rgba(47, 107, 84, 0.08), transparent 34rem),
+        var(--bg);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    h1,
+    h2,
+    h3,
+    .modal-body .popup__title,
+    .modal-body .popup__num {
+      font-family: "Spectral", Georgia, serif;
+      letter-spacing: -0.015em;
+    }
+
+    p,
+    li,
+    .detail-row,
+    .action-card,
+    .tracker-card,
+    .info-card {
+      color: #27323c;
+    }
+
+    a {
+      color: var(--policy-accent);
+      text-underline-offset: 3px;
+    }
+
+    header {
+      background: linear-gradient(135deg, #16212b 0%, #22352d 100%);
+      color: #fffdf8;
+      padding: 44px 32px 42px;
+      border-bottom: 5px solid var(--policy-accent);
+    }
+
+    header h1 {
+      margin: 0 0 14px;
+      font-size: clamp(38px, 5vw, 64px);
+      line-height: 0.95;
+      font-weight: 700;
+    }
+
+    header p {
+      max-width: 1040px;
+      font-size: 17px;
+      line-height: 1.6;
+      color: rgba(255, 253, 248, 0.9);
+      margin: 0 0 12px;
+    }
+
+    main {
+      padding: 28px 24px 42px;
+    }
+
+    .top-layout {
+      gap: 22px;
+    }
+
+    .nav-card,
+    .map-card,
+    .tracker-section,
+    .campaign-section,
+    .risk-key,
+    .info-card,
+    .tracker-card,
+    .action-card,
+    .action-panel,
+    .modal-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+      background: rgba(255, 255, 255, 0.96);
+    }
+
+    .nav-card {
+      position: relative;
+      padding: 24px 22px;
+      border-left: 5px solid var(--policy-accent);
+      box-shadow: none;
+    }
+
+    .nav-card h2 {
+      font-size: 24px;
+      line-height: 1.15;
+      margin-bottom: 10px;
+    }
+
+    .nav-card p {
+      color: var(--muted);
+      font-size: 14.5px;
+      line-height: 1.5;
+    }
+
+    .nav-card:hover,
+    .data-centre-card:hover,
+    .policy-card:hover,
+    .action-choice-card:hover {
+      transform: none;
+      border-color: #c8d9d1;
+      box-shadow: 0 12px 28px rgba(47, 107, 84, 0.12);
+    }
+
+    .nav-card:focus,
+    .data-centre-card:focus,
+    .policy-card:focus,
+    .action-choice-card:focus,
+    .modal-close:focus,
+    .action-link:focus {
+      outline: 2px solid var(--policy-accent);
+      outline-offset: 3px;
+    }
+
+    .map-card {
+      padding: 22px;
+    }
+
+    .map-header h2,
+    .summary-top h2 {
+      font-size: 30px;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+
+    .map-header p,
+    .summary-top p,
+    .section-intro,
+    .subsection-text {
+      color: var(--muted);
+    }
+
+    .record-count {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--policy-accent) !important;
+    }
+
+    .legend span,
+    .pill,
+    .risk-tag,
+    .toggle-hint,
+    .section-label,
+    .modal-body .popup__eyebrow,
+    .modal-body .popup__tracked b,
+    .modal-body .block__head,
+    .modal-body .links__url,
+    .modal-body .feed time {
+      font-family: "IBM Plex Mono", monospace;
+      letter-spacing: 0.04em;
+    }
+
+    .legend span,
+    .pill {
+      background: var(--policy-paper);
+      border-color: var(--border);
+      border-radius: 999px;
+      font-size: 12px;
+    }
+
+    #map {
+      border-radius: var(--radius);
+      border-color: var(--border);
+    }
+
+    .marker-dot {
+      border: 2px solid #fffdf8;
+      box-shadow: 0 0 0 2px #16212b, 0 7px 16px rgba(22, 33, 43, 0.22);
+    }
+
+    .tracker-section,
+    .campaign-section {
+      margin: 22px 0;
+      overflow: hidden;
+    }
+
+    .tracker-section summary,
+    .campaign-section summary {
+      padding: 24px 26px;
+      border-bottom: 1px solid transparent;
+    }
+
+    .tracker-section details[open] summary,
+    .campaign-section details[open] summary {
+      border-bottom-color: var(--border);
+      background: #fffdfa;
+    }
+
+    .toggle-hint {
+      border-color: var(--border);
+      background: var(--policy-paper);
+      color: var(--policy-accent);
+      text-transform: uppercase;
+      font-size: 11px;
+      padding: 7px 12px;
+    }
+
+    .section-body {
+      padding: 24px 26px 28px;
+    }
+
+    .section-intro {
+      max-width: 1060px;
+      font-size: 16px;
+    }
+
+    .notice-box {
+      background: var(--policy-accent-soft);
+      border: 1px solid #c8d9d1;
+      color: #214f3e;
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      margin: 18px 0;
+    }
+
+    .tracker-grid,
+    .info-grid,
+    .action-grid {
+      gap: 12px;
+    }
+
+    .info-card,
+    .tracker-card,
+    .action-card {
+      border-radius: var(--radius);
+      background: #fffefa;
+      box-shadow: none;
+      padding: 18px;
+    }
+
+    .info-card h3,
+    .tracker-card h3,
+    .action-card h3 {
+      font-size: 22px;
+      line-height: 1.15;
+      margin: 0 0 9px;
+      color: var(--ink);
+    }
+
+    .info-card p,
+    .tracker-card p,
+    .action-card p {
+      color: var(--muted);
+      font-size: 14.5px;
+      line-height: 1.5;
+    }
+
+    .policy-card,
+    .action-choice-card,
+    .data-centre-card {
+      border-left: 4px solid var(--policy-accent);
+    }
+
+    .data-centre-card {
+      padding: 16px 18px;
+    }
+
+    .data-centre-card h3 {
+      font-size: 19px;
+      line-height: 1.25;
+    }
+
+    .risk-key {
+      background: #fffefa;
+      border-radius: var(--radius);
+      box-shadow: none;
+      padding: 18px;
+    }
+
+    .risk-key h3 {
+      font-size: 22px;
+      line-height: 1.15;
+      margin-bottom: 14px;
+    }
+
+    .risk-key-grid {
+      gap: 12px;
+    }
+
+    .risk-key-item {
+      grid-template-columns: 12px minmax(80px, auto) 1fr;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .risk-key-item strong {
+      color: var(--ink);
+    }
+
+    .risk-tag {
+      border: 1px solid currentColor;
+      border-radius: 999px;
+      font-size: 11px;
+      text-transform: uppercase;
+      padding: 5px 9px;
+      margin: 0 0 10px;
+    }
+
+    .risk-tag.high {
+      background: var(--red-bg);
+      color: var(--red-ink);
+    }
+
+    .risk-tag.medium {
+      background: var(--amber-bg);
+      color: var(--amber-ink);
+    }
+
+    .risk-tag.low {
+      background: var(--green-bg);
+      color: var(--green-ink);
+    }
+
+    .risk-tag.unknown {
+      background: #eceff1;
+      color: #49525b;
+    }
+
+    .action-panel {
+      background: #fffefa;
+      padding: 16px;
+      box-shadow: none;
+    }
+
+    .tracker-card button,
+    .modal-close,
+    .action-link {
+      border-color: var(--border);
+      background: #fffefa;
+      color: var(--ink);
+      border-radius: var(--radius);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .action-link.primary {
+      background: var(--policy-accent);
+      color: #fffefa;
+      border-color: var(--policy-accent);
+    }
+
+    .modal-overlay {
+      background: rgba(22, 33, 43, 0.68);
+    }
+
+    .modal-card {
+      max-width: 980px;
+      border-radius: var(--radius);
+      box-shadow: 0 28px 80px rgba(22, 33, 43, 0.35);
+      background: var(--panel);
+    }
+
+    .modal-header {
+      background: #fffdfa;
+      border-bottom-color: var(--border);
+      padding: 22px 26px;
+    }
+
+    .modal-header h2 {
+      font-size: 30px;
+      line-height: 1.1;
+    }
+
+    .modal-body {
+      padding: 26px;
+    }
+
+    .detail-row {
+      margin-bottom: 16px;
+      color: #27323c;
+    }
+
+    .detail-row strong {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--policy-accent);
+      margin-bottom: 4px;
+    }
+
+    .detail-section-heading {
+      font-size: 22px;
+      line-height: 1.15;
+      border-top-color: var(--border);
+      margin-top: 28px;
+      padding-top: 18px;
+    }
+
+    .sources a {
+      color: var(--policy-accent);
+    }
+
+    .empty-message {
+      background: var(--policy-paper);
+      border-color: var(--border);
+      border-radius: var(--radius);
+    }
+
+    .modal-body .popup {
+      border-radius: var(--radius);
+      padding: 36px 38px 38px 72px;
+    }
+
+    .modal-body .popup__num {
+      border-radius: var(--radius) 0 0 var(--radius);
+      font-weight: 600;
+    }
+
+    .modal-body .popup__eyebrow,
+    .modal-body .block__head,
+    .modal-body .popup__tracked b {
+      font-weight: 600;
+      letter-spacing: 0.14em;
+    }
+
+    .modal-body .popup__title {
+      font-weight: 600;
+      font-size: 31px;
+    }
+
+    .modal-body .links__name {
+      font-weight: 500;
+    }
+
+    .modal-body .feed time {
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
+    @media (max-width: 1100px) {
+      .nav-card {
+        min-height: 150px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      header h1 {
+        font-size: 38px;
+      }
+
+      header p {
+        font-size: 15.5px;
+      }
+
+      .map-header h2,
+      .summary-top h2,
+      .modal-header h2 {
+        font-size: 26px;
+      }
+
+      .nav-card h2,
+      .info-card h3,
+      .tracker-card h3,
+      .action-card h3,
+      .risk-key h3,
+      .detail-section-heading {
+        font-size: 20px;
       }
     }
 
