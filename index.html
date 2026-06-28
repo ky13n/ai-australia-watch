@@ -1488,13 +1488,311 @@
       }
     }
 
+    /* ---------------------------------------------------------------
+       AI and data policy tracker (generated from existing briefings)
+    ---------------------------------------------------------------- */
+    .policy-tracker {
+      margin: 4px 0 24px;
+    }
+
+    .policy-tracker-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .policy-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .policy-chip {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border: 1px solid var(--border);
+      background: var(--policy-paper);
+      color: var(--policy-accent);
+      border-radius: 999px;
+      padding: 7px 12px;
+      cursor: pointer;
+    }
+
+    .policy-chip.active {
+      background: var(--policy-accent);
+      color: #fffefa;
+      border-color: var(--policy-accent);
+    }
+
+    .policy-chip:focus {
+      outline: 2px solid var(--policy-accent);
+      outline-offset: 2px;
+    }
+
+    .policy-search {
+      font-family: "IBM Plex Sans", Arial, sans-serif;
+      font-size: 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 9px 12px;
+      flex: 1 1 220px;
+      min-width: 200px;
+      max-width: 320px;
+      background: #fffefa;
+      color: var(--ink);
+    }
+
+    .policy-search:focus {
+      outline: 2px solid var(--policy-accent);
+      outline-offset: 2px;
+    }
+
+    #policy-count {
+      margin: 0 0 14px;
+    }
+
+    .policy-timeline {
+      display: grid;
+      gap: 10px;
+    }
+
+    .policy-dev {
+      display: grid;
+      grid-template-columns: 104px minmax(0, 1fr) auto;
+      gap: 14px;
+      align-items: start;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--policy-accent);
+      background: #fffefa;
+      border-radius: var(--radius);
+      padding: 14px 16px;
+    }
+
+    .policy-dev__date {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      letter-spacing: 0.02em;
+      color: var(--policy-flag);
+      background: var(--policy-flag-soft);
+      border-radius: 6px;
+      padding: 4px 8px;
+      text-align: center;
+      font-weight: 600;
+      height: max-content;
+    }
+
+    .policy-dev__main {
+      min-width: 0;
+    }
+
+    .policy-dev__cat {
+      display: inline-block;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10.5px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--policy-accent);
+      margin-bottom: 5px;
+    }
+
+    .policy-dev__tag {
+      display: inline-block;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--amber-ink);
+      background: var(--amber-bg);
+      border: 1px solid var(--amber-border);
+      border-radius: 999px;
+      padding: 2px 7px;
+      margin-left: 8px;
+    }
+
+    .policy-dev__text {
+      color: #27323c;
+      line-height: 1.5;
+      font-size: 15px;
+    }
+
+    .policy-dev__btn {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10.5px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border: 1px solid var(--border);
+      background: #fffefa;
+      color: var(--ink);
+      border-radius: var(--radius);
+      padding: 7px 10px;
+      cursor: pointer;
+      white-space: nowrap;
+      height: max-content;
+    }
+
+    .policy-dev__btn:hover {
+      border-color: var(--policy-accent);
+      color: var(--policy-accent);
+    }
+
+    .policy-dev__btn:focus {
+      outline: 2px solid var(--policy-accent);
+      outline-offset: 2px;
+    }
+
+    .policy-empty {
+      color: var(--muted);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
+      background: var(--policy-paper);
+      padding: 14px;
+    }
+
+    .policy-participate {
+      margin-top: 22px;
+      border: 1px solid #c8d9d1;
+      border-radius: var(--radius);
+      background: var(--policy-accent-soft);
+      padding: 16px 18px;
+    }
+
+    .policy-participate h3 {
+      margin: 0 0 6px;
+      font-size: 20px;
+    }
+
+    .policy-participate__intro {
+      color: #214f3e;
+      margin: 0 0 14px;
+      font-size: 14px;
+      line-height: 1.5;
+      max-width: 70ch;
+    }
+
+    .policy-participate__row {
+      margin-bottom: 14px;
+    }
+
+    .policy-participate__row:last-child {
+      margin-bottom: 0;
+    }
+
+    .policy-participate__cat {
+      display: block;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-bottom: 7px;
+    }
+
+    .policy-participate__links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .policy-participate__links a {
+      font-size: 13px;
+      text-decoration: none;
+      color: var(--policy-accent);
+      border: 1px solid var(--border);
+      background: #fffefa;
+      border-radius: 999px;
+      padding: 5px 10px;
+    }
+
+    .policy-participate__links a:hover {
+      border-color: var(--policy-accent);
+      text-decoration: underline;
+    }
+
+    .policy-briefings-heading {
+      margin-top: 26px;
+    }
+
+    @media (max-width: 640px) {
+      .policy-dev {
+        grid-template-columns: 1fr;
+      }
+
+      .policy-dev__btn {
+        justify-self: start;
+      }
+    }
+
+
+
+    /* Policy master timeline link buttons and richer row content */
+    .policy-dev__title {
+      margin: 0 0 5px;
+      font-size: 17px;
+      line-height: 1.25;
+      color: var(--ink);
+    }
+
+    .policy-dev__act,
+    .policy-dev__participation {
+      margin: 7px 0 0;
+      font-size: 13.5px;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+
+    .policy-dev__act strong,
+    .policy-dev__participation strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    .policy-dev__actions {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      align-items: stretch;
+    }
+
+    .policy-dev__btn {
+      text-decoration: none;
+      text-align: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .policy-dev__btn.secondary {
+      color: var(--policy-accent);
+      background: var(--policy-paper);
+    }
+
+    .policy-dev__btn.secondary:hover {
+      background: #fffefa;
+    }
+
+    @media (max-width: 640px) {
+      .policy-dev__actions {
+        align-items: flex-start;
+      }
+
+      .policy-dev__btn {
+        width: auto;
+      }
+    }
+
   </style>
 </head>
 
 <body>
   <header>
     <h1>AI Australia Watch</h1>
-    <p>AI Australia Watch is an independent, public-access hub tracking infrastructure developments, policy and regulatory frameworks, corporate interests and active lobbying actions shaping Australia's digital future. The platform aggregates public records to map the broad social, political, and environmental landscape surrounding AI expansion across both state and federal levels. The sites purpose is to provide clear information for those looking to help shape technology governance to ensure the safe deployment of automated systems that prioritise democratic accountability, environmental sustainability, and the broader public interest. 
+    <p>AI Australia Watch is an independent, public-access hub tracking policy and regulatory frameworks, corporate interests, lobbying, infrastructure developments and environmental impacts shaping Australia's digital future.</p>
+    <p>The focus is not to stop AI development. The focus is to track whether AI systems and the data centre infrastructure behind them are being governed in the public interest, with enforceable clean-energy requirements, water transparency, diesel backup disclosure, privacy protections and democratic accountability.</p>
   </header>
 
   <main>
@@ -1581,7 +1879,25 @@
         </summary>
 
         <div class="section-body">
-          <p class="section-intro">AI development is shaped by laws, procurement decisions, data-sharing rules, planning pathways, industry lobbying and government partnerships. This section tracks the policy settings that determine whether AI and cloud infrastructure serve the public interest.</p>
+          <p class="section-intro">AI development is shaped by laws, procurement decisions, data-sharing rules, planning pathways, industry lobbying and government partnerships. This section tracks policy developments, participation points and source links that determine whether AI and cloud infrastructure serve the public interest.</p>
+
+          <div class="policy-tracker" id="policy-tracker">
+            <div class="policy-tracker-toolbar">
+              <div class="policy-chips" id="policy-chips"></div>
+              <input class="policy-search" id="policy-search" type="search" placeholder="Search, e.g. automated, privacy, work" aria-label="Search policy developments" />
+            </div>
+            <p class="record-count" id="policy-count"></p>
+            <div class="policy-timeline" id="policy-timeline">Loading developments...</div>
+
+            <div class="policy-participate" id="policy-participate">
+              <h3>Where to track it and have your say</h3>
+              <p class="policy-participate__intro">Official registers, consultations and oversight bodies where these decisions are made or disclosed. The timeline above links to the main information source for each development.</p>
+              <div class="policy-participate__list" id="policy-participate-list"></div>
+            </div>
+          </div>
+
+          <h3 class="subsection-heading policy-briefings-heading">Full category briefings</h3>
+          <p class="subsection-text">Open any area for the full picture: what is tracked, official channels, recent developments and the organisations campaigning on it.</p>
 
           <div class="info-grid">
             <button class="info-card policy-card" type="button" data-policy-template="policy-template-legislation">
@@ -1686,11 +2002,15 @@
     <div class="block">
       <h3 class="block__head">Recent developments</h3>
       <ul class="feed">
-        <li><time>Dec 2025</time><span>National AI Plan released. The proposed 2024 mandatory guardrails are shelved in favour of existing technology-neutral laws and sector regulators.</span></li>
-        <li><time>Oct 2025</time><span>National AI Centre publishes Guidance for AI Adoption, six essential practices that supersede the Voluntary AI Safety Standard.</span></li>
-        <li><time>Early 2026</time><span>Australian AI Safety Institute launches with 29.9 million dollars to test systems, assess risks and recommend reforms.</span></li>
-        <li><time>Dec 2026</time><span>Upcoming: new Privacy Act obligations require disclosure of substantially automated decisions that significantly affect individuals.</span></li>
-        <li><time>Feb 2026</time><span>NSW passes work health and safety duties for businesses using AI and automation to allocate work.</span></li>
+        <li><time>October 2025</time><span>Guidance for AI Adoption Framework: The National AI Centre (NAIC) published its official Guidance for AI Adoption, establishing six foundational corporate safety practices meant to help small-to-medium businesses deploy machine learning pipelines responsibly.</span></li>
+        <li><time>December 2025</time><span>National AI Plan &amp; Guardrails Shift: The Department of Industry formally released the National AI Plan. The government walked back prior proposals for a blanket, mandatory &quot;AI Act,&quot; opting instead to modify existing tech-neutral laws and empower existing sector-specific regulators. This was heavily influenced by over 300 industry submissions.</span></li>
+        <li><time>December 2025</time><span>DTA Government AI Policy Enacted: The Digital Transformation Agency (DTA) rolled out mandatory compliance rules for public sector AI use. Non-corporate Commonwealth entities are forced to conduct internal AI impact assessments and name human accountable owners for all active algorithmic tools.</span></li>
+        <li><time>Early 2026</time><span>Australian AI Safety Institute Launch: Backed by 29.9 million dollars in foundational funding, this national independent body officially launched to systematically pressure-test enterprise models, evaluate societal systemic risks, and suggest legislative updates.</span></li>
+        <li><time>February 2026</time><span>NSW Workplace AI Allocation Duties: NSW passed sweeping workplace safety amendments creating explicit legal duties for businesses that use algorithmic managers, automated shift allocators, or performance-monitoring AI systems.</span></li>
+        <li><time>March 2026</time><span>ACCC $100M AI-Washing Penalties: Maximum corporate civil penalties under Australian Consumer Law officially doubled to 100 million dollars. The ACCC has explicitly earmarked &quot;AI-washing&quot;, where businesses misleadingly exaggerating their software&#x27;s true automated or machine learning capabilities, as a primary enforcement target.</span></li>
+        <li><time>April 2026</time><span>Unfair Trading Practices Bill Introduced: Introduced directly to federal parliament to explicitly ban exploitative algorithmic designs, predatory automated subscription traps, and digital &quot;dark patterns&quot; meant to trick users out of personal information.</span></li>
+        <li><time>June 2026</time><span>Mandatory Government AI Impact Rules (Phase 1): The initial implementation milestone went live, forcing all non-corporate Commonwealth agencies to establish active, internally searchable AI registries and launch transparency logs to account for active automated pipelines.</span></li>
+        <li><time>December 2026 (Upcoming)</time><span>Automated Decision Disclosure Activation: The targeted activation of strict statutory transparency laws, requiring companies to disclose to users whenever an automated system or AI model makes an influential decision impacting their legal status or options.</span></li>
       </ul>
     </div>
 
@@ -1740,10 +2060,8 @@
     <div class="block">
       <h3 class="block__head">Recent developments</h3>
       <ul class="feed">
-        <li><time>Feb 2026</time><span>SOMO investigation documents tech-sector lobbying against privacy and AI regulation via industry groups including DIGI, the AIIA, the Tech Council and the BSA.</span></li>
-        <li><time>Jul 2025</time><span>OpenAI launches "AI in Australia: An Economic Blueprint", arguing the country should not regulate AI too heavily.</span></li>
-        <li><time>2025</time><span>Industry-funded research is cited in support of light-touch settings; over 300 submissions inform the decision to shelve mandatory guardrails.</span></li>
-        <li><time>2025</time><span>Business Council of Australia and the Productivity Commission welcome the pivot away from AI-specific guardrails.</span></li>
+        <li><time>July 2025</time><span>OpenAI Economic Blueprint Launch: OpenAI released &quot;AI in Australia: An Economic Blueprint&quot; at the University of Technology Sydney, lobbying the federal government to implement &quot;light-touch&quot; frameworks to avoid stifling deployment and innovation.</span></li>
+        <li><time>February 2026</time><span>SOMO Tech Lobbying Investigation Released: The Centre for Research on Multinational Corporations (SOMO) published a comprehensive report mapping out coordinated tech-sector lobbying campaigns run by industry groups (DIGI, AIIA, Tech Council) designed to block strict algorithmic guardrails.</span></li>
       </ul>
     </div>
 
@@ -1790,10 +2108,12 @@
     <div class="block">
       <h3 class="block__head">Recent developments</h3>
       <ul class="feed">
-        <li><time>Feb 2026</time><span>Administrative Review Tribunal partially overturns the OAIC's Bunnings facial recognition determination, the first tribunal ruling on FRT under the Privacy Act.</span></li>
-        <li><time>2026</time><span>OAIC names facial recognition, biometric scanning and app and vehicle location tracking as enforcement priorities; investigations into Bunnings and Kmart continue.</span></li>
-        <li><time>Mar–Jun 2026</time><span>OAIC consults on the Children's Online Privacy Code, with registration targeted for December 2026.</span></li>
-        <li><time>Ongoing</time><span>OAIC takes on a privacy regulator role for the expanding Digital ID system.</span></li>
+        <li><time>December 2025</time><span>Social Media Minimum Age Framework: Passed into law to force platforms to enforce hard age-gating rules. This policy significantly accelerates the commercial deployment, testing, and procurement of data-heavy biometric age-assurance technologies across Australia.</span></li>
+        <li><time>February 2026</time><span>ART Bunnings Facial Recognition Overturn: The Administrative Review Tribunal (ART) partially set aside the Privacy Commissioner’s landmark enforcement determination against Bunnings&#x27; use of facial recognition technology, fundamentally changing how retail surveillance intersects with consumer data laws.</span></li>
+        <li><time>March–June 2026</time><span>Children’s Online Privacy Code Consultations: The OAIC ran public and industry consultation rounds on the specific formatting parameters of its upcoming Children&#x27;s Online Privacy Code, aimed at limiting the algorithmic profiling of minors.</span></li>
+        <li><time>2026 (General)</time><span>OAIC Strategic Enforcement Targeting: The Information Commissioner formally named retail facial recognition, biometric app tracking, and background vehicle location logging as high-level enforcement priorities, continuing ongoing investigations into major retail brands.</span></li>
+        <li><time>Ongoing Framework</time><span>Digital ID Independent Regulatory Sentinels: The OAIC operates as the primary independent data privacy oversight body for the country’s expanding identity ecosystem, tracking and audit-logging system participants.</span></li>
+        <li><time>December 2026 (Upcoming)</time><span>Legally Binding Children’s Privacy Code: The official targeted enforcement date to register and enact the finalised Children’s Online Privacy Code, which legally changes how minor data can be tracked, collected, and monetized online.</span></li>
       </ul>
     </div>
 
@@ -1843,10 +2163,12 @@
     <div class="block">
       <h3 class="block__head">Recent developments</h3>
       <ul class="feed">
-        <li><time>Ongoing</time><span>Hosting Certification Framework requires sensitive government data to be stored within Australian borders under enhanced sovereignty and security rules.</span></li>
-        <li><time>2026</time><span>Onshore demand driven by the Security of Critical Infrastructure Act and hosting certification; data sovereignty now ranked a top board-level risk.</span></li>
-        <li><time>Ongoing</time><span>US CLOUD Act tension: US-based providers can be compelled to hand over data even when it is physically stored in Australia.</span></li>
-        <li><time>Ongoing</time><span>Government commits to periodic review of the Data Availability and Transparency Act and further investment in the Notifiable Data Breaches scheme.</span></li>
+        <li><time>March 2026</time><span>IoT Smart Device Security Mandates: Following a multi-month transition framework, mandatory security standards officially took effect for all consumer Internet-of-Things (IoT) hardware sold domestically, completely banning easily crackable default factory passwords.</span></li>
+        <li><time>April 2026</time><span>Copyright Ingestion Laws for AI Training: This bill passed into law to clear a safe path for data scrapers and AI developers, establishing a standard waiver protecting developers who use historical or unidentifiable copyrighted materials (&quot;orphan works&quot;) to train localised AI models.</span></li>
+        <li><time>2026 (General)</time><span>SOCI Act Pressures &amp; Data Onshoring: Ongoing security directives combined with hosting requirements have driven record onshoring demand. Corporate boards now routinely classify local cloud data sovereignty as a top strategic risk item.</span></li>
+        <li><time>Ongoing Framework</time><span>Hosting Certification Framework (HCF): An active operational compliance gate forcing providers of cloud services to store sensitive, protected government data pools purely within Australian borders under highly enhanced sovereign controls.</span></li>
+        <li><time>Ongoing Framework</time><span>US CLOUD Act Jurisdictional Friction: Continuous international policy tension as US courts retain powers to compel American cloud companies to surrender sensitive corporate analytics data, even if that data is housed inside Australian territory.</span></li>
+        <li><time>Ongoing Framework</time><span>DAT Act Review &amp; Breach Invest: Ongoing commitment to structural three-year reviews of controlled public sector data sharing, combined with expanded enforcement funding for the Notifiable Data Breaches scheme.</span></li>
       </ul>
     </div>
 
@@ -2527,8 +2849,496 @@
       renderEnergyProjectList(projects);
     }
 
+    // AI and data policy tracker: builds a filterable master timeline
+    // from the verified policy developments provided for this site.
+    function buildPolicyTracker() {
+      const categories = [
+        { id: 'policy-template-legislation', label: 'Legislation & regulation' },
+        { id: 'policy-template-lobbying', label: 'Lobbying & influence' },
+        { id: 'policy-template-privacy', label: 'Privacy, surveillance & eSafety' },
+        { id: 'policy-template-data', label: 'Data rights & responsibilities' }
+      ];
+
+      const developments = [
+        {
+                "order": 1,
+                "dateLabel": "July 2025",
+                "title": "OpenAI Economic Blueprint Launch",
+                "catId": "policy-template-lobbying",
+                "catLabel": "Lobbying & influence",
+                "actPolicy": "N/A (Private Industry Initiative)",
+                "overview": "OpenAI released \"AI in Australia: An Economic Blueprint\" at the University of Technology Sydney, lobbying the federal government to implement \"light-touch\" frameworks to avoid stifling deployment and innovation.",
+                "participation": "Closed. This was an invitation-only enterprise roundtable launch.",
+                "sourceLabel": "SOMO Tech Lobby Report",
+                "sourceUrl": "https://www.somo.nl/australia-big-tech-weaponises-its-platforms-against-the-government/",
+                "engageLabel": "",
+                "engageUrl": "",
+                "status": "Closed"
+        },
+        {
+                "order": 2,
+                "dateLabel": "October 2025",
+                "title": "Guidance for AI Adoption Framework",
+                "catId": "policy-template-legislation",
+                "catLabel": "Legislation & regulation",
+                "actPolicy": "Voluntary AI Safety Standards (Superseded)",
+                "overview": "The National AI Centre (NAIC) published its official Guidance for AI Adoption, establishing six foundational corporate safety practices meant to help small-to-medium businesses deploy machine learning pipelines responsibly.",
+                "participation": "Active review windows are closed, but organisations can submit continuous case studies to help refine future toolkits.",
+                "sourceLabel": "National AI Centre Essential Practices Portal",
+                "sourceUrl": "https://www.ai.gov.au/staying-safe-and-responsible/essential-ai-practices/guidance-ai-adoption-foundations",
+                "engageLabel": "National AI Centre Engagement Hub",
+                "engageUrl": "https://www.ai.gov.au/",
+                "status": "Closed"
+        },
+        {
+                "order": 3,
+                "dateLabel": "December 2025",
+                "title": "National AI Plan & Guardrails Shift",
+                "catId": "policy-template-legislation",
+                "catLabel": "Legislation & regulation",
+                "actPolicy": "National AI Plan / Tech-Neutral Regulatory Shift",
+                "overview": "The Department of Industry formally released the National AI Plan. The government walked back prior proposals for a blanket, mandatory \"AI Act,\" opting instead to modify existing tech-neutral laws and empower existing sector-specific regulators. This was heavily influenced by over 300 industry submissions.",
+                "participation": "Closed. The initial public consultation closed late 2024, informing this final 2025 plan.",
+                "sourceLabel": "Department of Industry Science and Resources Newsroom",
+                "sourceUrl": "https://www.industry.gov.au/news/australia-launches-national-ai-plan-capture-opportunities-share-benefits-and-keep-australians-safe",
+                "engageLabel": "Department of Industry Consultation Portal",
+                "engageUrl": "https://consult.industry.gov.au/",
+                "status": "Closed"
+        },
+        {
+                "order": 4,
+                "dateLabel": "December 2025",
+                "title": "Social Media Minimum Age Framework",
+                "catId": "policy-template-privacy",
+                "catLabel": "Privacy, surveillance & eSafety",
+                "actPolicy": "Online Safety Amendment (Social Media Minimum Age) Act",
+                "overview": "Passed into law to force platforms to enforce hard age-gating rules. This policy significantly accelerates the commercial deployment, testing, and procurement of data-heavy biometric age-assurance technologies across Australia.",
+                "participation": "Legislative phase is closed. However, the eSafety Commissioner runs active industry feedback groups on technical safety standards.",
+                "sourceLabel": "eSafety Commissioner Homepage",
+                "sourceUrl": "https://www.esafety.gov.au/",
+                "engageLabel": "eSafety Commissioner Regulatory Consultations Page",
+                "engageUrl": "https://www.esafety.gov.au/",
+                "status": "Closed"
+        },
+        {
+                "order": 5,
+                "dateLabel": "December 2025",
+                "title": "DTA Government AI Policy Enacted",
+                "catId": "policy-template-legislation",
+                "catLabel": "Legislation & regulation",
+                "actPolicy": "Policy for the Responsible Use of AI in Government",
+                "overview": "The Digital Transformation Agency (DTA) rolled out mandatory compliance rules for public sector AI use. Non-corporate Commonwealth entities are forced to conduct internal AI impact assessments and name human accountable owners for all active algorithmic tools.",
+                "participation": "This is an internal public service mandate, but citizens can track transparency logs published by agencies.",
+                "sourceLabel": "Digital Transformation Agency Policy Portal",
+                "sourceUrl": "https://www.dta.gov.au/",
+                "engageLabel": "DTA Feedback Channel",
+                "engageUrl": "https://www.dta.gov.au/",
+                "status": "Open / active"
+        },
+        {
+                "order": 6,
+                "dateLabel": "Early 2026",
+                "title": "Australian AI Safety Institute Launch",
+                "catId": "policy-template-legislation",
+                "catLabel": "Legislation & regulation",
+                "actPolicy": "National AI Safety Framework",
+                "overview": "Backed by 29.9 million dollars in foundational funding, this national independent body officially launched to systematically pressure-test enterprise models, evaluate societal systemic risks, and suggest legislative updates.",
+                "participation": "The Institute actively recruits domestic safety researchers, technical engineers, and academic research partners.",
+                "sourceLabel": "DISR National AI Strategy Page",
+                "sourceUrl": "https://www.industry.gov.au/news/australia-launches-national-ai-plan-capture-opportunities-share-benefits-and-keep-australians-safe",
+                "engageLabel": "DISR Contact Hub",
+                "engageUrl": "https://www.industry.gov.au/",
+                "status": "Open / active"
+        },
+        {
+                "order": 7,
+                "dateLabel": "February 2026",
+                "title": "NSW Workplace AI Allocation Duties",
+                "catId": "policy-template-legislation",
+                "catLabel": "Legislation & regulation",
+                "actPolicy": "Work Health and Safety Amendment (Digital Work Systems) Bill",
+                "overview": "NSW passed sweeping workplace safety amendments creating explicit legal duties for businesses that use algorithmic managers, automated shift allocators, or performance-monitoring AI systems.",
+                "participation": "State parliamentary committee debates have finished; public feedback windows for the initial draft are closed.",
+                "sourceLabel": "NSW Parliament Bill Repository",
+                "sourceUrl": "https://www.parliament.nsw.gov.au/bill/files/18847/First%20Print.pdf",
+                "engageLabel": "NSW Parliament Committee Portal",
+                "engageUrl": "https://www.parliament.nsw.gov.au/",
+                "status": "Closed"
+        },
+        {
+                "order": 8,
+                "dateLabel": "February 2026",
+                "title": "SOMO Tech Lobbying Investigation Released",
+                "catId": "policy-template-lobbying",
+                "catLabel": "Lobbying & influence",
+                "actPolicy": "Independent Corporate Watchdog Report",
+                "overview": "The Centre for Research on Multinational Corporations (SOMO) published a comprehensive report mapping out coordinated tech-sector lobbying campaigns run by industry groups (DIGI, AIIA, Tech Council) designed to block strict algorithmic guardrails.",
+                "participation": "This is an independent civil society investigation. The public can submit tips or track corporate tracking data.",
+                "sourceLabel": "SOMO Australia Investigation Page",
+                "sourceUrl": "https://www.somo.nl/australia-big-tech-weaponises-its-platforms-against-the-government/",
+                "engageLabel": "SOMO Take Action Network",
+                "engageUrl": "https://www.somo.nl/",
+                "status": "Open / active"
+        },
+        {
+                "order": 9,
+                "dateLabel": "February 2026",
+                "title": "ART Bunnings Facial Recognition Overturn",
+                "catId": "policy-template-privacy",
+                "catLabel": "Privacy, surveillance & eSafety",
+                "actPolicy": "Privacy Act 1988 Appeal",
+                "overview": "The Administrative Review Tribunal (ART) partially set aside the Privacy Commissioner’s landmark enforcement determination against Bunnings' use of facial recognition technology, fundamentally changing how retail surveillance intersects with consumer data laws.",
+                "participation": "Closed. This was a structured legal tribunal appeal process between the regulator and the corporate entity.",
+                "sourceLabel": "Privacy Commissioner's Statement on the Bunnings ART Decision",
+                "sourceUrl": "https://www.oaic.gov.au/news/media-centre/privacy-commissioner-statement-on-administrative-review-tribunals-bunnings-decision",
+                "engageLabel": "",
+                "engageUrl": "",
+                "status": "Closed"
+        },
+        {
+                "order": 10,
+                "dateLabel": "March 2026",
+                "title": "IoT Smart Device Security Mandates",
+                "catId": "policy-template-data",
+                "catLabel": "Data rights & responsibilities",
+                "actPolicy": "Cyber Security (Security Standards for Smart Devices) Rules 2025",
+                "overview": "Following a multi-month transition framework, mandatory security standards officially took effect for all consumer Internet-of-Things (IoT) hardware sold domestically, completely banning easily crackable default factory passwords.",
+                "participation": "Implementation is now active. Consumers can actively report non-compliant tech products or cyber flaws.",
+                "sourceLabel": "Cyber.gov.au Smart Device Hub",
+                "sourceUrl": "https://www.cyber.gov.au/",
+                "engageLabel": "Australian Cyber Security Centre Reporting Tool",
+                "engageUrl": "https://www.cyber.gov.au/",
+                "status": "Open / active"
+        },
+        {
+                "order": 11,
+                "dateLabel": "March 2026",
+                "title": "ACCC $100M AI-Washing Penalties",
+                "catId": "policy-template-legislation",
+                "catLabel": "Legislation & regulation",
+                "actPolicy": "Treasury Laws Amendment (Doubling Penalties for ACCC Enforcement) Act 2026",
+                "overview": "Maximum corporate civil penalties under Australian Consumer Law officially doubled to 100 million dollars. The ACCC has explicitly earmarked \"AI-washing\", where businesses misleadingly exaggerating their software's true automated or machine learning capabilities, as a primary enforcement target.",
+                "participation": "Everyday consumers can report misleading or unsubstantiated corporate AI claims directly to the national regulator.",
+                "sourceLabel": "ACCC Corporate Portal",
+                "sourceUrl": "https://www.accc.gov.au/",
+                "engageLabel": "ACCC Consumer Complaint Portal",
+                "engageUrl": "https://www.accc.gov.au/consumers/problem-with-a-product-or-service-you-bought/contact-the-accc-to-report-a-consumer-issue",
+                "status": "Open / active"
+        },
+        {
+                "order": 12,
+                "dateLabel": "March–June 2026",
+                "title": "Children’s Online Privacy Code Consultations",
+                "catId": "policy-template-privacy",
+                "catLabel": "Privacy, surveillance & eSafety",
+                "actPolicy": "Privacy Act 1988 (Subordinate Code Development)",
+                "overview": "The OAIC ran public and industry consultation rounds on the specific formatting parameters of its upcoming Children's Online Privacy Code, aimed at limiting the algorithmic profiling of minors.",
+                "participation": "Public submission portal is now wrapped up for this phase as the regulator synthesizes community feedback.",
+                "sourceLabel": "OAIC Children's Privacy Code Hub",
+                "sourceUrl": "https://www.oaic.gov.au/privacy/privacy-for-kids/privacy-for-kids-childrens-online-privacy-code",
+                "engageLabel": "OAIC Consultation Platform",
+                "engageUrl": "https://www.oaic.gov.au/engage-with-us/consultations",
+                "status": "Closed"
+        },
+        {
+                "order": 13,
+                "dateLabel": "April 2026",
+                "title": "Unfair Trading Practices Bill Introduced",
+                "catId": "policy-template-legislation",
+                "catLabel": "Legislation & regulation",
+                "actPolicy": "Competition and Consumer Amendment (Unfair Trading Practices) Bill 2026",
+                "overview": "Introduced directly to federal parliament to explicitly ban exploitative algorithmic designs, predatory automated subscription traps, and digital \"dark patterns\" meant to trick users out of personal information.",
+                "participation": "The bill is currently undergoing standard parliamentary Senate committee reviews, meaning citizens can upload formal stakeholder testimony.",
+                "sourceLabel": "Parliament of Australia Legislation Registry",
+                "sourceUrl": "https://www.aph.gov.au/",
+                "engageLabel": "Parliament of Australia Committee Inquiries Hub",
+                "engageUrl": "https://www.aph.gov.au/Parliamentary_Business/Committees",
+                "status": "Open / active"
+        },
+        {
+                "order": 14,
+                "dateLabel": "April 2026",
+                "title": "Copyright Ingestion Laws for AI Training",
+                "catId": "policy-template-data",
+                "catLabel": "Data rights & responsibilities",
+                "actPolicy": "Copyright Amendment (Orphan Works and Other Measures) Act 2026",
+                "overview": "This bill passed into law to clear a safe path for data scrapers and AI developers, establishing a standard waiver protecting developers who use historical or unidentifiable copyrighted materials (\"orphan works\") to train localised AI models.",
+                "participation": "Legislative passage is complete. However, IP Australia runs active training feedback loops for industry practitioners.",
+                "sourceLabel": "IP Australia Copyright Registry",
+                "sourceUrl": "https://www.ipaustralia.gov.au/",
+                "engageLabel": "IP Australia Public Consultation Channel",
+                "engageUrl": "https://www.ipaustralia.gov.au/",
+                "status": "Open / active"
+        },
+        {
+                "order": 15,
+                "dateLabel": "June 2026",
+                "title": "Mandatory Government AI Impact Rules (Phase 1)",
+                "catId": "policy-template-legislation",
+                "catLabel": "Legislation & regulation",
+                "actPolicy": "DTA Policy for the Responsible Use of AI in Government",
+                "overview": "The initial implementation milestone went live, forcing all non-corporate Commonwealth agencies to establish active, internally searchable AI registries and launch transparency logs to account for active automated pipelines.",
+                "participation": "Citizens can inspect public compliance dashboards across major departments to ensure ethical data sourcing.",
+                "sourceLabel": "DTA AI Operational Guidance Site",
+                "sourceUrl": "https://www.dta.gov.au/",
+                "engageLabel": "DTA Open Government Portal",
+                "engageUrl": "https://www.dta.gov.au/",
+                "status": "Open / active"
+        },
+        {
+                "order": 16,
+                "dateLabel": "2026 (General)",
+                "title": "SOCI Act Pressures & Data Onshoring",
+                "catId": "policy-template-data",
+                "catLabel": "Data rights & responsibilities",
+                "actPolicy": "Security of Critical Infrastructure Act 2018 / Hosting Certification Framework",
+                "overview": "Ongoing security directives combined with hosting requirements have driven record onshoring demand. Corporate boards now routinely classify local cloud data sovereignty as a top strategic risk item.",
+                "participation": "Critical asset owners and systemic operators must supply periodic security risk plans to the federal government.",
+                "sourceLabel": "Department of Home Affairs SOCI Hub",
+                "sourceUrl": "https://www.homeaffairs.gov.au/about-us/our-portfolios/cyber-security/strategy/security-of-critical-infrastructure-act",
+                "engageLabel": "Home Affairs Cyber Infrastructure Consultations Hub",
+                "engageUrl": "https://www.homeaffairs.gov.au/",
+                "status": "Open / active"
+        },
+        {
+                "order": 17,
+                "dateLabel": "2026 (General)",
+                "title": "OAIC Strategic Enforcement Targeting",
+                "catId": "policy-template-privacy",
+                "catLabel": "Privacy, surveillance & eSafety",
+                "actPolicy": "Privacy Act 1988 Compliance Program",
+                "overview": "The Information Commissioner formally named retail facial recognition, biometric app tracking, and background vehicle location logging as high-level enforcement priorities, continuing ongoing investigations into major retail brands.",
+                "participation": "Members of the public who suspect corporate overreach or illegal biometric tracking can lodge official data complaints.",
+                "sourceLabel": "OAIC Corporate Priorities Hub",
+                "sourceUrl": "https://www.oaic.gov.au/about-the-OAIC/our-corporate-information/corporate-plans/corporate-plan-2025-26",
+                "engageLabel": "Lodge a Privacy Complaint with the OAIC Form",
+                "engageUrl": "https://www.oaic.gov.au/privacy/privacy-complaints/lodge-a-privacy-complaint",
+                "status": "Open / active"
+        },
+        {
+                "order": 18,
+                "dateLabel": "Ongoing Framework",
+                "title": "Hosting Certification Framework (HCF)",
+                "catId": "policy-template-data",
+                "catLabel": "Data rights & responsibilities",
+                "actPolicy": "Whole-of-Government Data Sovereignty Controls",
+                "overview": "An active operational compliance gate forcing providers of cloud services to store sensitive, protected government data pools purely within Australian borders under highly enhanced sovereign controls.",
+                "participation": "Limited to institutional storage providers seeking formal accreditation.",
+                "sourceLabel": "Official Hosting Certification Site",
+                "sourceUrl": "https://www.hostingcertification.gov.au/",
+                "engageLabel": "HCF Provider Submission Portal",
+                "engageUrl": "https://www.hostingcertification.gov.au/",
+                "status": "Ongoing"
+        },
+        {
+                "order": 19,
+                "dateLabel": "Ongoing Framework",
+                "title": "US CLOUD Act Jurisdictional Friction",
+                "catId": "policy-template-data",
+                "catLabel": "Data rights & responsibilities",
+                "actPolicy": "Transnational Extraterritorial Data Governance",
+                "overview": "Continuous international policy tension as US courts retain powers to compel American cloud companies to surrender sensitive corporate analytics data, even if that data is housed inside Australian territory.",
+                "participation": "Open strictly to legal tech working groups and international policy advocates.",
+                "sourceLabel": "SOMO Global Tracker",
+                "sourceUrl": "https://www.somo.nl/australia-big-tech-weaponises-its-platforms-against-the-government/",
+                "engageLabel": "",
+                "engageUrl": "",
+                "status": "Ongoing"
+        },
+        {
+                "order": 20,
+                "dateLabel": "Ongoing Framework",
+                "title": "DAT Act Review & Breach Invest",
+                "catId": "policy-template-data",
+                "catLabel": "Data rights & responsibilities",
+                "actPolicy": "Data Availability and Transparency Act 2022",
+                "overview": "Ongoing commitment to structural three-year reviews of controlled public sector data sharing, combined with expanded enforcement funding for the Notifiable Data Breaches scheme.",
+                "participation": "Academic institutions and data scientists can apply for accredited user status to safely leverage public datasets.",
+                "sourceLabel": "Office of the National Data Commissioner Portal",
+                "sourceUrl": "https://www.datacommissioner.gov.au/data-scheme/statutory-review-dat-act",
+                "engageLabel": "Data Commissioner Have Your Say Platform",
+                "engageUrl": "https://www.datacommissioner.gov.au/",
+                "status": "Ongoing"
+        },
+        {
+                "order": 21,
+                "dateLabel": "Ongoing Framework",
+                "title": "Digital ID Independent Regulatory Sentinels",
+                "catId": "policy-template-privacy",
+                "catLabel": "Privacy, surveillance & eSafety",
+                "actPolicy": "Digital ID Act 2024",
+                "overview": "The OAIC operates as the primary independent data privacy oversight body for the country’s expanding identity ecosystem, tracking and audit-logging system participants.",
+                "participation": "Consumer groups can apply to participate in regular advisory forums on identity accessibility.",
+                "sourceLabel": "OAIC Digital ID Blueprint",
+                "sourceUrl": "https://www.oaic.gov.au/about-the-OAIC/our-regulatory-approach/digital-id-regulatory-strategy",
+                "engageLabel": "Digital ID System Consultations Desk",
+                "engageUrl": "https://www.digitalidentity.gov.au/",
+                "status": "Ongoing"
+        },
+        {
+                "order": 22,
+                "dateLabel": "December 2026 (Upcoming)",
+                "title": "Automated Decision Disclosure Activation",
+                "catId": "policy-template-legislation",
+                "catLabel": "Legislation & regulation",
+                "actPolicy": "Privacy and Other Legislation Amendment Bill",
+                "overview": "The targeted activation of strict statutory transparency laws, requiring companies to disclose to users whenever an automated system or AI model makes an influential decision impacting their legal status or options.",
+                "participation": "Transition guidelines are being drafted; business operators can register for informational preparation workshops.",
+                "sourceLabel": "Parliament of Australia Bill Portal",
+                "sourceUrl": "https://www.aph.gov.au/Parliamentary_Business/Bills_LEGislation/Bills_Search_Results/Result?bId=r7249",
+                "engageLabel": "Attorney-General's Department Privacy Contact Desk",
+                "engageUrl": "https://www.ag.gov.au/",
+                "status": "Upcoming"
+        },
+        {
+                "order": 23,
+                "dateLabel": "December 2026 (Upcoming)",
+                "title": "Legally Binding Children’s Privacy Code",
+                "catId": "policy-template-privacy",
+                "catLabel": "Privacy, surveillance & eSafety",
+                "actPolicy": "Privacy Act 1988 System Amendments",
+                "overview": "The official targeted enforcement date to register and enact the finalised Children’s Online Privacy Code, which legally changes how minor data can be tracked, collected, and monetized online.",
+                "participation": "Final draft text review sessions will open up to the public later this year before registration.",
+                "sourceLabel": "OAIC Children's Privacy Code Hub",
+                "sourceUrl": "https://www.oaic.gov.au/privacy/privacy-for-kids/privacy-for-kids-childrens-online-privacy-code",
+                "engageLabel": "OAIC Engagement Desk",
+                "engageUrl": "https://www.oaic.gov.au/engage-with-us/consultations",
+                "status": "Upcoming"
+        }
+];
+      const participate = [];
+
+      categories.forEach(cat => {
+        const tpl = document.getElementById(cat.id);
+        if (!tpl) return;
+        const frag = tpl.content;
+        let trackBlock = null;
+        frag.querySelectorAll('.block').forEach(block => {
+          const head = block.querySelector('.block__head');
+          if (head && head.textContent.trim().toLowerCase() === 'track it') trackBlock = block;
+        });
+        if (trackBlock) {
+          const links = [];
+          trackBlock.querySelectorAll('.links a').forEach(a => {
+            const nameEl = a.querySelector('.links__name');
+            links.push({
+              name: nameEl ? nameEl.textContent.trim() : a.textContent.trim(),
+              url: a.getAttribute('href')
+            });
+          });
+          participate.push({ catLabel: cat.label, links });
+        }
+      });
+
+      const chipsEl = document.getElementById('policy-chips');
+      const timelineEl = document.getElementById('policy-timeline');
+      const searchEl = document.getElementById('policy-search');
+      const countEl = document.getElementById('policy-count');
+      const participateListEl = document.getElementById('policy-participate-list');
+      if (!chipsEl || !timelineEl) return;
+
+      let activeCat = 'all';
+      let query = '';
+
+      const chipDefs = [{ id: 'all', label: 'All areas' }].concat(categories);
+      chipsEl.innerHTML = '';
+      chipDefs.forEach(def => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'policy-chip' + (def.id === 'all' ? ' active' : '');
+        btn.textContent = def.label;
+        btn.dataset.cat = def.id;
+        btn.addEventListener('click', () => {
+          activeCat = def.id;
+          chipsEl.querySelectorAll('.policy-chip').forEach(c => c.classList.toggle('active', c.dataset.cat === def.id));
+          renderTimeline();
+        });
+        chipsEl.appendChild(btn);
+      });
+
+      function developmentMatchesQuery(d, q) {
+        if (!q) return true;
+        const haystack = [
+          d.dateLabel,
+          d.title,
+          d.catLabel,
+          d.actPolicy,
+          d.overview,
+          d.participation,
+          d.status
+        ].join(' ').toLowerCase();
+        return haystack.includes(q);
+      }
+
+      function renderTimeline() {
+        const q = query.trim().toLowerCase();
+        const filtered = developments
+          .filter(d => (activeCat === 'all' || d.catId === activeCat) && developmentMatchesQuery(d, q))
+          .sort((a, b) => a.order - b.order);
+
+        if (countEl) {
+          countEl.textContent = `${filtered.length} development${filtered.length === 1 ? '' : 's'} shown`;
+        }
+
+        timelineEl.innerHTML = '';
+        if (filtered.length === 0) {
+          timelineEl.innerHTML = '<div class="policy-empty">No developments match this filter yet.</div>';
+          return;
+        }
+
+        filtered.forEach(d => {
+          const row = document.createElement('div');
+          row.className = 'policy-dev';
+          const tag = d.status ? `<span class="policy-dev__tag">${escapeHtml(d.status)}</span>` : '';
+          const sourceButton = d.sourceUrl
+            ? `<a class="policy-dev__btn" href="${escapeHtml(d.sourceUrl)}" target="_blank" rel="noopener noreferrer" aria-label="Open main information link for ${escapeHtml(d.title)}">Main link</a>`
+            : '';
+          const engageButton = d.engageUrl
+            ? `<a class="policy-dev__btn secondary" href="${escapeHtml(d.engageUrl)}" target="_blank" rel="noopener noreferrer" aria-label="Open participation link for ${escapeHtml(d.title)}">Engage</a>`
+            : '';
+          row.innerHTML = `
+            <span class="policy-dev__date">${escapeHtml(d.dateLabel)}</span>
+            <div class="policy-dev__main">
+              <span class="policy-dev__cat">${escapeHtml(d.catLabel)}${tag}</span>
+              <h4 class="policy-dev__title">${escapeHtml(d.title)}</h4>
+              <p class="policy-dev__act"><strong>Act / policy:</strong> ${escapeHtml(d.actPolicy)}</p>
+              <div class="policy-dev__text">${escapeHtml(d.overview)}</div>
+              <p class="policy-dev__participation"><strong>Participation:</strong> ${escapeHtml(d.participation)}</p>
+            </div>
+            <div class="policy-dev__actions">
+              ${sourceButton}
+              ${engageButton}
+            </div>
+          `;
+          timelineEl.appendChild(row);
+        });
+      }
+
+      if (searchEl) {
+        searchEl.addEventListener('input', e => { query = e.target.value; renderTimeline(); });
+      }
+
+      if (participateListEl) {
+        participateListEl.innerHTML = '';
+        participate.forEach(p => {
+          const row = document.createElement('div');
+          row.className = 'policy-participate__row';
+          row.innerHTML = `
+            <span class="policy-participate__cat">${escapeHtml(p.catLabel)}</span>
+            <div class="policy-participate__links">
+              ${p.links.map(l => `<a href="${escapeHtml(l.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(l.name)}</a>`).join('')}
+            </div>
+          `;
+          participateListEl.appendChild(row);
+        });
+      }
+
+      renderTimeline();
+    }
+
     loadProjects();
     loadActions();
+    buildPolicyTracker();
   </script>
 </body>
 </html>
